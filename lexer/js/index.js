@@ -44,6 +44,11 @@ $(function() {
 	nfa=new Alice.NFA(s[0],s[10]);
 	nfa.addState(s);
 	
-	console.log(nfa);
-	nfa2dfa(nfa);
+	//console.log(nfa);
+	var dfa=nfa2dfa(nfa);
+	//console.log(dfa);
+	
+	am=new Alice.AutoMata(dfa);
+	
+	console.log(am.check("aa"));
 });
