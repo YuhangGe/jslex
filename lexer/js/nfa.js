@@ -157,7 +157,7 @@ Alice.NFA.createStarNFA=function(nfa){
 	snfa.addState(s,f);
 	snfa.addState(nfa.states);
 	
-	return rtn;
+	return snfa;
 }
 /**
  * 生成一个基本的nfa，只有开始态和接收态两个状态

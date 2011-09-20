@@ -48,7 +48,14 @@ $(function() {
 	var dfa=nfa2dfa(nfa);
 	//console.log(dfa);
 	
-	am=new Alice.AutoMata(dfa);
+	//am=new Alice.AutoMata(dfa);
 	
-	console.log(am.check("aa"));
+	//console.log(am.check("aa"));
+	
+	$.dprint(dfa);
+	
+	var r=new Alice.Reg("(a|b)*abb");
+	r.compile();
+	
+	$.dprint(r.dfa);
 });
