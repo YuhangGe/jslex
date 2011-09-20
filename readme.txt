@@ -1,7 +1,7 @@
-AliceLex——yylex的Javascript版本
-作为编译原理课程的自学项目，目前还在初始阶段~
+AliceLex鈥斺�攜ylex鐨凧avascript鐗堟湰
+浣滀负缂栬瘧鍘熺悊璇剧▼鐨勮嚜瀛﹂」鐩紝鐩墠杩樺湪鍒濆闃舵~
 
-作者：Abraham
-邮箱：abraham1@163.com
-地址: software institute, nanjing university
-主页：http://yuhanghome.net
+浣滆�咃細Abraham
+閭锛歛braham1@163.com
+鍦板潃: software institute, nanjing university
+涓婚〉锛歨ttp://yuhanghome.net
