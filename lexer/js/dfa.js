@@ -5,8 +5,9 @@ Alice.DFAState=function(isAccept,name){
 	this.base(isAccept,name);
 	this.nfaset=[];
 	this.tag=false;
+	this.id=Alice.DFAState.__auto_id__++;
 }
-
+Alice.DFAState.__auto_id__=0;
 $.inherit(Alice.DFAState,Alice.NFAState);
 
 Alice.DFA=function(start,finish){

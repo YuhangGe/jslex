@@ -7,6 +7,7 @@ Alice.AutoMata=function(dfa){
 	this.idx=0;
 	this.cur_ch=null;
 	this.len=0;
+	this.match_end=true;
 }
 Alice.AutoMata.prototype.check=function(str){
 	this.str=str;
@@ -28,8 +29,18 @@ Alice.AutoMata.prototype.check=function(str){
 			throw "dfa has more than one out! please check!";
 		else{
 			state=n_state[0];
-			if(state.isAccept===true)
-				return true;
+			
+			if(state.isAccept===true){
+				//$.dprint(this.cur_ch);
+				if(this.match_end===true){
+					if(this.idx===this.len)
+						return true;
+				}
+				else
+					return true;
+				
+			}
+				
 		}
 		
 	

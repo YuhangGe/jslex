@@ -3,6 +3,7 @@ if( typeof Alice === 'undefined')
 
 
 Alice.RegTag={
+	EOF:-1,
 	ALPHA:0,
 	'(':1,
 	')':2,
@@ -13,7 +14,7 @@ Alice.RegToken=function(tag,value){
 	this.tag=tag;
 	this.value=value;
 }
-
+Alice.RegToken.EOF=new Alice.RegToken(Alice.RegTag.EOF,null);
 
 
 Alice.Str2Nfa = function() {
@@ -47,10 +48,11 @@ Alice.Str2Nfa.prototype._r = function() {
 	nfa1=this._e();
 	while(true){
 		if(this.cur_t.tag===Alice.RegTag['|']){
-			$.dprint('|')
+			//$.dprint('|')
 			this.read_token();
 			nfa2=this._e();
 			nfa1=Alice.NFA.createOrNFA(nfa1,nfa2);
+			//$.dprint(nfa1);
 		}else
 			break;
 	}
@@ -64,7 +66,8 @@ Alice.Str2Nfa.prototype._e = function() {
 	while(true){
 		if(this.cur_t.tag===Alice.RegTag.ALPHA){
 			nfa2=this._t();
-			nfa1=Alice.NFA.createOrNFA(nfa1,nfa2);
+			nfa1=Alice.NFA.createJoinNFA(nfa1,nfa2);
+			//$.dprint(nfa1);
 		}else
 			break;
 	}
@@ -74,27 +77,33 @@ Alice.Str2Nfa.prototype._e = function() {
 Alice.Str2Nfa.prototype._t = function() {
 	var nfa1=this._s();
 	if(this.cur_t.tag===Alice.RegTag['*']){
+		//$.dprint('*');
 		nfa1=Alice.NFA.createStarNFA(nfa1);
+		this.read_token();
+		//$.dprint(nfa1);
 	}
 	
 	//$.dprint(nfa1);
-	$.dprint('*')
+	
 	return nfa1;
 }
 Alice.Str2Nfa.prototype._s = function() {
 	var nfa;
 	if(this.cur_t.tag===Alice.RegTag['(']){
+		//$.dprint('(');
 		this.read_token();
 		nfa=this._r();
 		if(this.cur_t.tag!==Alice.RegTag[')'])
 			throw 0;
 		this.read_token();
-		$.dprint('()')
+		//$.dprint(nfa);
+		//$.dprint(')')
 		return nfa;
 	}else if(this.cur_t.tag===Alice.RegTag.ALPHA){
 		nfa = Alice.NFA.createSingleNFA(this.cur_t.value);
+		//$.dprint(this.cur_t.value);
 		//$.dprint(nfa);
-		$.dprint(this.cur_t.value);
+		
 		this.read_token();
 		return nfa;
 	}else
@@ -111,8 +120,7 @@ Alice.Str2Nfa.prototype.run = function(str) {
 	//}catch(e){
 	//	$.dprint("wrong!"+e);
 	//}
-	this.dfa=nfa2dfa(this.nfa);
-	return this.dfa;
+	return this.nfa;
 }
 Alice.Str2Nfa.prototype.read_ch = function() {
 	if(this.idx === this.len){
@@ -125,8 +133,10 @@ Alice.Str2Nfa.prototype.read_ch = function() {
 }
 Alice.Str2Nfa.prototype.read_token = function() {
 	var c=this.read_ch();
-	if(c===null)
-		return null;
+	if(c===null){
+		this.cur_t=Alice.RegToken.EOF;
+		return this.cur_t;
+	}
 	switch(c){
 	case '\\':
 		c=this.read_ch();

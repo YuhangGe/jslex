@@ -123,7 +123,9 @@ Alice.NFA.createOrNFA=function(nfa1,nfa2){
  * r=st
  */
 Alice.NFA.createJoinNFA=function(nfa1,nfa2){
-	
+	// $.dprint('*********');
+	// $.dprint(nfa1);
+	// $.dprint(nfa2);
 	var rtn=new Alice.NFA(nfa1.start,nfa2.finish);
 	nfa1.finish.isAccept=false;
 	//合并nfa1的接受状态和nfa2的开始状态为同一个状态
@@ -138,7 +140,8 @@ Alice.NFA.createJoinNFA=function(nfa1,nfa2){
 		if(nfa2.states[i].equals(nfa2.start)===false)
 			rtn.addState(nfa2.states[i]);
 	}
-	
+	// $.dprint(rtn);
+	// $.dprint('**********');
 	return rtn;
 }
 /*

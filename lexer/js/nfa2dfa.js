@@ -104,6 +104,7 @@ nfa2dfa=function(nfa){
 	inputs=nfa.inputs;
 	var s0=new Alice.DFAState(_n.get());
 	s0.nfaset=e_closure([nfa.start]);
+	s0.isAccept=is_accept;
 	dstates.push(s0);
 	
 	var T;
@@ -115,10 +116,13 @@ nfa2dfa=function(nfa){
 			//$.dprint('move');
 			//$.dprint(T.nfaset);
 			var tmp_m=move(T.nfaset,inputs[i]);
+			if(tmp_m.length===0)
+				continue;
 			//$.dprint(tmp_m);
 			var tmp_s=e_closure(tmp_m);
 			//$.dprint("e_closure");
 			//$.dprint(tmp_s);
+		
 			var U=get_exist(tmp_s);
 			if(U===null){
 				U=new Alice.DFAState(is_accept,_n.get());
@@ -127,7 +131,7 @@ nfa2dfa=function(nfa){
 				//$.dprint(U.nfaset);
 				dstates.push(U);
 			}
-			//$.dprint("add "+inputs[i]+","+U.id);
+			//$.dprint("add "+T.id+" "+inputs[i]+","+U.id);
 			T.addMove(inputs[i],U);
 		}
 	}

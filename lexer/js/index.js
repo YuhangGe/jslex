@@ -45,17 +45,17 @@ $(function() {
 	nfa.addState(s);
 	
 	//console.log(nfa);
-	var dfa=nfa2dfa(nfa);
+	//var dfa=nfa2dfa(nfa);
 	//console.log(dfa);
 	
 	//am=new Alice.AutoMata(dfa);
 	
 	//console.log(am.check("aa"));
 	
-	$.dprint(dfa);
-	
-	var r=new Alice.Reg("(a|b)*abb");
+	//$.dprint(dfa);
+	var str="(ab)*";
+	var r=new Alice.Reg(str);
 	r.compile();
 	
-	$.dprint(r.dfa);
+	$.dprint(r.test("abab"));
 });
