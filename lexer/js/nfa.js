@@ -57,6 +57,7 @@ Alice.NFAState.prototype.getMove=function(input){
 Alice.NFAState.prototype.equals=function(state){
 	return this.id===state.id;
 }
+
 Alice.NFAState.prototype.toString=function(){
 	if(this.name)
 		return this.name+'('+this.id+')'+(this.isAccept===true?"[accept]":"");
@@ -72,6 +73,33 @@ Alice.NFA=function(start,finish){
 	this.inputs=[];
 	this.start=start;
 	this.finish=finish;
+}
+Alice.NFA.prototype.copy=function(nfa){
+	var targets=[];
+	var src;
+	for(var i=0;i<this.states.length;i++){
+		src=this.states[i];
+		var tar=new Alice.NFAState(src.isAccept);
+		src.target=tar;
+		targets.push(tar);
+	}
+	var rtn=new Alice.NFA(this.start.target,this.finish.target);
+	for(var i=0;i<this.states.length;i++){
+		src=this.states[i];
+		for(var j=0;j<src.moves.length;j++){
+			var m=src.moves[j];
+			targets[i].addMove(m.input,m.next.target);
+		}
+		rtn.states.push(targets[i]);
+	}
+	for(var i=0;i<this.inputs.length;i++)
+		rtn.inputs.push(this.inputs[i]);
+		
+	//销毁临时附在state上的指向复制后的对象的指针target
+	for(var i=0;i<this.states.length;i++)
+		delete this.states[i].target;
+	
+	return rtn;
 }
 Alice.NFA.prototype.addState=function(state){
 	if(state instanceof Array)
@@ -166,7 +194,6 @@ Alice.NFA.createStarNFA=function(nfa){
  * 生成一个基本的nfa，只有开始态和接收态两个状态
  */
 Alice.NFA.createSingleNFA=function(input){
-	
 	var s=new Alice.NFAState();
 	var f=new Alice.NFAState(true);
 	s.addMove(input,f);
@@ -175,4 +202,48 @@ Alice.NFA.createSingleNFA=function(input){
 	return snfa;
 }
 
-
+/**
+ * 以下用于从正则到nfa构造时的扩展方法，包括+,?,{}等
+ */
+Alice.NFA.createNumberNFA=function(nfa,num){
+	if(!num || num<=0)
+		return Alice.NFA.createSingleNFA(Alice.e);
+	nfa=nfa.copy();
+	var rtn=nfa,cur=nfa;
+	for(var i=1;i<num;i++){
+		cur=cur.copy();
+		rtn=Alice.NFA.createJoinNFA(rtn,cur);
+	}
+	return rtn;
+}
+Alice.NFA.createBoundNFA=function(nfa,low,high){
+	nfa=nfa.copy()
+	if(!low && !high)
+		return nfa;
+	if(!high){
+		if(low<=0)
+			return Alice.NFA.createStarNFA(nfa);
+		var l =Alice.NFA.createNumberNFA(nfa,low);
+		var rtn=Alice.NFA.createStarNFA(nfa);
+		rtn=Alice.NFA.createJoinNFA(l,rtn);
+		return rtn;
+	}
+	if(!low || low<0)
+		low=0;
+	if(high<=low)
+		return Alice.NFA.createNumberNFA(nfa,low);
+	
+	var rtn=Alice.NFA.createNumberNFA(nfa,low);
+	for(var i=low+1;i<=high;i++){
+		rtn=Alice.NFA.createOrNFA(rtn,Alice.NFA.createNumberNFA(nfa,i));
+	}
+	return rtn;
+}
+Alice.NFA.createPlusNFA=function(nfa){
+	var c_n=nfa.copy();
+	return Alice.NFA.createJoinNFA(c_n,Alice.NFA.createStarNFA(nfa));
+}
+Alice.NFA.createQuesNFA=function(nfa){
+	var e_n=Alice.NFA.createSingleNFA(Alice.e);
+	return Alice.NFA.createOrNFA(e_n,nfa);
+}

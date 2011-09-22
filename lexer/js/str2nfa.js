@@ -12,6 +12,7 @@
 if( typeof Alice === 'undefined')
 	Alice = {};
 
+
 /**
  * RegTag:对正则字条串进行语法分析时判断该token的类别
  * RegToken:对正则字符串进行词法分析时的token
