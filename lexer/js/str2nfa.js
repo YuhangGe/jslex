@@ -41,7 +41,7 @@ Alice.Str2Nfa = function() {
 	this.len = 0;
 	this.nfa = null;
 }
-/* 以下是正则文法的推理
+/* 以下是正则文法的推理。
  * R->R|E
  * R->E
  * E->ET
