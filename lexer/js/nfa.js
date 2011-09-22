@@ -1,38 +1,31 @@
+/**
+ * @author	YuhangGe
+ * @email	abraham1@163.com
+ * @address	software institute, nanjing university
+ * @blog	http://yuhanghome.net
+ */
+
+/**
+ * nfa.js
+ * nfa的数据结构，以及构造nfa时进行的几个运算。参考龙书《编译原理》第二版
+ */
 if(typeof Alice ==='undefined')
 	Alice={};
-Alice._inArray=function(arr,elem){
-	var a_t=(elem instanceof Alice.NFAState || elem instanceof Alice.DFAState);
-	for(var i=0;i<arr.length;i++)
-		if(a_t===true){
-			if(arr[i].equals(elem))
-				return true;
-		}else{
-			if(arr[i]==elem)
-				return true;
-		}
-	return false;
-}
-/**
- * 比较两个集合是否一样
- */
-Alice._setEqual=function(set1,set2){
-	if(set1.length!==set2.length)
-		return false;
-	for(var i=0;i<set1.length;i++){
-		if(!Alice._inArray(set2,set1[i]))
-			return false;
-	}
-	return true;
-}
+
+//空符ε
 Alice.e={
 	toString:function(){
 		return "ε";
 	}
 }
+//状态跳转
 Alice.Move=function(input,next){
 	this.input=input;
 	this.next=next;
 }
+/**
+ * nfa状态类
+ */
 Alice.NFAState=function(isAccept,name){
 	this.id=Alice.NFAState.__auto_id__++;
 	if(typeof isAccept==='boolean'){
@@ -70,6 +63,9 @@ Alice.NFAState.prototype.toString=function(){
 	else
 		return this.id+(this.isAccept===true?"[accept]":"");
 }
+/**
+ * nfa类
+ */
 Alice.NFA=function(start,finish){
 	
 	this.states=[];
@@ -99,6 +95,10 @@ Alice.NFA.prototype._add_state=function(s){
 	}
 }
 
+/***********************/
+/*
+ * 以下几个函数是对nfa进行运算，用在构造nfa的算法中。参看龙书3.7.4节算法3.23(101页)
+ */
 /*
  * 将两个nfa进行并运算，返回一个新的nfa。
  * r=s|t

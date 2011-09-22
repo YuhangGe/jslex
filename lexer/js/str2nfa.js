@@ -1,7 +1,21 @@
+/**
+ * @author	YuhangGe
+ * @email	abraham1@163.com
+ * @address	software institute, nanjing university
+ * @blog	http://yuhanghome.net
+ */
+
+/**
+ * str2nfa.js
+ * 将字符串正则表达式转换为nfa，参考龙书《编译原理》第二版3.7.4节算法3.23(100页)
+ */
 if( typeof Alice === 'undefined')
 	Alice = {};
 
-
+/**
+ * RegTag:对正则字条串进行语法分析时判断该token的类别
+ * RegToken:对正则字符串进行词法分析时的token
+ */
 Alice.RegTag={
 	EOF:-1,
 	ALPHA:0,
@@ -16,7 +30,10 @@ Alice.RegToken=function(tag,value){
 }
 Alice.RegToken.EOF=new Alice.RegToken(Alice.RegTag.EOF,null);
 
-
+/**
+ * 从正则字符串到nfa，参看龙书。
+ * 此处使用lr的自顶向下递归进行语法制导翻译，对于具体的nfa的生成，包括各种运算，交由Alice.NFA类的静态函数进行。
+ */
 Alice.Str2Nfa = function() {
 	this.str = null;
 	this.idx = 0;
@@ -24,7 +41,7 @@ Alice.Str2Nfa = function() {
 	this.len = 0;
 	this.nfa = null;
 }
-/*
+/* 以下是正则文法的推理
  * R->R|E
  * R->E
  * E->ET

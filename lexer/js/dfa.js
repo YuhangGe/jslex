@@ -1,3 +1,14 @@
+/**
+ * @author	YuhangGe
+ * @email	abraham1@163.com
+ * @address	software institute, nanjing university
+ * @blog	http://yuhanghome.net
+ */
+
+/**
+ * dfa.js
+ * dfa的数据结构。继承自nfa的相关类，因为具体近乎一样的性质。参考龙书《编译原理》第二版
+ */
 if(typeof Alice ==='undefined')
 	Alice={};
 
