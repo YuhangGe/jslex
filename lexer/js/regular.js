@@ -12,7 +12,7 @@ Alice.Reg.prototype.compile=function(){
 	$.dprint('-------------');
 	$.dprint(nfa);
 	$.dprint('--------------');
-	this.dfa=nfa2dfa(nfa);
+	this.dfa=Alice.Nfa2Dfa.parse(nfa);
 	$.dprint(this.dfa);
 }
 Alice.Reg.prototype.test=function(value){

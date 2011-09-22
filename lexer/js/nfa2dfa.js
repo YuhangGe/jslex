@@ -19,7 +19,7 @@ Alice.Nfa2Dfa = {
 	is_accept:false,	
 	//函数意义同龙书算法3.20对应函数
 	e_closure : function(T) {
-		return move(T, Alice.e, true);
+		return this.move(T, Alice.e, true);
 	},
 	//函数意义同龙书算法3.20对应函数
 	move : function(T, input, empty) {
@@ -74,30 +74,30 @@ Alice.Nfa2Dfa = {
 	parse : function(nfa) {
 		var dstates=[];
 		var inputs = nfa.inputs;
-		var s0 = new Alice.DFAState(_n.get());
-		s0.nfaset = e_closure([nfa.start]);
+		var s0 = new Alice.DFAState(Alice._n.get());
+		s0.nfaset = this.e_closure([nfa.start]);
 		s0.isAccept = this.is_accept;
 		dstates.push(s0);
 
 		var T;
-		while(( T = get_untag_state(dstates)) !== null) {
+		while(( T = this.get_untag_state(dstates)) !== null) {
 			T.tag = true;
 			//$.dprint("untag:"+T.id);
 			//$.dprint(T);
 			for(var i = 0; i < inputs.length; i++) {
 				//$.dprint('move');
 				//$.dprint(T.nfaset);
-				var tmp_m = move(T.nfaset, inputs[i]);
+				var tmp_m = this.move(T.nfaset, inputs[i]);
 				if(tmp_m.length === 0)
 					continue;
 				//$.dprint(tmp_m);
-				var tmp_s = e_closure(tmp_m);
+				var tmp_s = this.e_closure(tmp_m);
 				//$.dprint("e_closure");
 				//$.dprint(tmp_s);
 
-				var U = get_exist(tmp_s);
+				var U = this.get_exist(tmp_s,dstates);
 				if(U === null) {
-					U = new Alice.DFAState(is_accept, _n.get());
+					U = new Alice.DFAState(this.is_accept, Alice._n.get());
 					U.nfaset = tmp_s;
 					//$.dprint("push "+U.id);
 					//$.dprint(U.nfaset);
