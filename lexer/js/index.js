@@ -33,7 +33,7 @@ $(function() {
 	$.dprint(nfa);
 	$.dprint(nfa2);
 	//$.dprint(dfa);
-	var str="a{2}|b{2}";
+	var str="[a-z][a-zA-Z0-9_]+";
 	r=new Alice.Reg(str);
 	r.compile();
 	

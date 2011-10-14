@@ -260,7 +260,6 @@ Alice.Str2Nfa.prototype._s = function() {
 		if(this.cur_t.tag!==Alice.RegTag[']'])
 			throw "_s 1";
 		this.read_token();
-		$.dprint("[]");
 	}else if(this.cur_t.tag===Alice.RegTag.CHAR){
 		nfa = Alice.NFA.createSingleNFA(this.cur_t.value);
 		//$.dprint(this.cur_t.value);
@@ -325,8 +324,6 @@ Alice.Str2Nfa.prototype._h_nfa=function(chrs,not){
 	rtn=Alice.NFA.createSingleNFA(chrs[0]);
 	for(var i=1;i<len;i++)
 		rtn=Alice.NFA.createOrNFA(rtn,Alice.NFA.createSingleNFA(chrs[i]));
-	$.dprint("kkk")
-	$.dprint(rtn);
 	return rtn;
 }
 Alice.Str2Nfa.prototype.run = function(str) {
