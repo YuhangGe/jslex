@@ -119,8 +119,6 @@ Alice.Str2Nfa.prototype.read_token = function() {
 	case '+':
 	case '-':
 	case '\"':
-	case '\'':
-	case '.':
 		this.cur_t = new Alice.RegToken(Alice.RegTag[c],c);
 		break;
 	default:
@@ -130,15 +128,6 @@ Alice.Str2Nfa.prototype.read_token = function() {
 	return this.cur_t;
 }
 /* 以下是正则文法的推理。
- * R->R|E
- * R->E
- * E->ET
- * E->T
- * T->S*
- * T->S
- * S->(R)
- * S->char
- * ---------------
  * R->ER'
  * R'->|ER' | e
  * E->TE'
@@ -147,7 +136,7 @@ Alice.Str2Nfa.prototype.read_token = function() {
  * T->S
  * O->*|+|?|N
  * N->{D}
- * D->digit,D2
+ * D->digit D2
  * D2->,digit|e
  * S->(R)
  * S->[H]
@@ -180,7 +169,9 @@ Alice.Str2Nfa.prototype._e = function() {
 	var nfa1=this._t();
 	var nf2;
 	while(true){
-		if(this.cur_t.tag===Alice.RegTag.CHAR){
+		if(this.cur_t.tag!==Alice.RegTag['|'] 
+			 && this.cur_t.tag!==Alice.RegTag[')']
+			 && this.cur_t!==Alice.RegToken.EOF){
 			nfa2=this._t();
 			nfa1=Alice.NFA.createJoinNFA(nfa1,nfa2);
 			//$.dprint(nfa1);
@@ -192,16 +183,65 @@ Alice.Str2Nfa.prototype._e = function() {
 }
 Alice.Str2Nfa.prototype._t = function() {
 	var nfa1=this._s();
-	if(this.cur_t.tag===Alice.RegTag['*']){
+	switch(this.cur_t.tag){
+		
+	case Alice.RegTag['*']:
 		//$.dprint('*');
 		nfa1=Alice.NFA.createStarNFA(nfa1);
 		this.read_token();
+		break;
+	case Alice.RegTag['+']:
+		nfa1=Alice.NFA.createPlusNFA(nfa1);
+		this.read_token();
+		break;
+	case Alice.RegTag['?']:
+		nfa1=Alice.NFA.createQuesNFA(nfa1);
+		this.read_token();
+		break;
+	case Alice.RegTag['{']:
+		this.read_token();
+		nfa1=this._d(nfa1);
+		if(this.cur_t.value!=='}')
+			throw "_t 0";
+		this.read_token();
+		break;
 		//$.dprint(nfa1);
 	}
 	
 	//$.dprint(nfa1);
 	
 	return nfa1;
+}
+Alice.Str2Nfa.prototype._d=function(nfa){
+	var low_str="",high_str="",low,high;
+	while(true){
+		var c=this.cur_t.value;
+		if(c<'0' || c>'9')
+			break;
+		low_str+=c;
+		this.read_token();
+	}
+	if(this.cur_t.value!==','){
+		if(this.cur_t.tag===Alice.RegTag['}']){
+			if(low_str=="")
+				throw "_d 0";
+			low=Number(low_str);
+			return Alice.NFA.createNumberNFA(nfa,low);
+		}
+		else
+			throw "_d 1";
+	}
+	this.read_token();
+	while(true){
+		var c=this.cur_t.value;
+		if(c<'0' || c>'9')
+			break;
+		high_str+=c;
+		this.read_token();
+	}
+	low=(low_str==""?null:Number(low_str));
+	high=(high_str==""?null:Number(high_str));
+	return Alice.NFA.createBoundNFA(nfa,low,high);
 }
 Alice.Str2Nfa.prototype._s = function() {
 	var nfa;
@@ -210,20 +250,84 @@ Alice.Str2Nfa.prototype._s = function() {
 		this.read_token();
 		nfa=this._r();
 		if(this.cur_t.tag!==Alice.RegTag[')'])
-			throw 0;
+			throw "_s 0";
 		this.read_token();
 		//$.dprint(nfa);
 		//$.dprint(')')
-		return nfa;
+	}else if(this.cur_t.tag===Alice.RegTag['[']){
+		this.read_token();
+		nfa=this._h();
+		if(this.cur_t.tag!==Alice.RegTag[']'])
+			throw "_s 1";
+		this.read_token();
+		$.dprint("[]");
 	}else if(this.cur_t.tag===Alice.RegTag.CHAR){
 		nfa = Alice.NFA.createSingleNFA(this.cur_t.value);
 		//$.dprint(this.cur_t.value);
 		//$.dprint(nfa);
 		
 		this.read_token();
-		return nfa;
 	}else
-		throw "wrong at _s";
+		throw "_s 2";
+	return nfa;
+}
+/*
+ * 解析[^a-z0-9]一类的正则子串,^排除暂时没有实现
+ */
+Alice.Str2Nfa.prototype._h = function(){
+	var not=false;
+	if(this.cur_t.tag===Alice.RegTag['^']){
+		not=true;
+		this.read_token();
+	}
+	var chrs=[];
+	while(this.cur_t.tag!==Alice.RegTag[']']){
+		var c_from,c_to;
+		c_from=this.cur_t.value;
+		this.read_token();
+		if(this.cur_t.value!=='-'){
+			chrs.push(c_from);
+		}else{
+			this.read_token();
+			if(this.cur_t.tag===Alice.RegTag[']']){
+				chrs.push(c_from);
+				chrs.push('-');
+				break;
+			}
+			c_to=this.cur_t.value;
+			if(c_to>=c_from){
+				this._h_add(c_from,c_to,chrs);
+			}else
+				throw "_h 0";
+			this.read_token();
+		}
+	}
+	return this._h_nfa(chrs,not);
+}
+/**
+ * _h辅助函数，将from到to区间的字符加入到arr中。
+ */
+Alice.Str2Nfa.prototype._h_add=function(from,to,arr){
+	var f=from.charCodeAt(0),t=to.charCodeAt(0);
+	for(var i=f;i<=t;i++){
+		arr.push(String.fromCharCode(i));
+	}
+}
+/*
+ * _h解析的辅助函数，通过chrs数组中的字符构建nfa。
+ * not参数指明是否是排除chrs数组中的字符的剩下字符。
+ */
+Alice.Str2Nfa.prototype._h_nfa=function(chrs,not){
+	var rtn,tmp;
+	var len=chrs.length;
+	if(len===0)
+		return Alice.NFA.createSingleNFA(Alice.e);
+	rtn=Alice.NFA.createSingleNFA(chrs[0]);
+	for(var i=1;i<len;i++)
+		rtn=Alice.NFA.createOrNFA(rtn,Alice.NFA.createSingleNFA(chrs[i]));
+	$.dprint("kkk")
+	$.dprint(rtn);
+	return rtn;
 }
 Alice.Str2Nfa.prototype.run = function(str) {
 	this.str = str;

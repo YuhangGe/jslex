@@ -33,10 +33,10 @@ $(function() {
 	$.dprint(nfa);
 	$.dprint(nfa2);
 	//$.dprint(dfa);
-	var str="a";
-	var r=new Alice.Reg(str);
+	var str="a{2}|b{2}";
+	r=new Alice.Reg(str);
 	r.compile();
 	
-	$.dprint(r.test("abab"));
-	alert("\d\t".length);
+	$.dprint(r.test("ab"));
+
 });

@@ -41,6 +41,8 @@ Alice._setEqual=function(set1,set2){
 	return true;
 }
 
+
+
 /**
  * 得到实际串的不重复循环，主要用在生成DFA状态时状态的名称。
  * a,b,c,...,z,aa,bb,cc,...,zz,aaa,....
