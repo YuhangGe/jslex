@@ -12,4 +12,6 @@
 if( typeof Alice === 'undefined')
 	Alice = {};
 	
-
+/*
+ * TO DO. 代码暂时没有实现。
+ */

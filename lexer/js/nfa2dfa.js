@@ -8,7 +8,7 @@
 /**
  * nfa2dfa.js
  * 将nfa转换为等价dfa，参考龙书《编译原理》第二版3.7.1节算法3.20(97页)
- * 当正则表达式很复杂时，nfa会很复杂，从nfa到dfa的转换会消耗大量时间。
+ *
  */
 if( typeof Alice === 'undefined')
 	Alice = {};
