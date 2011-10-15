@@ -41,7 +41,10 @@ Alice._setEqual=function(set1,set2){
 	return true;
 }
 
-
+Alice._arrPush=function(arr1,arr2){
+	for(var i=0;i<arr2.length;i++)
+		arr1.push(arr2[i]);
+}
 
 /**
  * 得到实际串的不重复循环，主要用在生成DFA状态时状态的名称。

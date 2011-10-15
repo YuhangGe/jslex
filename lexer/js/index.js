@@ -33,10 +33,10 @@ $(function() {
 	$.dprint(nfa);
 	$.dprint(nfa2);
 	//$.dprint(dfa);
-	var str="[a-z][a-zA-Z0-9_]+";
+	var str="hello world";
 	r=new Alice.Reg(str);
 	r.compile();
 	
-	$.dprint(r.test("ab"));
+	$.dprint(r.test("hello world"));
 
 });

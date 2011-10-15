@@ -31,15 +31,9 @@ Alice.RegTag={
 	'?':11,
 	'{':12,
 	'}':13,
-	'"':14,
-	'\'':15,
 	'.':16,
 	CHAR:17,
-	DIGIT:18,
-	NOTDIGIT:22,
-	SPACE:19,
-	WORD: 20,
-	NOTWORD:21
+	SPECIAL:18 // \d \D \s \S \w
 }
 Alice.RegToken=function(tag,value){
 	this.tag=tag;
@@ -53,7 +47,7 @@ Alice.RegToken.NOTWORD=new Alice.RegToken(Alice.RegTag.NOTWORD,'0-9a-zA-Z_');
 Alice.RegToken.NOTDIGIT=new Alice.RegToken(Alice.RegTag.NOTWORD,'0-9');
 Alice.RegToken.NOTSPACE=new Alice.RegToken(Alice.RegTag.NOTSPACE,'\f\n\r\t\v');
 
-Alice.Escape={
+Alice.RegEscape={
 	't':'\t',
 	'b':'\b',
 	'n':'\n',
@@ -61,14 +55,17 @@ Alice.Escape={
 	'r':'\r',
 	'v':'\v'
 }
-Alice.DefToken={
-	'd':Alice.RegToken.DIGIT,
-	'D':Alice.RegToken.NOTDIGIT,
-	's':Alice.RegToken.SPACE,
-	'S':Alice.RegToken.NOTSPACE,
-	'w':Alice.RegToken.WORD,
-	'W':Alice.RegToken.NOTWORD,
+Alice.RegSpecial={
+	'd': {'array':'0123456789'.split(''),'nfa':null},
+	'D':'',
+	's': {'array':'\f\n\r\t\v'.split(''), 'nfa':null},
+	'S':'',
+	'w': {'array':'0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ_'.split(''),'nfa':null},
+	'W':'',
 }
+Alice.RegSpecial.d.nfa=Alice.NFA.createMultiNFA(Alice.RegSpecial.d.array);
+Alice.RegSpecial.s.nfa=Alice.NFA.createMultiNFA(Alice.RegSpecial.s.array);
+Alice.RegSpecial.w.nfa=Alice.NFA.createMultiNFA(Alice.RegSpecial.w.array);
 /**
  * 从正则字符串到nfa，参看龙书。
  * 此处使用lr的自顶向下递归进行语法制导翻译，对于具体的nfa的生成，包括各种运算，交由Alice.NFA类的静态函数进行。
@@ -100,10 +97,10 @@ Alice.Str2Nfa.prototype.read_token = function() {
 		c=this.read_ch();
 		if(c===null)
 			throw 1;
-		if(Alice.Escape[c]!=null)
-			this.cur_t = new Alice.RegToken(Alice.RegTag.CHAR,Alice.Escape[c]);
-		else if(Alice.DefToken[c]!=null){
-			this.cur_t = Alice.DefToken[c];
+		if(Alice.RegEscape[c]!=null)
+			this.cur_t = new Alice.RegToken(Alice.RegTag.CHAR,Alice.RegEscape[c]);
+		else if(Alice.RegSpecial[c]!=null){
+			this.cur_t = new Alice.RegToken(Alice.RegTag.SPECIAL,c);
 		}else 
 			this.cur_t = new Alice.RegToken(Alice.RegTag.CHAR,c);
 		break;
@@ -118,7 +115,6 @@ Alice.Str2Nfa.prototype.read_token = function() {
 	case '}':
 	case '+':
 	case '-':
-	case '\"':
 		this.cur_t = new Alice.RegToken(Alice.RegTag[c],c);
 		break;
 	default:
@@ -245,29 +241,36 @@ Alice.Str2Nfa.prototype._d=function(nfa){
 }
 Alice.Str2Nfa.prototype._s = function() {
 	var nfa;
-	if(this.cur_t.tag===Alice.RegTag['(']){
+	switch(this.cur_t.tag){
+	case Alice.RegTag['(']:
 		//$.dprint('(');
 		this.read_token();
 		nfa=this._r();
 		if(this.cur_t.tag!==Alice.RegTag[')'])
 			throw "_s 0";
 		this.read_token();
-		//$.dprint(nfa);
-		//$.dprint(')')
-	}else if(this.cur_t.tag===Alice.RegTag['[']){
+		break;
+	case Alice.RegTag['[']:
 		this.read_token();
 		nfa=this._h();
 		if(this.cur_t.tag!==Alice.RegTag[']'])
 			throw "_s 1";
 		this.read_token();
-	}else if(this.cur_t.tag===Alice.RegTag.CHAR){
+		break;
+	case Alice.RegTag.SPECIAL:
+		nfa = Alice.RegSpecial[this.cur_t.value].nfa.copy();
+		this.read_token();
+		break;
+	case Alice.RegTag.CHAR:
 		nfa = Alice.NFA.createSingleNFA(this.cur_t.value);
 		//$.dprint(this.cur_t.value);
 		//$.dprint(nfa);
 		
 		this.read_token();
-	}else
+		break;
+	default:
 		throw "_s 2";
+	}
 	return nfa;
 }
 /*
@@ -275,14 +278,19 @@ Alice.Str2Nfa.prototype._s = function() {
  */
 Alice.Str2Nfa.prototype._h = function(){
 	var not=false;
-	if(this.cur_t.tag===Alice.RegTag['^']){
-		not=true;
-		this.read_token();
-	}
+	// if(this.cur_t.tag===Alice.RegTag['^']){
+		// not=true;
+		// this.read_token();
+	// }
 	var chrs=[];
 	while(this.cur_t.tag!==Alice.RegTag[']']){
 		var c_from,c_to;
 		c_from=this.cur_t.value;
+		if(this.cur_t.tag===Alice.RegTag.SPECIAL){
+			Alice._arrPush(chrs,Alice.RegSpecial[c_from].array);
+			this.read_token();
+			continue;
+		}
 		this.read_token();
 		if(this.cur_t.value!=='-'){
 			chrs.push(c_from);
@@ -321,9 +329,7 @@ Alice.Str2Nfa.prototype._h_nfa=function(chrs,not){
 	var len=chrs.length;
 	if(len===0)
 		return Alice.NFA.createSingleNFA(Alice.e);
-	rtn=Alice.NFA.createSingleNFA(chrs[0]);
-	for(var i=1;i<len;i++)
-		rtn=Alice.NFA.createOrNFA(rtn,Alice.NFA.createSingleNFA(chrs[i]));
+	rtn = Alice.NFA.createMultiNFA(chrs);
 	return rtn;
 }
 Alice.Str2Nfa.prototype.run = function(str) {
@@ -339,3 +345,6 @@ Alice.Str2Nfa.prototype.run = function(str) {
 	//}
 	return this.nfa;
 }
+
+
+
