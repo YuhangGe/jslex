@@ -52,10 +52,7 @@ Alice.State.prototype.equals = function(state) {
 	return this.id === state.id;
 }
 Alice.State.prototype.addMove = function(cond, next) {
-	if( typeof next !== 'undefined')
-		this.moves.add(cond, next);
-	else
-		this.moves.add(cond);
+	this.moves.add(cond, next);
 }
 Alice.State.prototype.getMove = function(input) {
 	return this.moves.get(input);
@@ -68,8 +65,11 @@ Alice.NFAStateMove=function(){
 	this.moves=[];
 }
 Alice.NFAStateMove.prototype.add=function(cond, next){
-	//$.dprint("cond:"+cond);
-	this.moves.push([cond,next]);
+	if( typeof next !== 'undefined')
+		this.moves.push([cond,next]);
+	else
+		this.moves.push(cond);
+	
 }
 Alice.NFAStateMove.prototype.get=function(input){
 	var rtn =  [];
@@ -116,9 +116,9 @@ Alice.NFA.prototype.copy = function() {
 	var rtn = new Alice.NFA(this.start.target, this.finish.target);
 	for(var i = 0; i < this.states.length; i++) {
 		src = this.states[i];
-		for(var j = 0; j < src.moves.length; j++) {
-			var m = src.moves[j];
-			targets[i].addMove(m.input, m.next.target);
+		for(var j = 0; j < src.moves.moves.length; j++) {
+			var m = src.moves.moves[j];
+			targets[i].addMove(m[0], m[1].target);
 		}
 		rtn.states.push(targets[i]);
 	}
@@ -193,7 +193,8 @@ Alice.NFA.createJoinNFA = function(nfa1, nfa2) {
 	var rtn = new Alice.NFA(nfa1.start, nfa2.finish);
 	nfa1.finish.isAccept = false;
 	//合并nfa1的接受状态和nfa2的开始状态为同一个状态
-	var m2 = nfa2.start.moves;
+	var m2 = nfa2.start.moves.moves;
+	
 	for(var i = 0; i < m2.length; i++) {
 		nfa1.finish.addMove(m2[i]);
 	}
