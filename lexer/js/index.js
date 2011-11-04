@@ -27,7 +27,7 @@ function quickAddMove(table){
 }
 
 $(function() {
-	var str="\\d+\\w";
+	var str="\\a(\\w|\\d)+";
 	r=new Alice.Reg(str);
 	r.compile();
 	

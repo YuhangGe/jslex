@@ -62,6 +62,8 @@ Alice.Regular = {};
 	};
 
 	R.Defined = {
+		'a' : Alice.StateMove.LETTER,
+		'A' : Alice.StateMove.NOT_LETTER,
 		'd' : Alice.StateMove.DIGIT,
 		'D' : Alice.StateMove.NOT_DIGIT,
 		's' : Alice.StateMove.SPACE,

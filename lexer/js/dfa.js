@@ -59,6 +59,14 @@ Alice.DFAStateMove.prototype.get = function(input) {
 				if(!H.isWord(input))
 					j=i;
 				break;
+			case A.LETTER:
+				if(H.isLetter(input))
+					j=i;
+				break;
+			case A.NOT_LETTER :
+				if(!H.isLetter(input))
+					j=i;
+				break;
 		}
 	}
 	if(j!==-1)
