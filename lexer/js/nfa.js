@@ -12,22 +12,27 @@
 if( typeof Alice === 'undefined')
 	Alice = {};
 
-//空符ε
-Alice.e = {
-	toString : function() {
-		return "ε";
-	}
-}
-//状态跳转
-Alice.Move = function(input, next) {
-	this.input = input;
-	this.next = next;
-}
+//状态转移基类
+Alice.StateMove = function() {}
+
+jQuery.extend(Alice.StateMove,{
+	DIGIT:0,
+	NOT_DIGIT:1,
+	SPACE:2,
+	NOT_SPACE:3,
+	WORD:4,
+	NOT_WORD:5,
+	LETTER:6,
+	NOT_LETTER:7
+});
+
+Alice.StateMove.prototype.add=function(cond, next){ throw "virtual function. (statemove add)"; }
+Alice.StateMove.prototype.get=function(input){ throw "virtual function. (statemove get)"; }
+	
 /**
- * nfa状态类
+ * 状态基类
  */
-Alice.NFAState = function(isAccept, name) {
-	this.id = Alice.NFAState.__auto_id__++;
+Alice.State= function(isAccept, name){
 	if( typeof isAccept === 'boolean') {
 		this.isAccept = isAccept;
 		this.name = name;
@@ -35,34 +40,60 @@ Alice.NFAState = function(isAccept, name) {
 		this.isAccept = false;
 		this.name = isAccept;
 	}
-
-	this.moves = [];
+	this.moves=null;//在子类中初始化
 }
-Alice.NFAState.__auto_id__ = 0;
-Alice.NFAState.prototype.addMove = function(input, next) {
-	if( typeof next !== 'undefined')
-		this.moves.push(new Alice.Move(input, next));
-	else
-		this.moves.push(input);
-}
-Alice.NFAState.prototype.getMove = function(input) {
-	var rtn = [];
-	for(var i = 0; i < this.moves.length; i++) {
-		if(this.moves[i].input === input)
-			rtn.push(this.moves[i].next);
-	}
-	return rtn;
-}
-Alice.NFAState.prototype.equals = function(state) {
-	return this.id === state.id;
-}
-
-Alice.NFAState.prototype.toString = function() {
+Alice.State.prototype.toString = function() {
 	if(this.name)
 		return this.name + '(' + this.id + ')' + (this.isAccept === true ? "[accept]" : "");
 	else
 		return this.id + (this.isAccept === true ? "[accept]" : "");
 }
+Alice.State.prototype.equals = function(state) {
+	return this.id === state.id;
+}
+Alice.State.prototype.addMove = function(cond, next) {
+	if( typeof next !== 'undefined')
+		this.moves.add(cond, next);
+	else
+		this.moves.add(cond);
+}
+Alice.State.prototype.getMove = function(input) {
+	return this.moves.get(input);
+}
+
+/**
+ * NFA 状态转移类
+ */
+Alice.NFAStateMove=function(){
+	this.moves=[];
+}
+Alice.NFAStateMove.prototype.add=function(cond, next){
+	//$.dprint("cond:"+cond);
+	this.moves.push([cond,next]);
+}
+Alice.NFAStateMove.prototype.get=function(input){
+	var rtn =  [];
+	for(var i = 0; i < this.moves.length; i++) {
+		if(this.moves[i][0] === input)
+			rtn.push(this.moves[i][1]);
+	}
+	return rtn;
+}
+
+jQuery.inherit(Alice.NFAStateMove, Alice.StateMove);
+
+/**
+ * nfa状态类
+ */
+Alice.NFAState = function(isAccept, name) {
+	this.base(isAccept,name);
+	this.id = Alice.NFAState.__auto_id__++;
+	this.moves = new Alice.NFAStateMove();
+}
+Alice.NFAState.__auto_id__ = 0;
+
+jQuery.inherit(Alice.NFAState,Alice.State);
+
 /**
  * nfa类
  */
@@ -114,9 +145,14 @@ Alice.NFA.prototype.addState = function(state) {
  */
 Alice.NFA.prototype._add_state = function(s) {
 	this.states.push(s);
-	for(var i = 0; i < s.moves.length; i++) {
-		var mi = s.moves[i].input;
-		if(mi !== Alice.e && !Alice._inArray(this.inputs, mi)) {
+	
+	//$.dprint(s);
+	var m= s.moves.moves;
+	//$.dprint("add state "+m.length);
+	for(var i = 0; i < m.length; i++) {
+		var mi = m[i][0];
+		//$.dprint(mi);
+		if(mi !== Alice.e && !Alice.Help.inArray(this.inputs, mi)) {
 			this.inputs.push(mi);
 		}
 	}

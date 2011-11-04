@@ -14,22 +14,17 @@ Alice.AutoMata.prototype.check=function(str){
 	this.len=str.length;
 	this.idx=0;
 	var state=this.dfa.start;
-	var n_state=[];
-
+	
 	while(true){
 		this.read_ch();
 		if(this.cur_ch===null)
 			break;
-		n_state=state.getMove(this.cur_ch);
-		if(n_state.length===0){
+		state=state.getMove(this.cur_ch);
+		if(state==null){
 			$.dprint("not found next state!")
 			return false;
 		}
-		else if(n_state.length!==1)
-			throw "dfa has more than one out! please check!";
 		else{
-			state=n_state[0];
-			
 			if(state.isAccept===true){
 				//$.dprint(this.cur_ch);
 				if(this.match_end===true){

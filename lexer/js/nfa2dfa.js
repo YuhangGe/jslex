@@ -36,10 +36,11 @@ Alice.Nfa2Dfa = {
 		}
 		while(stack.length > 0) {
 			var t = stack.pop();
-
+			//$.dprint(t);
 			var u = t.getMove(input);
+			//$.dprint(u);
 			for(var i = 0; i < u.length; i++) {
-				if(!Alice._inArray(e_c, u[i])) {
+				if(!Alice.Help.inArray(e_c, u[i])) {
 					e_c.push(u[i]);
 					if(empty === true)
 						stack.push(u[i]);
@@ -64,7 +65,7 @@ Alice.Nfa2Dfa = {
 		for(var i = 0; i < dstates.length; i++) {
 			//if(set.length==7)
 			//$.dprint(dstates[i].nfaset);
-			if(Alice._setEqual(dstates[i].nfaset, set) === true) {
+			if(Alice.Help.setEqual(dstates[i].nfaset, set) === true) {
 				//$.dprint('got');
 				return dstates[i];
 			}
@@ -75,7 +76,7 @@ Alice.Nfa2Dfa = {
 	parse : function(nfa) {
 		var dstates=[];
 		var inputs = nfa.inputs;
-		var s0 = new Alice.DFAState(Alice._n.get());
+		var s0 = new Alice.DFAState(Alice.Help._n.get());
 		s0.nfaset = this.e_closure([nfa.start]);
 		s0.isAccept = this.is_accept;
 		dstates.push(s0);
@@ -86,19 +87,20 @@ Alice.Nfa2Dfa = {
 			//$.dprint("untag:"+T.id);
 			//$.dprint(T);
 			for(var i = 0; i < inputs.length; i++) {
-				//$.dprint('move');
+				//$.dprint('move:'+inputs[i]);
 				//$.dprint(T.nfaset);
 				var tmp_m = this.move(T.nfaset, inputs[i]);
+				//$.dprint(tmp_m);
 				if(tmp_m.length === 0)
 					continue;
-				//$.dprint(tmp_m);
+				
 				var tmp_s = this.e_closure(tmp_m);
 				//$.dprint("e_closure");
 				//$.dprint(tmp_s);
 
 				var U = this.get_exist(tmp_s,dstates);
 				if(U === null) {
-					U = new Alice.DFAState(this.is_accept, Alice._n.get());
+					U = new Alice.DFAState(this.is_accept, Alice.Help._n.get());
 					U.nfaset = tmp_s;
 					//$.dprint("push "+U.id);
 					//$.dprint(U.nfaset);

@@ -11,11 +11,26 @@
  */
 if(typeof Alice ==='undefined')
 	Alice={};
+
+
+/*
+ * 空符ε
+ */
+Alice.e = {
+	toString : function() {
+		return "ε";
+	}
+}
+
+/**
+ * 辅助函数命名空间
+ */
+Alice.Help={};
 /**
  * 辅助函数，判断元素elem是否在数组arr中。
  * 如果元素是NFAState或DFAState类，调用类的equals函数
  */
-Alice._inArray=function(arr,elem){
+Alice.Help.inArray=function(arr,elem){
 	var a_t=(elem instanceof Alice.NFAState || elem instanceof Alice.DFAState);
 	for(var i=0;i<arr.length;i++)
 		if(a_t===true){
@@ -31,17 +46,17 @@ Alice._inArray=function(arr,elem){
  * 比较两个集合是否一样，因为保证了是集合，所以算法相对简单。
  * 元素个数相同且第一个集合中每个元素都在第二个集合中就行了。
  */
-Alice._setEqual=function(set1,set2){
+Alice.Help.setEqual=function(set1,set2){
 	if(set1.length!==set2.length)
 		return false;
 	for(var i=0;i<set1.length;i++){
-		if(!Alice._inArray(set2,set1[i]))
+		if(!Alice.Help.inArray(set2,set1[i]))
 			return false;
 	}
 	return true;
 }
 
-Alice._arrPush=function(arr1,arr2){
+Alice.Help.arrPush=function(arr1,arr2){
 	for(var i=0;i<arr2.length;i++)
 		arr1.push(arr2[i]);
 }
@@ -50,7 +65,7 @@ Alice._arrPush=function(arr1,arr2){
  * 得到实际串的不重复循环，主要用在生成DFA状态时状态的名称。
  * a,b,c,...,z,aa,bb,cc,...,zz,aaa,....
  */
-Alice._n = {
+Alice.Help._n = {
 	i : -1,
 	names : "abcdefghigklmnopqrstuvwxyz".split(''),
 	get : function() {
@@ -63,4 +78,18 @@ Alice._n = {
 		rtn += this.names[a];
 		return rtn;
 	}
+}
+
+
+Alice.Help.isDigit=function(chr){
+	$.dprint("isDigit:"+chr);
+	return chr>='0' && chr <='9';
+}
+Alice.Help.isLetter=function(chr){
+	$.dprint("isLetter:"+chr);
+	return chr>='a' && chr<='z' || chr>='A' && chr <='Z';
+}
+Alice.Help.isWord=function(chr){
+	$.dprint("isWord:"+chr);
+	return chr>='a' && chr<='z' || chr>='A' && chr <='Z' || chr==='_';
 }

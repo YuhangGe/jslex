@@ -27,16 +27,10 @@ function quickAddMove(table){
 }
 
 $(function() {
-	var nfa=Alice.NFA.createSingleNFA('a');
-	
-	var nfa2=nfa.copy();
-	$.dprint(nfa);
-	$.dprint(nfa2);
-	//$.dprint(dfa);
-	var str="a|b";
+	var str="\\W*";
 	r=new Alice.Reg(str);
 	r.compile();
 	
-	$.dprint(r.test("a"));
+	$.dprint(r.test("73294"));
 
 });
