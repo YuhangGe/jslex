@@ -9,9 +9,8 @@
  * common.js
  * 公共模块，包括各种辅助函数，辅助类
  */
-if(typeof Alice ==='undefined')
-	Alice={};
-
+if( typeof Alice === 'undefined')
+	Alice = {};
 
 /*
  * 空符ε
@@ -25,71 +24,98 @@ Alice.e = {
 /**
  * 辅助函数命名空间
  */
-Alice.Help={};
-/**
- * 辅助函数，判断元素elem是否在数组arr中。
- * 如果元素是NFAState或DFAState类，调用类的equals函数
- */
-Alice.Help.inArray=function(arr,elem){
-	var a_t=(elem instanceof Alice.NFAState || elem instanceof Alice.DFAState);
-	for(var i=0;i<arr.length;i++)
-		if(a_t===true){
+Alice.Help = {};
+
+
+jQuery.extend(Alice.Help, {
+	/**
+	 * 得到实际串的不重复循环，主要用在生成DFA状态时状态的名称。
+	 * a,b,c,...,z,aa,bb,cc,...,zz,aaa,....
+	 */
+	_n : {
+		i : -1,
+		names : "abcdefghigklmnopqrstuvwxyz".split(''),
+		get : function() {
+			this.i++;
+			var len = this.names.length;
+			var a = this.i % len;
+			var b = Math.floor(this.i / len) + 1;
+			var rtn = "";
+			for(var j = 0; j < b; j++)
+				rtn += this.names[a];
+			return rtn;
+		}
+	},
+
+	/**
+	 * 辅助函数，判断元素elem是否在数组arr中。
+	 * 如果元素是NFAState或DFAState类，调用类的equals函数
+	 */
+	inArray : function(arr, elem) {
+		var a_t = ( elem instanceof Alice.NFAState || elem instanceof Alice.DFAState);
+		for(var i = 0; i < arr.length; i++)
+		if(a_t === true) {
 			if(arr[i].equals(elem))
 				return true;
-		}else{
-			if(arr[i]==elem)
+		} else {
+			if(arr[i] == elem)
 				return true;
 		}
-	return false;
-}
-/**
- * 比较两个集合是否一样，因为保证了是集合，所以算法相对简单。
- * 元素个数相同且第一个集合中每个元素都在第二个集合中就行了。
- */
-Alice.Help.setEqual=function(set1,set2){
-	if(set1.length!==set2.length)
 		return false;
-	for(var i=0;i<set1.length;i++){
-		if(!Alice.Help.inArray(set2,set1[i]))
+	},
+	/**
+	 * 比较两个集合是否一样，因为保证了是集合，所以算法相对简单。
+	 * 元素个数相同且第一个集合中每个元素都在第二个集合中就行了。
+	 */
+	setEqual : function(set1, set2) {
+		if(set1.length !== set2.length)
 			return false;
+		for(var i = 0; i < set1.length; i++) {
+			if(!Alice.Help.inArray(set2, set1[i]))
+				return false;
+		}
+		return true;
+	},
+	isDigit : function(chr) {
+		//$.dprint("isDigit:"+chr);
+		return chr >= '0' && chr <= '9';
+	},
+	isNotDigit : function(chr) {
+		return chr < '0' || chr > '9';
+	},
+	isLetter : function(chr) {
+		//$.dprint("isLetter:"+chr);
+		return chr >= 'a' && chr <= 'z' || chr >= 'A' && chr <= 'Z';
+	},
+	isNotLetter : function(chr) {
+		return chr < 'A' || chr > 'Z' && chr < 'a' || chr > 'z';
+	},
+	isWord : function(chr) {
+		$.dprint("isWord:" + chr);
+		return chr >= 'a' && chr <= 'z' || chr >= 'A' && chr <= 'Z' || chr === '_';
+	},
+	isNotWord : function(chr) {
+		return !(chr >= 'a' && chr <= 'z' || chr >= 'A' && chr <= 'Z' || chr === '_');
+	},
+	isSpace : function(chr) {
+		return chr===' ' || chr==='\t' || chr==='\n' || chr==='\r' || chr==='\f' || chr==='\v';
+	},
+	isNotSpace : function(chr){
+		return chr!==' ' && chr!=='\t' && chr!=='\n' && chr!=='\r' && chr!=='\f' && chr!=='\v';
+	},
+	isUpper : function(chr){
+		return chr>='A' && chr <='Z';
+	},
+	isNotUpper : function(chr){
+		return chr<'A' || chr> 'Z';
+	},
+	isLower : function(chr){
+		return chr>='a' && chr<='z';
+	},
+	isNotLower : function(chr){
+		return chr<'a' || chr >'z';
+	},
+	isDot : function(chr){
+		return chr!=='\n';
 	}
-	return true;
-}
-
-Alice.Help.arrPush=function(arr1,arr2){
-	for(var i=0;i<arr2.length;i++)
-		arr1.push(arr2[i]);
-}
-
-/**
- * 得到实际串的不重复循环，主要用在生成DFA状态时状态的名称。
- * a,b,c,...,z,aa,bb,cc,...,zz,aaa,....
- */
-Alice.Help._n = {
-	i : -1,
-	names : "abcdefghigklmnopqrstuvwxyz".split(''),
-	get : function() {
-		this.i++;
-		var len = this.names.length;
-		var a = this.i % len;
-		var b = Math.floor(this.i / len) + 1;
-		var rtn = "";
-		for(var j = 0; j < b; j++)
-		rtn += this.names[a];
-		return rtn;
-	}
-}
-
-
-Alice.Help.isDigit=function(chr){
-	$.dprint("isDigit:"+chr);
-	return chr>='0' && chr <='9';
-}
-Alice.Help.isLetter=function(chr){
-	$.dprint("isLetter:"+chr);
-	return chr>='a' && chr<='z' || chr>='A' && chr <='Z';
-}
-Alice.Help.isWord=function(chr){
-	$.dprint("isWord:"+chr);
-	return chr>='a' && chr<='z' || chr>='A' && chr <='Z' || chr==='_';
-}
+});

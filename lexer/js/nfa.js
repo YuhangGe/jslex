@@ -13,26 +13,56 @@ if( typeof Alice === 'undefined')
 	Alice = {};
 
 //状态转移基类
-Alice.StateMove = function() {}
+Alice.StateMove = function() {
+}
 
-jQuery.extend(Alice.StateMove,{
-	DIGIT:0,
-	NOT_DIGIT:1,
-	SPACE:2,
-	NOT_SPACE:3,
-	WORD:4,
-	NOT_WORD:5,
-	LETTER:6,
-	NOT_LETTER:7
-});
-
-Alice.StateMove.prototype.add=function(cond, next){ throw "virtual function. (statemove add)"; }
-Alice.StateMove.prototype.get=function(input){ throw "virtual function. (statemove get)"; }
+Alice.StateMove.Tag={};
+Alice.StateMove.Func={};
+(function(){
+	var T=Alice.StateMove.Tag;
+	var F=Alice.StateMove.Func;
+	var H=Alice.Help;
 	
+	T.DIGIT = 0; 		//数字：	\d
+	T.NOT_DIGIT = 1;	//非数字：	\D
+	T.SPACE = 2;	//空字符\f\n\r\t\v：	\s
+	T.NOT_SPACE = 3;	//非字符：	\S
+	T.WORD = 4;		//字符a-zA-Z_：\s
+	T.NOT_WORD = 5;	//非字符：	\W
+	T.LETTER = 6;		//字母：	\a
+	T.NOT_LETTER = 7;	//非字母：	\A
+	T.UPPER = 8;		//大写字母：\u
+	T.NOT_UPPER = 9;	//非大写字母：\U
+	T.LOWER = 10;	//小写字母：\l
+	T.NOT_LOWER = 11;	//非小写字母：\L
+	T.DOT = 12;	//除\n外任意字符：.
+	
+	F[T.DIGIT]=H.isDigit;
+	F[T.NOT_DIGIT]=H.isNotDigit;
+	F[T.SPACE]=H.isSpace;
+	F[T.NOT_SPACE]=H.isNotSpace;
+	F[T.WORD]=H.isWord;
+	F[T.NOT_WORD]=H.isNotWord;
+	F[T.LETTER]=H.isLetter;
+	F[T.NOT_LETTER]=H.isNotLetter;
+	F[T.UPPER]=H.isUpper;
+	F[T.NOT_UPPER]=H.isNotUpper;
+	F[T.LOWER]=H.isLower;
+	F[T.NOT_LOWER]=H.isNotLower
+	F[T.DOT]=H.isDot;
+})();
+
+
+Alice.StateMove.prototype.add = function(cond, next) {
+	throw "virtual function. (statemove add)";
+}
+Alice.StateMove.prototype.get = function(input) {
+	throw "virtual function. (statemove get)";
+}
 /**
  * 状态基类
  */
-Alice.State= function(isAccept, name){
+Alice.State = function(isAccept, name) {
 	if( typeof isAccept === 'boolean') {
 		this.isAccept = isAccept;
 		this.name = name;
@@ -40,7 +70,10 @@ Alice.State= function(isAccept, name){
 		this.isAccept = false;
 		this.name = isAccept;
 	}
-	this.moves=null;//在子类中初始化
+	
+	//在子类中初始化
+	this.moves = null;
+
 }
 Alice.State.prototype.toString = function() {
 	if(this.name)
@@ -57,22 +90,21 @@ Alice.State.prototype.addMove = function(cond, next) {
 Alice.State.prototype.getMove = function(input) {
 	return this.moves.get(input);
 }
-
 /**
  * NFA 状态转移类
  */
-Alice.NFAStateMove=function(){
-	this.moves=[];
+Alice.NFAStateMove = function() {
+	this.moves = [];
 }
-Alice.NFAStateMove.prototype.add=function(cond, next){
+Alice.NFAStateMove.prototype.add = function(cond, next) {
 	if( typeof next !== 'undefined')
-		this.moves.push([cond,next]);
+		this.moves.push([cond, next]);
 	else
 		this.moves.push(cond);
-	
+
 }
-Alice.NFAStateMove.prototype.get=function(input){
-	var rtn =  [];
+Alice.NFAStateMove.prototype.get = function(input) {
+	var rtn = [];
 	for(var i = 0; i < this.moves.length; i++) {
 		if(this.moves[i][0] === input)
 			rtn.push(this.moves[i][1]);
@@ -86,13 +118,13 @@ jQuery.inherit(Alice.NFAStateMove, Alice.StateMove);
  * nfa状态类
  */
 Alice.NFAState = function(isAccept, name) {
-	this.base(isAccept,name);
+	this.base(isAccept, name);
 	this.id = Alice.NFAState.__auto_id__++;
 	this.moves = new Alice.NFAStateMove();
 }
 Alice.NFAState.__auto_id__ = 0;
 
-jQuery.inherit(Alice.NFAState,Alice.State);
+jQuery.inherit(Alice.NFAState, Alice.State);
 
 /**
  * nfa类
@@ -145,9 +177,9 @@ Alice.NFA.prototype.addState = function(state) {
  */
 Alice.NFA.prototype._add_state = function(s) {
 	this.states.push(s);
-	
+
 	//$.dprint(s);
-	var m= s.moves.moves;
+	var m = s.moves.moves;
 	//$.dprint("add state "+m.length);
 	for(var i = 0; i < m.length; i++) {
 		var mi = m[i][0];
@@ -167,19 +199,19 @@ Alice.NFA.prototype._add_state = function(s) {
  */
 Alice.NFA.createOrNFA = function(nfa1, nfa2) {
 
-		var s = new Alice.NFAState();
-		var f = new Alice.NFAState(true);
-		s.addMove(Alice.e, nfa1.start);
-		s.addMove(Alice.e, nfa2.start);
-		nfa1.finish.isAccept = false;
-		nfa1.finish.addMove(Alice.e, f);
-		nfa2.finish.isAccept = false;
-		nfa2.finish.addMove(Alice.e, f);
-		var rtn = new Alice.NFA(s, f);
-		rtn.addState(nfa1.states);
-		rtn.addState(nfa2.states);
-		rtn.addState(s, f);
-		return rtn;
+	var s = new Alice.NFAState();
+	var f = new Alice.NFAState(true);
+	s.addMove(Alice.e, nfa1.start);
+	s.addMove(Alice.e, nfa2.start);
+	nfa1.finish.isAccept = false;
+	nfa1.finish.addMove(Alice.e, f);
+	nfa2.finish.isAccept = false;
+	nfa2.finish.addMove(Alice.e, f);
+	var rtn = new Alice.NFA(s, f);
+	rtn.addState(nfa1.states);
+	rtn.addState(nfa2.states);
+	rtn.addState(s, f);
+	return rtn;
 
 }
 /*
@@ -194,7 +226,7 @@ Alice.NFA.createJoinNFA = function(nfa1, nfa2) {
 	nfa1.finish.isAccept = false;
 	//合并nfa1的接受状态和nfa2的开始状态为同一个状态
 	var m2 = nfa2.start.moves.moves;
-	
+
 	for(var i = 0; i < m2.length; i++) {
 		nfa1.finish.addMove(m2[i]);
 	}
@@ -241,37 +273,37 @@ Alice.NFA.createSingleNFA = function(input) {
 /*
  * 处理[]正则符号，生成arr数组中字符的or运算nfa
  */
-Alice.NFA.createMultiNFA=function(arr){
-	if(! arr instanceof Array || arr.length===0){
+Alice.NFA.createMultiNFA = function(arr) {
+	if(!arr instanceof Array || arr.length === 0) {
 		return Alice.NFA.createSingleNFA(Alice.e);
 	}
 	var s = new Alice.NFAState();
 	var f = new Alice.NFAState(true);
-	for(var i=0;i<arr.length;i++){
-		s.addMove(arr[i],f);
+	for(var i = 0; i < arr.length; i++) {
+		s.addMove(arr[i], f);
 	}
 	var nfa = new Alice.NFA(s, f);
-	nfa.addState(s,f);
+	nfa.addState(s, f);
 	return nfa;
 }
 /**
  * 处理连续字符串，通常是由引号包含的部分
  */
-Alice.NFA.createStrNFA = function(str){
+Alice.NFA.createStrNFA = function(str) {
 	var s = new Alice.NFAState();
-	var pre=s,next=null;
-	var nfa=new Alice.NFA();
+	var pre = s, next = null;
+	var nfa = new Alice.NFA();
 	//var f = new Alice.NFAState(true);
-	for(var i=0;i<str.length;i++){
+	for(var i = 0; i < str.length; i++) {
 		next = new Alice.NFAState();
-		pre.addMove(str[i],next);
+		pre.addMove(str[i], next);
 		nfa.addState(pre);
-		pre=next;
+		pre = next;
 	}
-	next.isAccept=true;
+	next.isAccept = true;
 	nfa.addState(next);
-	nfa.start=s;
-	nfa.finish=next;
+	nfa.start = s;
+	nfa.finish = next;
 	return nfa;
 }
 /**

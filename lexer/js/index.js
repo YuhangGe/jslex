@@ -27,10 +27,10 @@ function quickAddMove(table){
 }
 
 $(function() {
-	var str="\\a(\\w|\\d)+";
+	var str="[^\\d\\D]";
 	r=new Alice.Reg(str);
 	r.compile();
 	
-	$.dprint(r.test("7a"));
+	$.dprint(r.test("7"));
 
 });

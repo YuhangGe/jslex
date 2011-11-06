@@ -12,11 +12,10 @@
 if( typeof Alice === 'undefined')
 	Alice = {};
 
-Alice.Regular = {};
-
-(function() {
-
+Alice.Regular = {}; (function() {
+	var A = Alice;
 	var R = Alice.Regular;
+	var T = Alice.StateMove.Tag;
 
 	/**
 	 * RegTag:对正则字条串进行语法分析时判断该token的类别
@@ -24,7 +23,6 @@ Alice.Regular = {};
 	 */
 	R.Tag = {
 		EOF : -1,
-
 		'(' : 1,
 		')' : 2,
 		'*' : 5,
@@ -36,7 +34,6 @@ Alice.Regular = {};
 		'?' : 11,
 		'{' : 12,
 		'}' : 13,
-		'.' : 16,
 		CHAR : 17,
 		DEFINED : 18 // \d \D \s \S \w
 	}
@@ -44,13 +41,8 @@ Alice.Regular = {};
 		this.tag = tag;
 		this.value = value;
 	}
-	
-	R.Token.EOF = new R.Token(R.Tag.EOF, null), R.DIGIT = new R.Token(R.Tag.DIGIT, '0-9');
-	R.SPACE = new R.Token(R.Tag.SPACE, '\f\n\r\t\v');
-	R.WORD = new R.Token(R.Tag.WORD, '0-9a-zA-Z_');
-	R.NOTWORD = new R.Token(R.Tag.NOTWORD, '0-9a-zA-Z_');
-	R.NOTDIGIT = new R.Token(R.Tag.NOTWORD, '0-9');
-	R.NOTSPACE = new R.Token(R.Tag.NOTSPACE, '\f\n\r\t\v')
+
+	R.Token.EOF = new R.Token(R.Tag.EOF, null);
 
 	R.Escape = {
 		't' : '\t',
@@ -62,14 +54,19 @@ Alice.Regular = {};
 	};
 
 	R.Defined = {
-		'a' : Alice.StateMove.LETTER,
-		'A' : Alice.StateMove.NOT_LETTER,
-		'd' : Alice.StateMove.DIGIT,
-		'D' : Alice.StateMove.NOT_DIGIT,
-		's' : Alice.StateMove.SPACE,
-		'S' : Alice.StateMove.NOT_SPACE,
-		'w' : Alice.StateMove.WORD,
-		'W' : Alice.StateMove.NOT_WORD
+		'a' : T.LETTER,
+		'A' : T.NOT_LETTER,
+		'l' : T.LOWER,
+		'L' : T.NOT_LOWER,
+		'u' : T.UPPER,
+		'U' : T.NOT_UPPER,
+		'd' : T.DIGIT,
+		'D' : T.NOT_DIGIT,
+		's' : T.SPACE,
+		'S' : T.NOT_SPACE,
+		'w' : T.WORD,
+		'W' : T.NOT_WORD,
+		'.' : T.DOT
 	};
 
 })();
@@ -110,9 +107,12 @@ Alice.Str2Nfa.prototype.read_token = function() {
 			if(R.Escape[c] != null)
 				this.cur_t = new R.Token(R.Tag.CHAR, R.Escape[c]);
 			else if(R.Defined[c] != null) {
-				this.cur_t = new R.Token(R.Tag.DEFINED, R.Defined[c] );
+				this.cur_t = new R.Token(R.Tag.DEFINED, R.Defined[c]);
 			} else
 				this.cur_t = new R.Token(R.Tag.CHAR, c);
+			break;
+		case '.':
+			this.cur_t = new R.Token(R.Tag.DEFINED, R.Defined['.']);
 			break;
 		case '*':
 		case '(':
@@ -173,7 +173,7 @@ Alice.Str2Nfa.prototype._r = function() {
 }
 Alice.Str2Nfa.prototype._e = function() {
 	var R = Alice.Regular;
-	
+
 	var nfa1 = this._t();
 	var nf2;
 	while(true) {
@@ -189,7 +189,7 @@ Alice.Str2Nfa.prototype._e = function() {
 }
 Alice.Str2Nfa.prototype._t = function() {
 	var R = Alice.Regular;
-	
+
 	var nfa1 = this._s();
 	switch(this.cur_t.tag) {
 
@@ -222,7 +222,7 @@ Alice.Str2Nfa.prototype._t = function() {
 }
 Alice.Str2Nfa.prototype._d = function(nfa) {
 	var R = Alice.Regular;
-		
+
 	var low_str = "", high_str = "", low, high;
 	while(true) {
 		var c = this.cur_t.value;
@@ -248,13 +248,13 @@ Alice.Str2Nfa.prototype._d = function(nfa) {
 		high_str += c;
 		this.read_token();
 	}
-	low = (low_str == "" ? null : Number(low_str));
-	high = (high_str == "" ? null : Number(high_str));
+	low = (low_str === "" ? null : Number(low_str));
+	high = (high_str === "" ? null : Number(high_str));
 	return Alice.NFA.createBoundNFA(nfa, low, high);
 }
 Alice.Str2Nfa.prototype._s = function() {
 	var R = Alice.Regular;
-	
+
 	var nfa;
 	switch(this.cur_t.tag) {
 		case R.Tag['(']:
@@ -276,7 +276,7 @@ Alice.Str2Nfa.prototype._s = function() {
 			//$.dprint("defined");
 			// to do
 			nfa = Alice.NFA.createSingleNFA(this.cur_t.value);
-	
+
 			this.read_token();
 			break;
 		case R.Tag.CHAR:
@@ -296,16 +296,16 @@ Alice.Str2Nfa.prototype._h = function() {
 	var H = Alice.Help;
 
 	var not = false;
-	// if(this.cur_t.tag===Alice.RegTag['^']){
-	// not=true;
-	// this.read_token();
-	// }
+	if(this.cur_t.tag === R.Tag['^']) {
+		not = true;
+		this.read_token();
+	}
 	var chrs = [];
 	while(this.cur_t.tag !== R.Tag[']']) {
 		var c_from, c_to;
 		c_from = this.cur_t.value;
-		if(this.cur_t.tag === R.Tag.SPECIAL) {
-			H.arrPush(chrs, Alice.RegSpecial[c_from].array);
+		if(this.cur_t.tag === R.Tag.DEFINED) {
+			chrs.push(c_from);
 			this.read_token();
 			continue;
 		}
@@ -318,12 +318,14 @@ Alice.Str2Nfa.prototype._h = function() {
 				chrs.push(c_from);
 				chrs.push('-');
 				break;
+			} else if(this.cur_t.tag === R.Tag.DEFINED) {
+				throw "_h 0";
 			}
 			c_to = this.cur_t.value;
 			if(c_to >= c_from) {
 				this._h_add(c_from, c_to, chrs);
 			} else
-				throw "_h 0";
+				throw "_h 1";
 			this.read_token();
 		}
 	}
@@ -343,11 +345,15 @@ Alice.Str2Nfa.prototype._h_add = function(from, to, arr) {
  * not参数指明是否是排除chrs数组中的字符的剩下字符。
  */
 Alice.Str2Nfa.prototype._h_nfa = function(chrs, not) {
-	var rtn, tmp;
+	var rtn;
 	var len = chrs.length;
 	if(len === 0)
-		return Alice.NFA.createSingleNFA(Alice.e);
-	rtn = Alice.NFA.createMultiNFA(chrs);
+		throw "_h_nfa 0";
+	if(not === false)
+		rtn = Alice.NFA.createMultiNFA(chrs);
+	else
+		rtn = Alice.NFA.createSingleNFA(chrs);
+
 	return rtn;
 }
 Alice.Str2Nfa.prototype.run = function(str) {
