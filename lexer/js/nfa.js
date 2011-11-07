@@ -113,8 +113,10 @@ Alice.NFAStateMove.prototype.get = function(input) {
 }
 Alice.NFAStateMove.prototype.toString = function(){
 	var str="【";
-	for(var i=0;i<this.moves.length;i++)
-		str += this.moves[i][0]+"->"+this.moves[i][1].id+";";
+	for(var i=0;i<this.moves.length;i++){
+		var c=this.moves[i][0];
+		str+=(Alice.Help._d[c] ? Alice.Help._d[c] : c )+ "->"+ this.moves[i][1].id+";";
+	}
 	str+="】";
 	return str;
 }
@@ -130,7 +132,7 @@ Alice.NFAState = function(isAccept, name) {
 }
 Alice.NFAState.__auto_id__ = 0;
 Alice.NFAState.prototype.toString=function(){
-	return this.callBase('toString');
+	return this.callBase('toString'); 
 }
 jQuery.inherit(Alice.NFAState, Alice.State);
 
@@ -196,6 +198,12 @@ Alice.NFA.prototype._add_state = function(s) {
 			this.inputs.push(mi);
 		}
 	}
+}
+Alice.NFA.prototype.toString = function(state) {
+	var rtn="";
+	for(var i=0;i<this.states.length;i++)
+		rtn+=this.states[i].toString()+" ; ";
+	return rtn;
 }
 /***********************/
 /*
@@ -322,7 +330,7 @@ Alice.NFA.createNumberNFA = function(nfa, num, from) {
 	var link=(from==null?false:true);
 	var link_node=[];
 	if(from===0)
-		link_node.push(rtn.finish);
+		link_node.push(rtn.start);
 	for(var i = 1; i < num; i++) {
 		if(link===true && i>=from)
 			link_node.push(rtn.finish);

@@ -79,9 +79,9 @@ window.onload=function(){
 					this.__inherit_deep__=0;
 				}else{
 					this.__inherit_deep__++;
+					//$.dprint("d+:"+this.__inherit_deep__);
 				}
 				
-			
 				baseClass=inheritClass.__base_objects__[this.__inherit_deep__];
 				
 				
@@ -97,6 +97,8 @@ window.onload=function(){
 				}
 				
 				this.__inherit_deep__--;
+				
+				//$.dprint("d-:"+this.__inherit_deep__);
 				return rtn;
 			}
 			/**
@@ -107,12 +109,15 @@ window.onload=function(){
 			inheritClass.prototype.callBase = function( method, args){
 				
 				var baseClass=null, rtn=undefined;
+			
 				if(typeof this.__inherit_deep__==='undefined' ){
 					this.__inherit_deep__=0;
+			
 				}else{
 					this.__inherit_deep__++;
+					//$.dprint("d+:"+this.__inherit_deep__);
 				}
-				
+			
 				//$.dprint(this.__inherit_deep__);
 				baseClass=inheritClass.__base_objects__[this.__inherit_deep__];
 				
@@ -135,6 +140,9 @@ window.onload=function(){
 				}
 				
 				this.__inherit_deep__--;
+				
+				//$.dprint("d-:"+this.__inherit_deep__);
+				//$.dprint("----");
 				return rtn;
 			}
 		}

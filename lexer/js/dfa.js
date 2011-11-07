@@ -17,20 +17,20 @@ Alice.DFAStateMove = function() {
 	this.defined = [];
 	this.definedNext = [];
 	//[^]排除语法
-	this.excepted=[];
-	this.exceptedNext=[];
+	this.excepted = [];
+	this.exceptedNext = [];
 	//直接单字符
 	this.directed = {};
 }
 
 Alice.DFAStateMove.prototype.add = function(cond, next) {
-	if(cond instanceof Array){
-		if(this.excepted.indexOf(cond) === -1){
+	if( cond instanceof Array) {
+		if(this.excepted.indexOf(cond) === -1) {
 			this.excepted.push(cond);
 			this.exceptedNext.push(next);
 		} else
 			throw "DFA 状态转移一个输入只能有一个输出！(excepted)";
-	}else if( typeof cond === 'string') {
+	} else if( typeof cond === 'string') {
 		if(this.directed[cond] == null) {
 			this.directed[cond] = next;
 		} else
@@ -58,20 +58,19 @@ Alice.DFAStateMove.prototype.get = function(input) {
 	 * 在Alice.StateMove.Tag中的数值。对数组中每个数据，如果在Alice.StateMove.Func中存在对应
 	 * 判断函数（func!=null），说明该数据是预定义的转移条件（如\d）.如果不存在对应判断函数，说明该数据是
 	 * 一个直接的单字符，那么直接看单字符与input是否相等。
-	 * 
+	 *
 	 */
 	var T = Alice.StateMove.Tag;
 	var F = Alice.StateMove.Func;
-	
-	for(var i=0; i< this.excepted.length; i++) {
+
+	for(var i = 0; i < this.excepted.length; i++) {
 		//$.dprint("check excepted.");
-		var e=this.excepted[i];
-		var _in=false;
-		for(var j=0;j<e.length;j++){
-			var func=F[e[j]];
-			if((func!=null && func(input)===true)
-				|| e[j]===input){
-				_in=true;
+		var e = this.excepted[i];
+		var _in = false;
+		for(var j = 0; j < e.length; j++) {
+			var func = F[e[j]];
+			if((func != null && func(input) === true) || e[j] === input) {
+				_in = true;
 				break;
 			}
 		}
@@ -79,16 +78,16 @@ Alice.DFAStateMove.prototype.get = function(input) {
 		 * 如果某个排除转移条件成立，即input不在排除数组中，即input满足[^a-z\d]类似的条件，
 		 * 则返回转移后的状态
 		 */
-		if(_in===false)
+		if(_in === false)
 			return this.exceptedNext[i];
 	}
-	
+
 	/**
 	 * 如果input没有满足任何排除转移，再检查是否满足预定义的条件，如\d \D \w等。
 	 */
 	for(var i = 0; i < this.defined.length; i++) {
 		//$.dprint("check defined");
-		if(F[this.defined[i]](input)===true){
+		if(F[this.defined[i]](input) === true) {
 			return this.definedNext[i];
 		}
 	}
@@ -100,28 +99,25 @@ Alice.DFAStateMove.prototype.get = function(input) {
 	return this.directed[input];
 
 }
-Alice.DFAStateMove.prototype.toString = function(){
-	var D=Alice.Help._d;
-	
-	var str="【";
-	
-	for(var i=0;i<this.excepted.length;i++){
-		var e=this.excepted[i];
-		var s2="[^"
-		for(var j=0;j<e.length;j++)
-			s2+=(D[e[j]]==true?D[e[j]]:e[j]);
-		s2+="]->"+this.exceptedNext[i].id;
-		str+=s2+","
+Alice.DFAStateMove.prototype.toString = function() {
+	var D = Alice.Help._d;
+
+	var str = "【";
+
+	for(var i = 0; i < this.excepted.length; i++) {
+		var e = this.excepted[i];
+		str += "[^"
+		for(var j = 0; j < e.length; j++)
+			str += D[e[j]] ? D[e[j]] : e[j];
+		str += "]->" + this.exceptedNext[i].id + ',';
 	}
-	for(var i=0;i<this.defined.length;i++){
-		str+=(D[this.defined[i]]==true?D[this.defined[i]]:this.defined[i]);
-		str+="->"+this.definedNext[i].id+",";
+	for(var i = 0; i < this.defined.length; i++)
+		str += (D[this.defined[i]] ? D[this.defined[i]] : this.defined[i]) + "->" + this.definedNext[i].id + ",";
+
+	for(var i in this.directed) {
+		str += i + "->" + this.directed[i].id + ","
 	}
-	
-	for(var i in this.directed){
-		str+=i+"->"+this.directed[i].id+","
-	}
-	str+='】';
+	str += '】';
 	return str;
 }
 jQuery.inherit(Alice.DFAStateMove, Alice.StateMove);
@@ -135,7 +131,7 @@ Alice.DFAState = function(isAccept, name) {
 }
 Alice.DFAState.__auto_id__ = 0;
 
-Alice.DFAState.prototype.toString=function(){
+Alice.DFAState.prototype.toString = function() {
 	return this.callBase('toString');
 }
 
@@ -154,4 +150,10 @@ Alice.DFA.prototype.addState = function(state) {
 	else
 		for(var i = 0; i < arguments.length; i++)
 		this.states.push(arguments[i]);
+}
+Alice.DFA.prototype.toString = function(state) {
+	var rtn = "";
+	for(var i = 0; i < this.states.length; i++)
+	rtn += this.states[i].toString() + " ; ";
+	return rtn;
 }

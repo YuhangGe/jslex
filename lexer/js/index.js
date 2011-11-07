@@ -28,7 +28,7 @@ function quickAddMove(table){
 
 r=null;
 function doCheck(){
-	var reg_str=$.trim($("#regexp").val());
+	var reg_str=$("#regexp").val();
 	var txt = $("#text").val();
 	if(r===null || r.toString()!==reg_str){
 		$.dprint("new regexp:"+reg_str);

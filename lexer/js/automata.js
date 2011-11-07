@@ -13,6 +13,7 @@ Alice.AutoMata.prototype.check=function(str){
 	this.str=str;
 	this.len=str.length;
 	this.idx=0;
+	var pre_state;
 	var state=this.dfa.start;
 	
 	while(true){
@@ -20,9 +21,11 @@ Alice.AutoMata.prototype.check=function(str){
 		if(this.cur_ch===null)
 			break;
 		//$.dprint(this.cur_ch);
+		pre_state=state;
 		state=state.getMove(this.cur_ch);
 		if(state==null){
 			$.dprint("not found next state!")
+			$.dprint(this.cur_ch+" -) "+pre_state);
 			return false;
 		}
 		else{

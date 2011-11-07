@@ -34,6 +34,7 @@ Alice.Regular = {}; (function() {
 		'?' : 11,
 		'{' : 12,
 		'}' : 13,
+		'?' : 14,
 		CHAR : 17,
 		DEFINED : 18 // \d \D \s \S \w
 	}
@@ -125,6 +126,7 @@ Alice.Str2Nfa.prototype.read_token = function() {
 		case '}':
 		case '+':
 		case '-':
+		case '?':
 			this.cur_t = new R.Token(R.Tag[c], c);
 			break;
 		default:
@@ -199,11 +201,11 @@ Alice.Str2Nfa.prototype._t = function() {
 			this.read_token();
 			break;
 		case R.Tag['+']:
-			nfa1 = Alice.NFA.createPlusNFA(nfa1);
+			nfa1 = Alice.NFA.createBoundNFA(nfa1,1,null);
 			this.read_token();
 			break;
 		case R.Tag['?']:
-			nfa1 = Alice.NFA.createQuesNFA(nfa1);
+			nfa1 = Alice.NFA.createNumberNFA(nfa1,1,0);
 			this.read_token();
 			break;
 		case R.Tag['{']:
