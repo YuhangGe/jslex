@@ -250,6 +250,12 @@ Alice.Str2Nfa.prototype._d = function(nfa) {
 	}
 	low = (low_str === "" ? null : Number(low_str));
 	high = (high_str === "" ? null : Number(high_str));
+	
+	if(!low && !high)
+		throw "_d 2";
+	else if(low && high && high<=low)
+		return Alice.NFA.createNumberNFA(nfa,low);
+	
 	return Alice.NFA.createBoundNFA(nfa, low, high);
 }
 Alice.Str2Nfa.prototype._s = function() {

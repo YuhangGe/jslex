@@ -19,6 +19,7 @@ Alice.AutoMata.prototype.check=function(str){
 		this.read_ch();
 		if(this.cur_ch===null)
 			break;
+		//$.dprint(this.cur_ch);
 		state=state.getMove(this.cur_ch);
 		if(state==null){
 			$.dprint("not found next state!")

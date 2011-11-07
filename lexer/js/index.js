@@ -26,11 +26,17 @@ function quickAddMove(table){
 	}
 }
 
-$(function() {
-	var str="[^\\d\\D]";
-	r=new Alice.Reg(str);
-	r.compile();
-	
-	$.dprint(r.test("7"));
-
-});
+r=null;
+function doCheck(){
+	var reg_str=$.trim($("#regexp").val());
+	var txt = $("#text").val();
+	if(r===null || r.toString()!==reg_str){
+		$.dprint("new regexp:"+reg_str);
+		r=new Alice.RegExp(reg_str);
+	}
+	if(r.test(txt)===true){
+		$("#result").removeClass("failure").html("Success!<br/><i>"+txt+"</i> matches <i>"+reg_str+"</i>");
+	}else{
+		$("#result").addClass("failure").html("Failure!<br/><i>"+txt+"</i> does't match <i>"+reg_str+"</i>");
+	}
+}

@@ -28,6 +28,21 @@ Alice.Help = {};
 
 
 jQuery.extend(Alice.Help, {
+	_d : {
+		'0' : "\\d",		//数字：	\d
+		'1' :  "\\D",	//非数字：	\D
+		'2' :  "\\s",	//空字符\f\n\r\t\v：	\s
+		'3' :  "\\S",	//非字符：	\S
+		'4' :  "\\w",		//字符a-zA-Z_：\s
+		'5' :  "\\W",	//非字符：	\W
+		'6':  "\\a",		//字母：	\a
+		'7' :  "\\A",	//非字母：	\A
+		'8' :  "\\u",		//大写字母：\u
+		'9' :  "\\U",	//非大写字母：\U
+		'10' :"\\l",	//小写字母：\l
+		'11' :  "\\L",	//非小写字母：\L
+		'12' :  ".",	//除\n外任意字符：.
+	},
 	/**
 	 * 得到实际串的不重复循环，主要用在生成DFA状态时状态的名称。
 	 * a,b,c,...,z,aa,bb,cc,...,zz,aaa,....
@@ -91,7 +106,7 @@ jQuery.extend(Alice.Help, {
 		return chr < 'A' || chr > 'Z' && chr < 'a' || chr > 'z';
 	},
 	isWord : function(chr) {
-		$.dprint("isWord:" + chr);
+		//$.dprint("isWord:" + chr);
 		return chr >= 'a' && chr <= 'z' || chr >= 'A' && chr <= 'Z' || chr === '_';
 	},
 	isNotWord : function(chr) {
@@ -119,3 +134,5 @@ jQuery.extend(Alice.Help, {
 		return chr!=='\n';
 	}
 });
+
+

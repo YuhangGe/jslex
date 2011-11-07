@@ -77,9 +77,9 @@ Alice.State = function(isAccept, name) {
 }
 Alice.State.prototype.toString = function() {
 	if(this.name)
-		return this.name + '(' + this.id + ')' + (this.isAccept === true ? "[accept]" : "");
+		return this.name + '(' + this.id + ')' + (this.isAccept === true ? "[acc]" : "")+this.moves.toString();
 	else
-		return this.id + (this.isAccept === true ? "[accept]" : "");
+		return this.id + (this.isAccept === true ? "[acc]" : "")+this.moves.toString();
 }
 Alice.State.prototype.equals = function(state) {
 	return this.id === state.id;
@@ -111,7 +111,13 @@ Alice.NFAStateMove.prototype.get = function(input) {
 	}
 	return rtn;
 }
-
+Alice.NFAStateMove.prototype.toString = function(){
+	var str="【";
+	for(var i=0;i<this.moves.length;i++)
+		str += this.moves[i][0]+"->"+this.moves[i][1].id+";";
+	str+="】";
+	return str;
+}
 jQuery.inherit(Alice.NFAStateMove, Alice.StateMove);
 
 /**
@@ -123,7 +129,9 @@ Alice.NFAState = function(isAccept, name) {
 	this.moves = new Alice.NFAStateMove();
 }
 Alice.NFAState.__auto_id__ = 0;
-
+Alice.NFAState.prototype.toString=function(){
+	return this.callBase('toString');
+}
 jQuery.inherit(Alice.NFAState, Alice.State);
 
 /**
@@ -309,38 +317,39 @@ Alice.NFA.createStrNFA = function(str) {
 /**
  * 以下用于从正则到nfa构造时的扩展方法，包括+,?,{}等
  */
-Alice.NFA.createNumberNFA = function(nfa, num) {
-	if(!num || num <= 0)
-		return Alice.NFA.createSingleNFA(Alice.e);
-	nfa = nfa.copy();
-	var rtn = nfa, cur = nfa;
+Alice.NFA.createNumberNFA = function(nfa, num, from) {
+	var rtn = nfa.copy();
+	var link=(from==null?false:true);
+	var link_node=[];
+	if(from===0)
+		link_node.push(rtn.finish);
 	for(var i = 1; i < num; i++) {
-		cur = cur.copy();
-		rtn = Alice.NFA.createJoinNFA(rtn, cur);
+		if(link===true && i>=from)
+			link_node.push(rtn.finish);
+		rtn = Alice.NFA.createJoinNFA(rtn, nfa.copy());
 	}
+	if(link===true)
+		for(var i=0;i<link_node.length;i++)
+			link_node[i].addMove(Alice.e,rtn.finish);
 	return rtn;
 }
 Alice.NFA.createBoundNFA = function(nfa, low, high) {
+	
+	if(low===null || low<=0)
+		low=0;
+	
 	nfa = nfa.copy()
-	if(!low && !high)
-		return nfa;
-	if(!high) {
-		if(low <= 0)
+	
+	if(high===null) {
+		if(low === 0)
 			return Alice.NFA.createStarNFA(nfa);
 		var l = Alice.NFA.createNumberNFA(nfa, low);
 		var rtn = Alice.NFA.createStarNFA(nfa);
 		rtn = Alice.NFA.createJoinNFA(l, rtn);
 		return rtn;
 	}
-	if(!low || low < 0)
-		low = 0;
-	if(high <= low)
-		return Alice.NFA.createNumberNFA(nfa, low);
+	var rtn = Alice.NFA.createNumberNFA(nfa, high, low);
 
-	var rtn = Alice.NFA.createNumberNFA(nfa, low);
-	for(var i = low + 1; i <= high; i++) {
-		rtn = Alice.NFA.createOrNFA(rtn, Alice.NFA.createNumberNFA(nfa, i));
-	}
 	return rtn;
 }
 Alice.NFA.createPlusNFA = function(nfa) {

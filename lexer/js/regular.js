@@ -1,23 +1,26 @@
 if(typeof Alice ==='undefined')
 	Alice={};
 	
-Alice.Reg=function(str){
+Alice.RegExp=function(str){
 	this.str=str;
 	this.dfa=null;
 	this.am=new Alice.AutoMata(this.dfa);
 }
-Alice.Reg.Str2Nfa=new Alice.Str2Nfa();
-Alice.Reg.prototype.compile=function(){
-	var nfa=Alice.Reg.Str2Nfa.run(this.str);
+Alice.RegExp.Str2Nfa=new Alice.Str2Nfa();
+Alice.RegExp.prototype.compile=function(){
+	var nfa=Alice.RegExp.Str2Nfa.run(this.str);
 	$.dprint('-------------');
 	$.dprint(nfa);
 	$.dprint('--------------');
 	this.dfa=Alice.Nfa2Dfa.parse(nfa);
 	$.dprint(this.dfa);
 }
-Alice.Reg.prototype.test=function(value){
+Alice.RegExp.prototype.test=function(value){
 	if(this.dfa===null)
 		this.compile();
 	this.am.dfa=this.dfa;
 	return this.am.check(value);
+}
+Alice.RegExp.prototype.toString=function(){
+	return this.str;
 }

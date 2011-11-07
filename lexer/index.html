@@ -15,7 +15,40 @@
 		<script src="js/index.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<textarea cols="5" rows="5" id="i"></textarea>
-		<button onclick="$.dprint($('#i').val());"></button>
+		<style type="text/css">
+			* {
+				margin:0px;
+				padding:0px;
+			}
+			div{
+				margin: 5px;
+				height:30px;
+				font-size:25px;
+			}
+			label{
+				margin-right:5px;
+				display:inline-block;
+				width:100px;
+			}
+			div input[type="text"]{
+				width: 250px;
+				height: 100%;
+				font-size: 20px;
+				padding-left:3px;
+			}
+			.success{
+				color: green;
+			}
+			.failure{
+				color: red;
+			}
+			i{
+				color:#008000;
+			}
+		</style>
+		<div><label>RegExp:</label><input type="text" id="regexp"/></div>
+		<div><label>Text:</label><input type="text" id="text" /></div>
+		<div><input type="button" onclick="doCheck();" value="Check" /></div>
+		<div id="result" class="success"></div>
 	</body>
 </html>

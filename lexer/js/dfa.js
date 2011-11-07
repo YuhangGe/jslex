@@ -64,6 +64,7 @@ Alice.DFAStateMove.prototype.get = function(input) {
 	var F = Alice.StateMove.Func;
 	
 	for(var i=0; i< this.excepted.length; i++) {
+		//$.dprint("check excepted.");
 		var e=this.excepted[i];
 		var _in=false;
 		for(var j=0;j<e.length;j++){
@@ -86,16 +87,42 @@ Alice.DFAStateMove.prototype.get = function(input) {
 	 * 如果input没有满足任何排除转移，再检查是否满足预定义的条件，如\d \D \w等。
 	 */
 	for(var i = 0; i < this.defined.length; i++) {
+		//$.dprint("check defined");
 		if(F[this.defined[i]](input)===true){
-			return this.definedNext[j];
+			return this.definedNext[i];
 		}
 	}
 	/**
 	 * 最后返回直接字符跳转。这里没有判断this.directed中是否有input对应的跳转，
 	 * 因为如果没有，会自动返回undefined。
 	 */
+	//$.dprint('check directed');
 	return this.directed[input];
 
+}
+Alice.DFAStateMove.prototype.toString = function(){
+	var D=Alice.Help._d;
+	
+	var str="【";
+	
+	for(var i=0;i<this.excepted.length;i++){
+		var e=this.excepted[i];
+		var s2="[^"
+		for(var j=0;j<e.length;j++)
+			s2+=(D[e[j]]==true?D[e[j]]:e[j]);
+		s2+="]->"+this.exceptedNext[i].id;
+		str+=s2+","
+	}
+	for(var i=0;i<this.defined.length;i++){
+		str+=(D[this.defined[i]]==true?D[this.defined[i]]:this.defined[i]);
+		str+="->"+this.definedNext[i].id+",";
+	}
+	
+	for(var i in this.directed){
+		str+=i+"->"+this.directed[i].id+","
+	}
+	str+='】';
+	return str;
 }
 jQuery.inherit(Alice.DFAStateMove, Alice.StateMove);
 
@@ -107,6 +134,10 @@ Alice.DFAState = function(isAccept, name) {
 	this.moves = new Alice.DFAStateMove();
 }
 Alice.DFAState.__auto_id__ = 0;
+
+Alice.DFAState.prototype.toString=function(){
+	return this.callBase('toString');
+}
 
 $.inherit(Alice.DFAState, Alice.State);
 
