@@ -188,13 +188,14 @@ Alice.NFA.prototype.addState = function(state) {
 Alice.NFA.prototype._add_state = function(s) {
 	this.states.push(s);
 
-	//$.dprint(s);
+	//$.dprint("s");
 	var m = s.moves.moves;
 	//$.dprint("add state "+m.length);
 	for(var i = 0; i < m.length; i++) {
 		var mi = m[i][0];
-		//$.dprint(mi);
-		if(mi !== Alice.e && !Alice.Help.inArray(this.inputs, mi)) {
+		
+		if(mi !== Alice.e && this.inputs.indexOf(mi)===-1) {
+			$.dprint('\''+mi+'\'');
 			this.inputs.push(mi);
 		}
 	}
@@ -359,12 +360,4 @@ Alice.NFA.createBoundNFA = function(nfa, low, high) {
 	var rtn = Alice.NFA.createNumberNFA(nfa, high, low);
 
 	return rtn;
-}
-Alice.NFA.createPlusNFA = function(nfa) {
-	var c_n = nfa.copy();
-	return Alice.NFA.createJoinNFA(c_n, Alice.NFA.createStarNFA(nfa));
-}
-Alice.NFA.createQuesNFA = function(nfa) {
-	var e_n = Alice.NFA.createSingleNFA(Alice.e);
-	return Alice.NFA.createOrNFA(e_n, nfa);
 }

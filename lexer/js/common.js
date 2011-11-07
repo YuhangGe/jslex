@@ -61,23 +61,6 @@ jQuery.extend(Alice.Help, {
 			return rtn;
 		}
 	},
-
-	/**
-	 * 辅助函数，判断元素elem是否在数组arr中。
-	 * 如果元素是NFAState或DFAState类，调用类的equals函数
-	 */
-	inArray : function(arr, elem) {
-		var a_t = ( elem instanceof Alice.NFAState || elem instanceof Alice.DFAState);
-		for(var i = 0; i < arr.length; i++)
-		if(a_t === true) {
-			if(arr[i].equals(elem))
-				return true;
-		} else {
-			if(arr[i] == elem)
-				return true;
-		}
-		return false;
-	},
 	/**
 	 * 比较两个集合是否一样，因为保证了是集合，所以算法相对简单。
 	 * 元素个数相同且第一个集合中每个元素都在第二个集合中就行了。
@@ -86,7 +69,7 @@ jQuery.extend(Alice.Help, {
 		if(set1.length !== set2.length)
 			return false;
 		for(var i = 0; i < set1.length; i++) {
-			if(!Alice.Help.inArray(set2, set1[i]))
+			if(set2.indexOf(set1[i])!==-1)
 				return false;
 		}
 		return true;
