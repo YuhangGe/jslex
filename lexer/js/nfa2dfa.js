@@ -84,29 +84,30 @@ Alice.Nfa2Dfa = {
 		var T;
 		while(( T = this.get_untag_state(dstates)) !== null) {
 			T.tag = true;
-			$.dprint("untag:"+T.id);
-			$.dprint(T);
+			//$.dprint("untag:"+T.id);
+			//$.dprint(T);
 			for(var i = 0; i < inputs.length; i++) {
-				$.dprint('move:'+inputs[i]);
-				$.dprint(T.nfaset);
+				//$.dprint('move:'+Alice.Help._d.get(inputs[i]));
+				//$.dprint(T.nfaset);
 				var tmp_m = this.move(T.nfaset, inputs[i]);
-				$.dprint(tmp_m);
+				//$.dprint(tmp_m);
 				if(tmp_m.length === 0)
 					continue;
 				
 				var tmp_s = this.e_closure(tmp_m);
-				$.dprint("e_closure");
-				$.dprint(tmp_s);
+				//$.dprint("e_closure");
+				//$.dprint(tmp_s);
 
 				var U = this.get_exist(tmp_s,dstates);
+				//$.dprint("U:"+U);
 				if(U === null) {
 					U = new Alice.DFAState(this.is_accept, Alice.Help._n.get());
 					U.nfaset = tmp_s;
-					$.dprint("push "+U.id);
-					$.dprint(U.nfaset);
+					//$.dprint("push "+U.id);
+					//$.dprint(U.nfaset);
 					dstates.push(U);
 				}
-				$.dprint("add "+T.id+" "+inputs[i]+","+U.id);
+				//$.dprint("add "+T.id+" "+inputs[i]+","+U.id);
 				T.addMove(inputs[i], U);
 			}
 		}

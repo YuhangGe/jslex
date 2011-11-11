@@ -26,22 +26,27 @@ Alice.e = {
  */
 Alice.Help = {};
 
-
 jQuery.extend(Alice.Help, {
 	_d : {
-		0 : "\\d",		//数字：	\d
-		1 :  "\\D",	//非数字：	\D
-		2 :  "\\s",	//空字符\f\n\r\t\v：	\s
-		3 :  "\\S",	//非字符：	\S
-		4 :  "\\w",		//字符a-zA-Z_：\s
-		5 :  "\\W",	//非字符：	\W
-		6 :  "\\a",		//字母：	\a
-		7 :  "\\A",	//非字母：	\A
-		8 :  "\\u",		//大写字母：\u
-		9 :  "\\U",	//非大写字母：\U
-		10 :"\\l",	//小写字母：\l
-		11 :  "\\L",	//非小写字母：\L
-		12 :  ".",	//除\n外任意字符：.
+		0 : "\\d", //数字：	\d
+		1 : "\\D", //非数字：	\D
+		2 : "\\s", //空字符\f\n\r\t\v：	\s
+		3 : "\\S", //非字符：	\S
+		4 : "\\w", //字符a-zA-Z_：\s
+		5 : "\\W", //非字符：	\W
+		6 : "\\a", //字母：	\a
+		7 : "\\A", //非字母：	\A
+		8 : "\\u", //大写字母：\u
+		9 : "\\U", //非大写字母：\U
+		10 : "\\l", //小写字母：\l
+		11 : "\\L", //非小写字母：\L
+		12 : ".", //除\n外任意字符：.
+		get : function(id) {
+			if(this[id])
+				return this[id];
+			else
+				return id;
+		}
 	},
 	/**
 	 * 得到实际串的不重复循环，主要用在生成DFA状态时状态的名称。
@@ -51,13 +56,21 @@ jQuery.extend(Alice.Help, {
 		i : -1,
 		names : "abcdefghigklmnopqrstuvwxyz".split(''),
 		get : function() {
-			this.i++;
+			var n = ++this.i;
 			var len = this.names.length;
-			var a = this.i % len;
-			var b = Math.floor(this.i / len) + 1;
-			var rtn = "";
-			for(var j = 0; j < b; j++)
-				rtn += this.names[a];
+			var chr = [];
+			var k;
+			while(true){
+				k = n % len;
+				chr.push(this.names[k]);
+				n = (n - k) / len;
+				if(n===0)
+					break;
+			}
+			//$.dprint(chr);
+			var rtn="";
+			for(var i=chr.length-1;i>=0;i--)
+				rtn+=chr[i];
 			return rtn;
 		}
 	},
@@ -69,7 +82,7 @@ jQuery.extend(Alice.Help, {
 		if(set1.length !== set2.length)
 			return false;
 		for(var i = 0; i < set1.length; i++) {
-			if(set2.indexOf(set1[i])!==-1)
+			if(set2.indexOf(set1[i]) === -1)
 				return false;
 		}
 		return true;
@@ -90,32 +103,30 @@ jQuery.extend(Alice.Help, {
 	},
 	isWord : function(chr) {
 		//$.dprint("isWord:" + chr);
-		return chr >= 'a' && chr <= 'z' || chr >= 'A' && chr <= 'Z' || chr === '_';
+		return this.isLetter(chr) || this.isDigit(chr) || chr === '_';
 	},
 	isNotWord : function(chr) {
-		return !(chr >= 'a' && chr <= 'z' || chr >= 'A' && chr <= 'Z' || chr === '_');
+		return !this.isWord(chr);
 	},
 	isSpace : function(chr) {
-		return chr===' ' || chr==='\t' || chr==='\n' || chr==='\r' || chr==='\f' || chr==='\v';
+		return chr === ' ' || chr === '\t' || chr === '\n' || chr === '\r' || chr === '\f' || chr === '\v';
 	},
-	isNotSpace : function(chr){
-		return chr!==' ' && chr!=='\t' && chr!=='\n' && chr!=='\r' && chr!=='\f' && chr!=='\v';
+	isNotSpace : function(chr) {
+		return !this.isNotSpace(chr);
 	},
-	isUpper : function(chr){
-		return chr>='A' && chr <='Z';
+	isUpper : function(chr) {
+		return chr >= 'A' && chr <= 'Z';
 	},
-	isNotUpper : function(chr){
-		return chr<'A' || chr> 'Z';
+	isNotUpper : function(chr) {
+		return chr < 'A' || chr > 'Z';
 	},
-	isLower : function(chr){
-		return chr>='a' && chr<='z';
+	isLower : function(chr) {
+		return chr >= 'a' && chr <= 'z';
 	},
-	isNotLower : function(chr){
-		return chr<'a' || chr >'z';
+	isNotLower : function(chr) {
+		return chr < 'a' || chr > 'z';
 	},
-	isDot : function(chr){
-		return chr!=='\n';
+	isDot : function(chr) {
+		return chr !== '\n';
 	}
 });
-
-

@@ -113,10 +113,9 @@ Alice.NFAStateMove.prototype.get = function(input) {
 }
 Alice.NFAStateMove.prototype.toString = function(){
 	var str="【";
-	for(var i=0;i<this.moves.length;i++){
-		var c=this.moves[i][0];
-		str+=(Alice.Help._d[c] ? Alice.Help._d[c] : c )+ "->"+ this.moves[i][1].id+";";
-	}
+	for(var i=0;i<this.moves.length;i++)
+		str+=Alice.Help._d.get(this.moves[i][0])+ "->"+ this.moves[i][1].id+";";
+	
 	str+="】";
 	return str;
 }
@@ -195,7 +194,7 @@ Alice.NFA.prototype._add_state = function(s) {
 		var mi = m[i][0];
 		
 		if(mi !== Alice.e && this.inputs.indexOf(mi)===-1) {
-			$.dprint('\''+mi+'\'');
+			//$.dprint('\''+mi+'\'');
 			this.inputs.push(mi);
 		}
 	}

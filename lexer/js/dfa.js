@@ -100,19 +100,17 @@ Alice.DFAStateMove.prototype.get = function(input) {
 
 }
 Alice.DFAStateMove.prototype.toString = function() {
-	var D = Alice.Help._d;
-
 	var str = "【";
 
 	for(var i = 0; i < this.excepted.length; i++) {
 		var e = this.excepted[i];
 		str += "[^"
 		for(var j = 0; j < e.length; j++)
-			str += D[e[j]] ? D[e[j]] : e[j];
+			str += Alice.Help._d.get(e[j]);
 		str += "]->" + this.exceptedNext[i].id + ',';
 	}
 	for(var i = 0; i < this.defined.length; i++)
-		str += (D[this.defined[i]] ? D[this.defined[i]] : this.defined[i]) + "->" + this.definedNext[i].id + ",";
+		str += Alice.Help._d.get(this.defined[i]) + "->" + this.definedNext[i].id + ",";
 
 	for(var i in this.directed) {
 		str += i + "->" + this.directed[i].id + ","
