@@ -13,6 +13,7 @@
 		<script src="js/str2nfa.js" type="text/javascript"></script>
 		<script src="js/regular.js" type="text/javascript"></script>
 		<script src="js/lex/lex2dfa.js" type="text/javascript"></script>
+		<script src="js/lex/output.js" type="text/javascript"></script>
 		<script src="js/index.js" type="text/javascript"></script>
 	</head>
 	<body>
@@ -46,8 +47,14 @@
 			i{
 				color:#008000;
 			}
+			#c_left{
+				float: left;
+			}
+			#c_right{
+				float: left;
+			}
 		</style>
-		
+	<div id="c_left">
 		<div><label>RegExp:</label><input type="text" id="regexp"/></div>
 		<div><label>Text:</label><input type="text" id="text" /></div>
 		<div><input type="button" onclick="doCheck();" value="Check" />
@@ -56,15 +63,15 @@
 		<div id="result" class="success"></div>
 		<div><textarea id="lexSrc" cols="50" rows="10">		
 		
-M1 a
-M2 abb
-M3 a*b+
+M0 a
+M1 abb
+M2 a*b+
 
 $$
 
+M0 $.log("M0");
 M1 $.log("M1");
 M2 $.log("M2");
-M3 $.log("M3");
 
 
 $$
@@ -73,5 +80,10 @@ $(function(){
 });
 		</textarea></div>
 		<div><input type="button" onclick="doLex();" value="Lex"/></div>
+	</div>	
+	<div id="c_right">
+		<div><textarea cols="60" rows="20" id="lexOutput"></textarea></div>
+		<div><input type="button" value="Run" /></div>
+	</div>
 	</body>
 </html>
