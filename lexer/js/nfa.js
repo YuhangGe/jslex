@@ -23,19 +23,19 @@ Alice.StateMove.Func={};
 	var F=Alice.StateMove.Func;
 	var H=Alice.Help;
 	
-	T.DIGIT = 0; 		//数字：	\d
-	T.NOT_DIGIT = 1;	//非数字：	\D
-	T.SPACE = 2;	//空字符\f\n\r\t\v：	\s
-	T.NOT_SPACE = 3;	//非字符：	\S
-	T.WORD = 4;		//字符a-zA-Z_：\s
-	T.NOT_WORD = 5;	//非字符：	\W
-	T.LETTER = 6;		//字母：	\a
-	T.NOT_LETTER = 7;	//非字母：	\A
-	T.UPPER = 8;		//大写字母：\u
-	T.NOT_UPPER = 9;	//非大写字母：\U
-	T.LOWER = 10;	//小写字母：\l
-	T.NOT_LOWER = 11;	//非小写字母：\L
-	T.DOT = 12;	//除\n外任意字符：.
+	T.DIGIT = 10; 		//数字：	\d
+	T.NOT_DIGIT = 11;	//非数字：	\D
+	T.SPACE = 12;	//空字符\f\n\r\t\v：	\s
+	T.NOT_SPACE = 13;	//非字符：	\S
+	T.WORD = 14;		//字符a-zA-Z_：\s
+	T.NOT_WORD = 15;	//非字符：	\W
+	T.LETTER = 16;		//字母：	\a
+	T.NOT_LETTER = 17;	//非字母：	\A
+	T.UPPER = 18;		//大写字母：\u
+	T.NOT_UPPER = 19;	//非大写字母：\U
+	T.LOWER = 20;	//小写字母：\l
+	T.NOT_LOWER = 21;	//非小写字母：\L
+	T.DOT = 22;	//除\n外任意字符：.
 	
 	F[T.DIGIT]=H.isDigit;
 	F[T.NOT_DIGIT]=H.isNotDigit;
@@ -73,7 +73,7 @@ Alice.State = function(isAccept, name) {
 	
 	//在子类中初始化
 	this.moves = null;
-
+	this.action = null;
 }
 Alice.State.prototype.toString = function() {
 	if(this.name)
@@ -135,6 +135,17 @@ Alice.NFAState.prototype.toString=function(){
 }
 jQuery.inherit(Alice.NFAState, Alice.State);
 
+/*
+ * 模式的动作类Action，id是用来标识该action的优先级，先声明的模式id小，在lex源码中，当出现
+ * 冲突的时候，优先选择id小的。
+ */
+Alice.Action = function(func){
+	this.id = Alice.Action.__auto_id__++;
+	this.func = func;
+}
+Alice.Action.__auto_id__ = 0;
+
+
 /**
  * nfa类
  */
@@ -144,6 +155,7 @@ Alice.NFA = function(start, finish) {
 	this.inputs = [];
 	this.start = start;
 	this.finish = finish;
+
 }
 Alice.NFA.prototype.copy = function() {
 	var targets = [];
@@ -306,6 +318,8 @@ Alice.NFA.createMultiNFA = function(arr) {
  * 处理连续字符串，通常是由引号包含的部分
  */
 Alice.NFA.createStrNFA = function(str) {
+	if(str.length===0)
+		return Alice.NFA.createSingleNFA(Alice.e);
 	var s = new Alice.NFAState();
 	var pre = s, next = null;
 	var nfa = new Alice.NFA();

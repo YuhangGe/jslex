@@ -10,8 +10,9 @@
 		<script src="js/dfa.js" type="text/javascript"></script>
 		<script src="js/nfa2dfa.js" type="text/javascript"></script>
 		<script src="js/automata.js" type="text/javascript"></script>
-		<script src="js/str2nfa_ext.js" type="text/javascript"></script>
+		<script src="js/str2nfa.js" type="text/javascript"></script>
 		<script src="js/regular.js" type="text/javascript"></script>
+		<script src="js/lex/lex2dfa.js" type="text/javascript"></script>
 		<script src="js/index.js" type="text/javascript"></script>
 	</head>
 	<body>
@@ -22,7 +23,7 @@
 			}
 			div{
 				margin: 5px;
-				height:30px;
+				min-height:30px;
 				font-size:25px;
 			}
 			label{
@@ -46,9 +47,31 @@
 				color:#008000;
 			}
 		</style>
+		
 		<div><label>RegExp:</label><input type="text" id="regexp"/></div>
 		<div><label>Text:</label><input type="text" id="text" /></div>
-		<div><input type="button" onclick="doCheck();" value="Check" /></div>
+		<div><input type="button" onclick="doCheck();" value="Check" />
+			<input type="button" onclick="doCheck2();" value="Test" />
+		</div>
 		<div id="result" class="success"></div>
+		<div><textarea id="lexSrc" cols="50" rows="10">		
+		
+M1 a
+M2 abb
+M3 a*b+
+
+$$
+
+M1 $.log("M1");
+M2 $.log("M2");
+M3 $.log("M3");
+
+
+$$
+$(function(){
+   aliceLex();
+});
+		</textarea></div>
+		<div><input type="button" onclick="doLex();" value="Lex"/></div>
 	</body>
 </html>

@@ -27,12 +27,16 @@ Alice.Nfa2Dfa = {
 		var stack = [];
 		var e_c = [];
 		this.is_accept = false;
+	
+		
 		for(var i = 0; i < T.length; i++) {
 			stack.push(T[i]);
 			if(empty === true)
 				e_c.push(T[i]);
-			if(T[i].isAccept === true)
+			if(T[i].isAccept === true){
 				this.is_accept = true;
+			}
+				
 		}
 		while(stack.length > 0) {
 			var t = stack.pop();
@@ -44,8 +48,10 @@ Alice.Nfa2Dfa = {
 					e_c.push(u[i]);
 					if(empty === true)
 						stack.push(u[i]);
-					if(u[i].isAccept === true)
+					if(u[i].isAccept === true){
 						this.is_accept = true;
+					}
+						
 				}
 			}
 		}
@@ -112,7 +118,7 @@ Alice.Nfa2Dfa = {
 			}
 		}
 		//console.log(dstates);
-		var dfa = new Alice.DFA(dstates[0], dstates[dstates.length - 1]);
+		var dfa = new Alice.DFA(dstates[0]);
 		dfa.addState(dstates);
 
 		return dfa;

@@ -138,7 +138,6 @@ $.inherit(Alice.DFAState, Alice.State);
 Alice.DFA = function(start, finish) {
 	this.states = [];
 	this.start = start;
-	this.finish = finish;
 }
 
 Alice.DFA.prototype.addState = function(state) {

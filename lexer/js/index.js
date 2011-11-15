@@ -34,9 +34,28 @@ function doCheck(){
 		$.dprint("new regexp:"+reg_str);
 		r=new Alice.RegExp(reg_str);
 	}
-	if(r.test(txt)===true){
+	if(r.test(txt)){
 		$("#result").removeClass("failure").html("Success!<br/><i>"+txt+"</i> matches <i>"+reg_str+"</i>");
 	}else{
 		$("#result").addClass("failure").html("Failure!<br/><i>"+txt+"</i> does't match <i>"+reg_str+"</i>");
+	}
+}
+
+r2=null;
+lexDfa=null;
+
+function doLex(){
+	var lex_src=$('#lexSrc').val();
+	lexDfa = Alice.Lex.Parser.parse(lex_src);
+	$.dprint(lexDfa);
+}
+
+function doCheck2(){
+	var txt = $("#text").val();
+	r2=new Alice.AutoMata(lexDfa);
+	if(r2.check(txt)){
+		$("#result").removeClass("failure").html("Success!");
+	}else{
+		$("#result").addClass("failure").html("Failure!");
 	}
 }

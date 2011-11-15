@@ -6,9 +6,9 @@ Alice.RegExp=function(str){
 	this.dfa=null;
 	this.am=new Alice.AutoMata(this.dfa);
 }
-Alice.RegExp.Str2Nfa=new Alice.Str2Nfa();
+
 Alice.RegExp.prototype.compile=function(){
-	var nfa=Alice.RegExp.Str2Nfa.run(this.str);
+	var nfa=Alice.Regular.Str2Nfa.parse(this.str);
 	$.dprint('-------------');
 	$.dprint(nfa);
 	$.dprint('--------------');
