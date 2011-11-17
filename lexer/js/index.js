@@ -48,6 +48,8 @@ function doLex(){
 	var lex_src=$('#lexSrc').val();
 	lexDfa = Alice.Lex.Parser.parse(lex_src);
 	$.dprint(lexDfa);
+	var o = Alice.Lex.Dfa2Str.parse(lexDfa);
+	$('#lexOutput').val( o.func + o.table);
 }
 
 function doCheck2(){

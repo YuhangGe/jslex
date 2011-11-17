@@ -1,24 +1,7 @@
 if(typeof Alice ==='undefined')
 	Alice={};
 
-Alice.ActionFunc=[];
-
-
 Alice.Lex={};
-
-Alice.Lex.Tag={
-	EOF : -1,
-	'$$': 0,
-	'${': 2,
-	'}$': 3,
-	
-}
-
-Alice.Lex.Token=function(tag,value){
-	this.tag=tag;
-	this.value=value;
-}
-Alice.Lex.Token.EOF = new Alice.Lex.Token(Alice.Lex.Tag.EOF,null);
 
 Alice.Lex.Parser= {
 	src : null,
@@ -159,3 +142,5 @@ Alice.Lex.Parser= {
 		
 	}
 })();
+
+

@@ -13,6 +13,7 @@
 		<script src="js/str2nfa.js" type="text/javascript"></script>
 		<script src="js/regular.js" type="text/javascript"></script>
 		<script src="js/lex/lex2dfa.js" type="text/javascript"></script>
+		<script src="js/lex/dfa2str.js" type="text/javascript"></script>
 		<script src="js/lex/output.js" type="text/javascript"></script>
 		<script src="js/index.js" type="text/javascript"></script>
 	</head>
@@ -69,9 +70,9 @@ M2 a*b+
 
 $$
 
-M0 $.log("M0");
-M1 $.log("M1");
-M2 $.log("M2");
+M0 $.dprint("M0 : "+len+","+val);
+M1 $.dprint("M2 : "+len+","+val);
+M2 $.dprint("M1 : "+len+","+val);
 
 
 $$
