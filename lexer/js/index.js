@@ -50,6 +50,7 @@ function doLex(){
 	$.dprint(lexDfa);
 	var o = Alice.Lex.Dfa2Str.parse(lexDfa);
 	$('#lexOutput').val( o.func + o.table);
+	eval($('#lexOutput').val());
 }
 
 function doCheck2(){
@@ -60,4 +61,8 @@ function doCheck2(){
 	}else{
 		$("#result").addClass("failure").html("Failure!");
 	}
+}
+
+function runLex(){
+	Daisy.lex($('#runInput').val());
 }

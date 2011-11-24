@@ -18,12 +18,21 @@ Alice.Lex.Dfa2Str={
 		this.table.push(value.toString());
 		return this;
 	},
+	init : function(){
+		this.table.length = 0;
+		this.func_str = "";
+		this.func_id = 0;
+		this.func_hash = {};
+	},
 	parse:function(dfa){
+		
 		var len = dfa.states.length;
 		
 		if(len===0)
 			return "";
-			
+		
+		this.init();
+		
 		this.append("for(var i = 0; i < ").append(len).append("; i++)\n	S.push(new Daisy.State(false));\n");
 		for(var i=0;i<len;i++){
 			this.parseState(dfa.states[i]);
@@ -31,7 +40,7 @@ Alice.Lex.Dfa2Str={
 		
 		
 		return {
-			'table': "Daisy.S = []; \n(function() {\nvar S = Daisy.S;\nvar F = Daisy.F;\n"+this.table.join("")+"\n})();\n",
+			'table': "(function() {\nvar S = Daisy.S;\nvar F = Daisy.F;\n"+this.table.join("")+"\n})();\n",
 			'func' : "Daisy.F = [\n"+this.func_str+"\n];\n"
 		};
 		

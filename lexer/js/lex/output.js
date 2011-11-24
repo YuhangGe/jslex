@@ -68,7 +68,7 @@ Daisy.State.prototype.test = function(c, i) {
 }
 
 Daisy.lex = function(str) {
-
+	
 	var end = str.length, idx = 0, chr = null;
 	var s = this.S[0], s2 = null;
 	var his = [0, 0, "", null], len = 0, val = "";
@@ -88,7 +88,7 @@ Daisy.lex = function(str) {
 		if(s === null) {
 
 			if(his[3]) {
-				$.dprint("action 2");
+				//$.dprint("action 2");
 				his[3].action(his[1], his[2]);
 				idx = his[0] + his[1];
 				//$.dprint(his);
@@ -119,7 +119,7 @@ Daisy.lex = function(str) {
 				val = "";
 				his[3] = null;
 				idx--;
-				$.dprint("action 1:" + idx);
+				//$.dprint("action 1:" + idx);
 			} else {
 				his[0] = idx - len - 1;
 				his[1] = len;
@@ -132,6 +132,8 @@ Daisy.lex = function(str) {
 
 	}
 }
+Daisy.S = []; 
+Daisy.F = [];
 /*
  Daisy.F = [
  function(len, val) {
@@ -187,6 +189,7 @@ Daisy.lex = function(str) {
  S[5].action = F[2];
  })();
  */
+/*
 Daisy.F = [
 function(len, val) {
 $.dprint("M0 : "+len+","+val);
@@ -200,7 +203,7 @@ $.dprint("M2 : "+len+","+val);
 },
 
 ];
-Daisy.S = []; 
+
 (function() {
 var S = Daisy.S;
 var F = Daisy.F;
@@ -248,3 +251,4 @@ $(function() {
 	$.dprint(str);
 	Daisy.lex(str);
 })
+*/

@@ -48,14 +48,11 @@
 			i{
 				color:#008000;
 			}
-			#c_left{
-				float: left;
-			}
-			#c_right{
+			.c_float{
 				float: left;
 			}
 		</style>
-	<div id="c_left">
+	<div class="c_float">
 		<div><label>RegExp:</label><input type="text" id="regexp"/></div>
 		<div><label>Text:</label><input type="text" id="text" /></div>
 		<div><input type="button" onclick="doCheck();" value="Check" />
@@ -82,9 +79,12 @@ $(function(){
 		</textarea></div>
 		<div><input type="button" onclick="doLex();" value="Lex"/></div>
 	</div>	
-	<div id="c_right">
-		<div><textarea cols="60" rows="20" id="lexOutput"></textarea></div>
-		<div><input type="button" value="Run" /></div>
+	<div class="c_float">
+		<div><textarea cols="50" rows="20" id="lexOutput"></textarea></div>
+		<div><input type="button" value="Run" onclick="runLex();" /></div>
+	</div>
+	<div class="c_float">
+		<div><textarea cols="50" rows="20" id="runInput"></textarea></div>
 	</div>
 	</body>
 </html>
