@@ -71,7 +71,8 @@ Alice.Lex.Dfa2Str={
 		var dir = s.moves.directed;
 		var dir_str = "";
 		for(var d in dir) {
-			dir_str += "'"+ d + "' : S["+dir[d].id + "],\n";
+			var _d = Alice.Help._d[d]?Alice.Help._d[d]:d;
+			dir_str += "'"+ _d + "' : S["+dir[d].id + "],\n";
 		}
 		if(dir_str.length!==0)
 			this.append(s_id+".dir = {\n"+dir_str+"}\n");
@@ -80,6 +81,7 @@ Alice.Lex.Dfa2Str={
 		var defN = s.moves.definedNext;
 		var dl = def.length;
 		if(dl > 0){
+			$.dprint(def);
 			var defN_str="";
 			this.append(s_id+".def = ["+def.join(",")+"];\n");
 			for(var i=0;i<dl;i++)

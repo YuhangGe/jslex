@@ -41,6 +41,12 @@ jQuery.extend(Alice.Help, {
 		20 : "\\l", //小写字母：\l
 		21 : "\\L", //非小写字母：\L
 		22 : ".", //除\n外任意字符：.
+		'\t' : '\\t',
+		'\b' : '\\b',
+		'\n' : '\\n',
+		'\f' : '\\f',
+		'\r' : '\\r',
+		'\v' : '\\v',
 		get : function(id) {
 			if(this[id])
 				return this[id];

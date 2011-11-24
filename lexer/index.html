@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<script src="js/jquery-1.5.1.js" type="text/javascript"></script>
 		<script src="js/js-oo.js" type="text/javascript"></script>
+		<script src="js/js-printf.js" type="text/javascript"></script>
 		<script src="js/common.js" type="text/javascript"></script>
 		<script src="js/nfa.js" type="text/javascript"></script>
 		<script src="js/dfa.js" type="text/javascript"></script>
@@ -61,21 +62,36 @@
 		<div id="result" class="success"></div>
 		<div><textarea id="lexSrc" cols="50" rows="10">		
 		
-M0 a
-M1 abb
-M2 a*b+
+		
+		
+letter  	[a-zA-Z]
+digit 		[0-9]
+sign		[-+]
+id {letter}+
+num {sign}?{digit}+
+ignore .|\n
 
 $$
 
-M0 $.dprint("M0 : "+len+","+val);
-M1 $.dprint("M2 : "+len+","+val);
-M2 $.dprint("M1 : "+len+","+val);
-
-
+id $.dprint("found an identifier ==> %s", val);
+num {
+ var n=Number(val);
+ $.dprint("found a number ==> %d", n);
+ num++;
+ sum +=n;
+}
+ignore $.dprint("igore ==> "+val);
 $$
 $(function(){
+   num = 0;
+   sum = 0;
    aliceLex();
 });
+
+Daisy.wrap=function(){
+  alert($.dprint("num:%d, sum : %d",num,sum);
+}
+		
 		</textarea></div>
 		<div><input type="button" onclick="doLex();" value="Lex"/></div>
 	</div>	
@@ -84,7 +100,11 @@ $(function(){
 		<div><input type="button" value="Run" onclick="runLex();" /></div>
 	</div>
 	<div class="c_float">
-		<div><textarea cols="50" rows="20" id="runInput"></textarea></div>
+		<div><textarea cols="50" rows="20" id="runInput">
+323 skdjla 42, 32 *dls@!^!sdl
+爱你love you daisy.
+323
+		</textarea></div>
 	</div>
 	</body>
 </html>

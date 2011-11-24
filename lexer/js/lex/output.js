@@ -58,7 +58,10 @@ Daisy.State.prototype.test = function(c, i) {
 			break;
 		case 15:
 			break;
-
+		case 16:
+			if(i >='a' && i <= 'z' || i>='A' && i<='Z')
+				return true;
+			break;
 		case 22:
 			if(i !== '\n')
 				return true;
@@ -88,7 +91,7 @@ Daisy.lex = function(str) {
 		if(s === null) {
 
 			if(his[3]) {
-				//$.dprint("action 2");
+				$.dprint("back history action");
 				his[3].action(his[1], his[2]);
 				idx = his[0] + his[1];
 				//$.dprint(his);
@@ -108,6 +111,8 @@ Daisy.lex = function(str) {
 			if(idx === end) {
 				s.action(len, val);
 				$.dprint("finish yes");
+				if(typeof Daisy.wrap === 'function')
+					Daisy.wrap();
 				break;
 			}
 			s2 = s.move( chr = str[idx++]);

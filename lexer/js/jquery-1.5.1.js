@@ -8318,22 +8318,3 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 window.jQuery = window.$ = jQuery;
 })(window);
 
-//给jQuery添加几个常用方法。
-jQuery.extend({
-		/*直接获取element*/
-		$:function(id){
-			return document.getElementById(id);
-		},
-		/*debug print*/
-		dprint: function(msg){
-			if (typeof console != 'undefined') {
-				console.log(msg)
-			}
-		},
-		/*debug asset*/
-		dassert: function(expression){
-			if (typeof console != 'undefined') {
-				console.assert(expression);
-			}
-		}
-});
