@@ -30,7 +30,6 @@ Alice.Lex.Parser= {
 			this.read_word();
 		}
 		this.read_word();
-		this._rule();
 	}
 	P._d_line = function(){
 		var lbl = this.cur_t;
@@ -55,7 +54,7 @@ Alice.Lex.Parser= {
 		var func_str="";
 		var c = this.read_ch();
 		var until = '\n';
-		while(c!==null && H.isSpace(c))
+		while(c!==null && H.isSpace(c) && c!==until)
 			c = this.read_ch();
 		if(c==='{'){
 			until = '}';
@@ -98,6 +97,8 @@ Alice.Lex.Parser= {
 		
 		var w="";
 		var quote=null;
+		if(c==='[')
+			quote = ']';
 		while(c!==null){
 			if(quote===null && H.isSpace(c))
 				break;
@@ -107,6 +108,10 @@ Alice.Lex.Parser= {
 					quote=null;
 				else if(quote===null)
 					quote=c;
+			}else if(c==='[' && quote === null){
+				quote = ']';
+			}else if(c===']' && quote !== null){
+				quote = null;
 			}
 			c=this.read_ch();
 		}
@@ -125,6 +130,9 @@ Alice.Lex.Parser= {
 		//begin parse
 		this.read_word();
 		this._define();
+		this._rule();
+		this._routine();
+		
 		
 		var lexNFA = new Alice.NFA();
 		var lexStart = new Alice.NFAState();
@@ -137,7 +145,10 @@ Alice.Lex.Parser= {
 			lexNFA.addState(nfaExp.states);
 		}
 		
-		return Alice.Nfa2Dfa.parse(lexNFA);
+		return {
+			'dfa':Alice.Nfa2Dfa.parse(lexNFA),
+			'code' : this.routine
+		}
 		
 		
 	}

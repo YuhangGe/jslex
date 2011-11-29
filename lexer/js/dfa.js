@@ -51,6 +51,14 @@ Alice.DFAStateMove.prototype.add = function(cond, next) {
  * 如果输入input是7，虽然同时满足三个跳转条件，但按判定先后，最后输出的是S1
  */
 Alice.DFAStateMove.prototype.get = function(input) {
+	/**
+	 * 最后返回直接字符跳转。这里没有判断this.directed中是否有input对应的跳转，
+	 * 因为如果没有，会自动返回undefined。
+	 */
+	//$.dprint('check directed');
+	if(this.directed[input])
+		return this.directed[input];
+	
 	/*
 	 * 首先看当前状态转移是否有排除语法，即[^xxx]，如果有（即this.excepted.length>0），
 	 * 那么对每一个排除转移进行检查，看input是否满足该排除数组的条件。
@@ -91,12 +99,7 @@ Alice.DFAStateMove.prototype.get = function(input) {
 			return this.definedNext[i];
 		}
 	}
-	/**
-	 * 最后返回直接字符跳转。这里没有判断this.directed中是否有input对应的跳转，
-	 * 因为如果没有，会自动返回undefined。
-	 */
-	//$.dprint('check directed');
-	return this.directed[input];
+	
 
 }
 Alice.DFAStateMove.prototype.toString = function() {

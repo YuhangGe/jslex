@@ -11,7 +11,7 @@ Alice.Lex.Dfa2Str={
 	func_id : 0,
 	func_hash : {},
 	appendFunc:function(func){
-		this.func_str +="function(len, val) {\n"+func+"\n},\n";
+		this.func_str +="function(len, txt) {\n"+func+"\n},\n";
 		return this.func_id ++;
 	},
 	append:function(value){

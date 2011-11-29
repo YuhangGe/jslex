@@ -379,7 +379,7 @@ Alice.Regular = {};
 			this.read_token();
 		}
 		var chrs = [];
-		while(this.cur_t.tag !== R.Tag[']']) {
+		while(this.cur_t.tag !== R.Tag[']'] && this.cur_t !==R.Token.EOF) {
 			var c_from, c_to;
 			c_from = this.cur_t.value;
 			if(this.cur_t.tag === R.Tag.DEFINED) {

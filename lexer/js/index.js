@@ -42,14 +42,14 @@ function doCheck(){
 }
 
 r2=null;
-lexDfa=null;
+lex = null;
 
 function doLex(){
 	var lex_src=$('#lexSrc').val();
-	lexDfa = Alice.Lex.Parser.parse(lex_src);
-	$.dprint(lexDfa);
-	var o = Alice.Lex.Dfa2Str.parse(lexDfa);
-	$('#lexOutput').val( o.func + o.table);
+	lex = Alice.Lex.Parser.parse(lex_src);
+	$.dprint(lex.dfa);
+	var o = Alice.Lex.Dfa2Str.parse(lex.dfa);
+	$('#lexOutput').val( o.func + o.table + lex.code);
 	eval($('#lexOutput').val());
 }
 
@@ -64,5 +64,16 @@ function doCheck2(){
 }
 
 function runLex(){
+	// var TOTAL = 500;
+	// var time = 0;
+	// for(var i=0;i<TOTAL;i++){
+		// var b = new Date().getTime();
+		// Daisy.lex($('#runInput').val());
+		// var e = new Date().getTime();
+		// time += e-b;
+	// }
+	// var a = time / TOTAL;
+	// $.dprint("%d tests, time %d, average time %s",TOTAL,time,a.toString());
 	Daisy.lex($('#runInput').val());
+	
 }
