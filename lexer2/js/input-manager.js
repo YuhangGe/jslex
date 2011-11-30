@@ -27,7 +27,7 @@ Alice.InputManager = function(size) {
 	this.table_next = new Int16Array(this.size);
 	this.table_prev = new Int16Array(this.size);
 
-	this.eqc_set = new Int8Array(this.size);
+	//this.eqc_set = new Int8Array(this.size);
 	this.eqc_empty_set = new Int8Array(this.size);
 	this.eqc_input_set = new Int8Array(this.size);
 
@@ -45,7 +45,14 @@ Alice.InputManager.prototype.init = function() {
 	this.eq_class.length = 0;
 }
 Alice.InputManager.prototype.addInput = function(input) {
+	if(arguments.length>1){
+		for(var i=0;i<arguments.length;i++){
+			this.addInput(arguments[i]);
+		}
+		return;
+	}
 	//$.dprint("-----0------")
+	//$.dprint(input)
 	/*
 	 * 根据input在eqc_input_set中标记
 	 */
@@ -54,30 +61,40 @@ Alice.InputManager.prototype.addInput = function(input) {
 		this.eqc_input_set[input[i]] = 1;
 	}
 	//$.dprint(this.eqc_input_set);
-	//$.dprint("-----1------")
-	for(var j = 0; j < this.eq_class.length; j++) {
-		this.get_eqc_set(this.eq_class[j]);
-		//$.dprint(this.eqc_set);
+	$.dprint("len %d",this.eq_class.length);
+	var eqc_len = this.eq_class.length;
+	for(var j = 0; j < eqc_len; j++) {
+		//this.get_eqc_set(this.eq_class[j]);
+	
 		
-		var new_prev = 0;
+		var new_prev = 0, change = false, change_at = 0;
 		for(var t = this.eq_class[j]; t < this.size; ) {
-			if(this.eqc_set[t] === 1 && this.eqc_input_set[t] === 1) {
+			
+			if(this.eqc_input_set[t] === 1) {
+			
 				var prev = this.table_prev[t], next=this.table_next[t];
 				if(prev>=0){
 					this.table_next[prev]=next;
+					//$.dprint("%2d next: %2d",prev,next);
 				}
 				if(next>=0){
 					this.table_prev[next]=prev;
+					
 				}
 				if(new_prev === 0) {
 					//找到第一个
+					
 					this.eqc_max_id++;
+					if(this.table_prev[t]===-1){
+						change = true;
+					}
 					this.table_prev[t] = -1;
 					this.eq_class.push(t);
-					$.dprint(t);
+					//$.dprint(t);
 				} else {
 					this.table_next[new_prev] = t;
-					this.table_prev[t] = prev;
+					this.table_prev[t] = new_prev;
+					
 				}
 				this.char_table[t] = this.eqc_max_id;
 				this.eqc_input_set[t] = 0;
@@ -85,15 +102,25 @@ Alice.InputManager.prototype.addInput = function(input) {
 			}
 			if(this.table_next[t] > 0) {
 				t = this.table_next[t];
+				//$.dprint("t: %2d",t);
 			} else{
+				if(change)
+					change_at = this.table_next[new_prev];
 				this.table_next[new_prev] = -1;
+				//$.dprint("%2d next: %2d, t:%2d",new_prev,-1,t);
 				break;
 			}
-			
-			//$.dprint(this.table_next);
-			//$.dprint("******");	
+		}
+		if(change){
+			this.eq_class[j] = change_at;
+			$.dprint("%2d change: %2d",j,change_at);
 		}
 			
+		
+		$.dprint(this.char_table);
+		$.dprint(this.table_prev);
+		$.dprint(this.table_next);
+		$.dprint("******");		
 	}
 	//$.dprint("-----2------")
 	this.ins_eqc();
@@ -118,7 +145,7 @@ Alice.InputManager.prototype.ins_eqc = function() {
 	this.char_table[t] = this.eqc_max_id;
 	this.table_prev[t] = -1;
 	this.eq_class.push(t);
-	$.dprint(t);
+	//$.dprint(t);
 	var prev = t;
 	for(t++; t < this.size; t++) {
 		if(this.eqc_input_set[t] === 1) {
@@ -133,14 +160,14 @@ Alice.InputManager.prototype.ins_eqc = function() {
 }
 
 Alice.InputManager.prototype.get_eqc_set = function(start) {
-	this.eqc_set.set(this.eqc_empty_set);
-	for(var i = start; i < this.size; ) {
-		this.eqc_set[i] = 1;
-		if(this.table_next[i] > 0) {
-			i = this.table_next[i];
-		} else
-			break;
-	}
+	// this.eqc_set.set(this.eqc_empty_set);
+	// for(var i = start; i < this.size; ) {
+		// this.eqc_set[i] = 1;
+		// if(this.table_next[i] > 0) {
+			// i = this.table_next[i];
+		// } else
+			// break;
+	// }
 }
 
 Alice.InputManager.prototype.getEquival = function() {
