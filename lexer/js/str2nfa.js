@@ -23,7 +23,7 @@ Alice.Regular = {};
 (function() {
 	var A = Alice;
 	var R = Alice.Regular;
-	var T = Alice.StateMove.Tag;
+	var T = Alice.Tag;
 	var H = Alice.Help;
 
 	/**
@@ -326,17 +326,15 @@ Alice.Regular = {};
 				this.read_token();
 				break;
 			case R.Tag.DEFINED:
-				//$.dprint("defined");
-				// to do
-				nfa = Alice.NFA.createSingleNFA(this.cur_t.value);
-
+				nfa = Alice.NFA.createMultiNFA(Alice.DEF_INPUT[this.cur_t.value],this.cur_t.value<0?true:false);
 				this.read_token();
 				break;
 			case R.Tag.CHAR:
-				nfa = Alice.NFA.createSingleNFA(this.cur_t.value);
+				nfa = Alice.NFA.createSingleNFA(this.cur_t.value.charCodeAt(0));
 				this.read_token();
 				break;
 			default:
+				$.dprint(this.cur_t);
 				throw "_s 2";
 		}
 		return nfa;
@@ -383,18 +381,22 @@ Alice.Regular = {};
 			var c_from, c_to;
 			c_from = this.cur_t.value;
 			if(this.cur_t.tag === R.Tag.DEFINED) {
-				chrs.push(c_from);
+				if(c_from>0){
+					H.arrUnion(chrs,Alice.DEF_INPUT[c_from]);	
+				}else{
+					chrs.push(c_from);
+				}
 				this.read_token();
 				continue;
 			}
 			this.read_token();
 			if(this.cur_t.value !== '-') {
-				chrs.push(c_from);
+				chrs.push(c_from.charCodeAt(0));
 			} else {
 				this.read_token();
 				if(this.cur_t.tag === R.Tag[']']) {
-					chrs.push(c_from);
-					chrs.push('-');
+					chrs.push(c_from.charCodeAt(0));
+					chrs.push('-'.charCodeAt(0));
 					break;
 				} else if(this.cur_t.tag === R.Tag.DEFINED) {
 					throw "_h 0";
@@ -415,24 +417,16 @@ Alice.Regular = {};
 	R.Str2Nfa._h_add = function(from, to, arr) {
 		var f = from.charCodeAt(0), t = to.charCodeAt(0);
 		for(var i = f; i <= t; i++) {
-			arr.push(String.fromCharCode(i));
+			arr.push(i);
 		}
 	}
 	/*
 	 * _h解析的辅助函数，通过chrs数组中的字符构建nfa。
 	 * not参数指明是否是排除chrs数组中的字符的剩下字符。
 	 */
-	R.Str2Nfa._h_nfa = function(chrs, not) {
-		var rtn;
-		var len = chrs.length;
-		if(len === 0)
-			throw "_h_nfa 0";
-		if(not === false)
-			rtn = Alice.NFA.createMultiNFA(chrs);
-		else
-			rtn = Alice.NFA.createSingleNFA(chrs);
-
-		return rtn;
+	R.Str2Nfa._h_nfa = function(chrs, except) {
+		var uni_chrs = H.uniqueArr(chrs);
+		return Alice.NFA.createMultiNFA(chrs,except);
 	}
 	R.Str2Nfa.parse = function(str) {
 		this.str = str;

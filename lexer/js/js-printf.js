@@ -173,7 +173,14 @@
 		'dprint':function(format, arg1, arg2){
 			var rtn = null;
 			if(arguments.length<=1)
-				rtn = format;
+				if(format instanceof Array || (format.buffer && format.length)){
+					rtn = "";
+					for(var i=0;i<format.length;i++){
+						rtn+=sprintf("%2d ",format[i]);
+					}
+				}else{
+					rtn = format;
+				}
 			else
 				rtn = sprintf.apply(this,arguments);
 			if(console)

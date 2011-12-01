@@ -1,32 +1,51 @@
 if( typeof Alice === "undefined")
 	Alice = {};
 
-/**
- * 输入字符的等价划分类
- */
-Alice.Equivalence = function(start, end) {
-	this.id = Alice.Equivalence.__auto_id__++;
-	this.start = start;
-	this.end = end;
+Alice.CharTable = function(char_table_size) {
+	if(!char_table_size)
+		this.size = 256;
+	else
+		this.size = char_table_size;
+
+	this.EM = new Alice.EquivalenceManager(this.size);
+	this.hash_table = {};
+	$.dprint("em");
 }
-Alice.Equivalence.__auto_id__ = 0;
+
+Alice.CharTable.prototype.addInput = function(nfaInput) {
+	if(nfaInput === Alice.e)
+		throw "_addInput";
+	
+	//$.dprint("try add nfainput %s",nfaInput.toString());
+	var hash_key = nfaInput.toString();
+	if(this.hash_table[hash_key]){
+		//$.dprint("aready added!");
+		return;
+	}else{
+		this.hash_table[hash_key]=true;
+	}
+	if(nfaInput.type === Alice.NFAInput.SINGLE) {
+		this.EM.addChar(nfaInput.value);
+	} else if(nfaInput.type === Alice.NFAInput.RANGE 
+		||nfaInput.type === Alice.NFAInput.EXCEPT) {
+		
+		this.EM.addCharSet(nfaInput);		
+	}
+
+}
 /**
- * @calss InputManager
+ * @class EquivalenceManager
  * 输入符管理类，对输入符进行等价类划分。输入符并不储存其字符串字符，而是其对应的编码。
  * 对于Ascii字符集，是0-255，对于Unicode字符集，是0-0xffff.由于字符集数量庞大，
  * 使用数组来实现双向链表操作，从而实现相对高效（时间+内存效率）的等价类管理
- * 
+ *
  * @param size 字符集大小，对于Ascii集是256，对于Unicode集是0x10000
  */
-Alice.InputManager = function(size) {
-	if(!size)
-		this.size = 0x256;
-	else
-		this.size = size;
-
+Alice.EquivalenceManager = function(size) {
+	this.size = size;
 	/*
-	 * 双向链表，保存等价输入字符集信息
-	 */
+	* 双向链表，保存等价输入字符集信息
+	*/
 	//保存字符对应的等价类编号
 	this.char_table = new Int16Array(this.size);
 	//等价类中下一个字符位置
@@ -58,7 +77,7 @@ Alice.InputManager = function(size) {
 	 */
 	this.eqc_max_id = 0;
 }
-Alice.InputManager.prototype.init = function() {
+Alice.EquivalenceManager.prototype.init = function() {
 	for(var i = 0; i < this.size; i++) {
 		this.char_table[i] = 0;
 		this.table_next = 0;
@@ -66,46 +85,64 @@ Alice.InputManager.prototype.init = function() {
 	}
 	this.eq_class.length = 0;
 }
-Alice.InputManager.prototype.addInput = function(input) {
-	if(arguments.length > 1) {
-		for(var i = 0; i < arguments.length; i++) {
-			this.addInput(arguments[i]);
-		}
+/**
+ * 插入单个字符
+ */
+Alice.EquivalenceManager.prototype.addChar = function(input) {
+	//查找字符对应的等价类
+	var eqc = this.char_table[input];
+	if(eqc === 0) {
+		/*
+		 * 如果没有找到，新建一个等价类
+		 */
+		this.char_table[input] = ++this.eqc_max_id;
+		this.table_next[input] = this.table_prev[input] = -1;
+		this.eq_class.push(input);
 		return;
 	}
-	
-
-	if(typeof input ==='string'){
-		var len=input.length;
-		if(len === 0)
-			return;
-		var arr=[];
-		for(var i=0;i<len;i++)
-			arr.push(input.charCodeAt(i));
-		input = arr;		
-	}else if(! input instanceof Array)
+	/*
+	 * 找到了，先修改原来的等价类：
+	 *  如果prev==next==-1说明原等价类已经是单字符，返回
+	 *  如果next>0修改next的prev指针
+	 *  如果prev>0修改prev的next指针
+	 *  如果prev<0，说明字符对应了原来的等价类的链表头，还要修改this.eq_class的对应值
+	 */
+	var prev = this.table_prev[input], next = this.table_next[input];
+	if(prev < 0 && next < 0)
 		return;
-	
-	$.dprint(input);
+
+	if(next > 0)
+		this.table_prev[next] = prev;
+	if(prev > 0)
+		this.table_next[prev] = next;
+	else {
+		var eqc_idx = this.eq_class.indexOf(eqc);
+		this.eq_class[eqc_idx] = next;
+	}
+	/**
+	 * 最后新建等价类
+	 */
+	this.char_table[input] = ++this.eqc_max_id;
+	this.table_next[input] = this.table_prev[input] = -1;
+	this.eq_class.push(input);
+}
+Alice.EquivalenceManager.prototype.addCharSet = function(input) {
 	/**
 	 * 首先根据input数组，生成输入字符集。通过在this.input_set中标记0和1
 	 * 来指明该位置对应的字符是否存在
 	 */
-	this.input_set.set(this.empty_set);
-	for(var i = 0; i < input.length; i++) {
-		this.input_set[input[i]] = 1;
-	}
-	this.input_set[this.size] = input.length;
+	this.create_input_set(input);
+
 	/*
 	 * 然后开始执行等价类相关操作
 	 */
-	for(var j = 0; j <  this.eq_class.length; j++) {
+	for(var j = 0; j < this.eq_class.length; j++) {
 		/**
 		 * 对比等价类和当前输入符集，在比较的过程中同时会对当前输入符集进行相关操作，
 		 * 见eqc_compare函数注释
 		 */
 		var eqc_c = this.eqc_compare(this.eq_class[j]);
-	
+
 		if(eqc_c < 0) {
 			/*
 			 * 当前等价类与当前输入字符集没有任何交集，或者等价类是输入符的真子集，
@@ -134,11 +171,24 @@ Alice.InputManager.prototype.addInput = function(input) {
 	 */
 	this.ins_eqc();
 }
+Alice.EquivalenceManager.prototype.create_input_set = function(input, except) {
+	var size = 0;
+	this.input_set.set(this.empty_set);
+	for(var i=0;i<this.size;i++){
+		if(input.isFit(i)){
+			this.input_set[i]=1;
+			size++;
+		}
+	}
+	this.input_set[this.size]=size;
+	//$.dprint(this.input_set);
+}
+
 /**
  * 对当前等价类进行拆分，利用比较结果集compare_set，将当前等价类双向链表拆分成
  * 两个等价类双向链表，其中一个是新构造的，另一个是原始的。
  */
-Alice.InputManager.prototype.eqc_partion = function(eqc) {
+Alice.EquivalenceManager.prototype.eqc_partion = function(eqc) {
 
 	var new_prev = -1;
 	for(var t = this.compare_set[this.size]; t < this.size; ) {
@@ -173,7 +223,7 @@ Alice.InputManager.prototype.eqc_partion = function(eqc) {
 			this.table_next[new_prev] = t;
 			this.table_prev[t] = new_prev;
 		}
-		
+
 		this.char_table[t] = this.eqc_max_id;
 		new_prev = t;
 		/*
@@ -195,7 +245,7 @@ Alice.InputManager.prototype.eqc_partion = function(eqc) {
  * @param {int} eqc_index 当前等价类链表表头的位置
  * @return {int} 0：全等；1：有交集；-1：无交集或者等价类真蕴含于输入符
  */
-Alice.InputManager.prototype.eqc_compare = function(eqc_index) {
+Alice.EquivalenceManager.prototype.eqc_compare = function(eqc_index) {
 	//清空compare_set
 	this.compare_set.set(this.empty_set);
 	/*
@@ -226,7 +276,6 @@ Alice.InputManager.prototype.eqc_compare = function(eqc_index) {
 			break;
 		}
 	}
-	//$.dprint("com: c %d, c_eqc %d, i_len %d", c, c_eqc, i_len);
 	/**
 	 * 跟据不同的结果返回相关值。
 	 * c==0 说明  input_set和等价类的交集是空，等价类不需要拆分，返回-1
@@ -249,7 +298,7 @@ Alice.InputManager.prototype.eqc_compare = function(eqc_index) {
 /**
  * 插入一个新的等价类，通过输入字符集构造
  */
-Alice.InputManager.prototype.ins_eqc = function() {
+Alice.EquivalenceManager.prototype.ins_eqc = function() {
 	/*
 	 * 如果输入字符集为空，直接返回。该条件不会满足，因为在调用ins_eqc函数
 	 * 之前已经会保障输入字符不为空集。此处放在这里是为了安全。
@@ -285,10 +334,7 @@ Alice.InputManager.prototype.ins_eqc = function() {
 
 }
 
-Alice.InputManager.prototype.getEquival = function() {
-
-}
-Alice.InputManager.prototype.toString = function() {
+Alice.EquivalenceManager.prototype.toString = function() {
 	var rtn = "";
 	for(var i = 0; i < this.eq_class.length; i++) {
 		var arr = [];
@@ -300,7 +346,7 @@ Alice.InputManager.prototype.toString = function() {
 	}
 	return rtn;
 }
-Alice.InputManager.prototype.output = function() {
+Alice.EquivalenceManager.prototype.output = function() {
 	$.dprint("----Output----");
 	$.dprint(this.eq_class);
 	$.dprint(this.char_table);
@@ -309,3 +355,6 @@ Alice.InputManager.prototype.output = function() {
 	$.dprint(this.toString());
 	$.dprint("----End Output----");
 }
+
+if(!Alice.CTable)
+	Alice.CTable = new Alice.CharTable(256);

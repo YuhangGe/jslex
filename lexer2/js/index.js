@@ -1,8 +1,6 @@
 $(function(){
-	IM = new Alice.InputManager(10);
-	IM.addInput([0,4,5,7,8]);
-	IM.output();
-	//IM.addInput([4]);
-	IM.addInput([0,4,5]);
-	IM.output();
+	IM = new Alice.InputManager(256);
+	IM.addInput("abcefg");
+	//IM.addInput([99,101,104]);
+	$.dprint(IM.toString());
 });
