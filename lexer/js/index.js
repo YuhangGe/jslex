@@ -41,7 +41,7 @@ function doCheck(){
 	} */
 	r=Alice.Regular.Str2Nfa.parse(reg_str);
 	$.dprint(r);
-	$.dprint(Alice.CTable.EM.toString());
+	$.dprint(Alice.CharTable.toString());
 }
 
 r2=null;

@@ -1,38 +1,6 @@
 if( typeof Alice === "undefined")
 	Alice = {};
 
-Alice.CharTable = function(char_table_size) {
-	if(!char_table_size)
-		this.size = 256;
-	else
-		this.size = char_table_size;
-
-	this.EM = new Alice.EquivalenceManager(this.size);
-	this.hash_table = {};
-	$.dprint("em");
-}
-
-Alice.CharTable.prototype.addInput = function(nfaInput) {
-	if(nfaInput === Alice.e)
-		throw "_addInput";
-	
-	//$.dprint("try add nfainput %s",nfaInput.toString());
-	var hash_key = nfaInput.toString();
-	if(this.hash_table[hash_key]){
-		//$.dprint("aready added!");
-		return;
-	}else{
-		this.hash_table[hash_key]=true;
-	}
-	if(nfaInput.type === Alice.NFAInput.SINGLE) {
-		this.EM.addChar(nfaInput.value);
-	} else if(nfaInput.type === Alice.NFAInput.RANGE 
-		||nfaInput.type === Alice.NFAInput.EXCEPT) {
-		
-		this.EM.addCharSet(nfaInput);		
-	}
-
-}
 /**
  * @class EquivalenceManager
  * 输入符管理类，对输入符进行等价类划分。输入符并不储存其字符串字符，而是其对应的编码。
@@ -41,8 +9,11 @@ Alice.CharTable.prototype.addInput = function(nfaInput) {
  *
  * @param size 字符集大小，对于Ascii集是256，对于Unicode集是0x10000
  */
-Alice.EquivalenceManager = function(size) {
-	this.size = size;
+Alice.EquivalenceManager = function(char_table_size) {
+	if(!char_table_size)
+		this.size = 256;
+	else
+		this.size = char_table_size;
 	/*
 	* 双向链表，保存等价输入字符集信息
 	*/
@@ -76,6 +47,33 @@ Alice.EquivalenceManager = function(size) {
 	 * 等价类的最大编号，会递增，用来给新建的等价类进行编号。
 	 */
 	this.eqc_max_id = 0;
+	/*
+	 * 用来保存已经插入过的字符集的hash表，如果已经存在于hash表中，则不需要再进行操作。
+	 * 原因是，已经操作过的字符集，在等价类中的存在形式，只可能要么全部元素在一个等价类中，
+	 * 要么成为了几个等价类的部分。但不论怎样，当这个字符集再次出现，对当前等价类不会有任何影响。
+	 */
+	this.hash_table = {};
+}
+Alice.EquivalenceManager.prototype.addInput = function(nfaInput) {
+	if(nfaInput === Alice.e)
+		throw "_addInput";
+	
+	//$.dprint("try add nfainput %s",nfaInput.toString());
+	var hash_key = nfaInput.toString();
+	if(this.hash_table[hash_key]){
+		//$.dprint("aready added!");
+		return;
+	}else{
+		this.hash_table[hash_key]=true;
+	}
+	if(nfaInput.type === Alice.NFAInput.SINGLE) {
+		this.addChar(nfaInput.value);
+	} else if(nfaInput.type === Alice.NFAInput.RANGE 
+		||nfaInput.type === Alice.NFAInput.EXCEPT) {
+		
+		this.addCharSet(nfaInput);		
+	}
+
 }
 Alice.EquivalenceManager.prototype.init = function() {
 	for(var i = 0; i < this.size; i++) {
@@ -356,5 +354,5 @@ Alice.EquivalenceManager.prototype.output = function() {
 	$.dprint("----End Output----");
 }
 
-if(!Alice.CTable)
-	Alice.CTable = new Alice.CharTable(256);
+if(!Alice.CharTable)
+	Alice.CharTable = new Alice.EquivalenceManager(256);

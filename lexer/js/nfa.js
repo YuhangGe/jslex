@@ -12,27 +12,30 @@
 if( typeof Alice === 'undefined')
 	Alice = {};
 
-Alice.NFAInput = function(type,value){
-	this.type=type;
-	this.value=value;
+Alice.NFAInput = function(type, value) {
+	this.type = type;
+	this.value = value;
 }
-Alice.NFAInput.prototype.toString=function(){
-	if(this.type===Alice.NFAInput.SINGLE||this.type===Alice.NFAInput.EMPTY)
+
+Alice.NFAInput.prototype.toString = function() {
+	if(this.type === Alice.NFAInput.SINGLE || this.type === Alice.NFAInput.EMPTY)
 		return this.value.toString();
-	else if(this.type===Alice.NFAInput.RANGE){
-		return "["+this.value.join(",")+"]";
-	}else{
-		return "^["+this.value.join(",")+"]";
+	else if(this.type === Alice.NFAInput.RANGE) {
+		return "[" + this.value.join(",") + "]";
+	} else {
+		return "^[" + this.value.join(",") + "]";
 	}
 }
-Alice.NFAInput.prototype.isFit = function(input){
-	var i = 0, fit = false, expt = this.type===Alice.NFAInput.EXCEPT;
-	for(i=0;i<this.value.length;i++){
-		if(this.value[i] < 0
-			&& Alice.DEF_FUNC[this.value[i]](input)) {
+Alice.NFAInput.prototype.isFit = function(input) {
+	if(this.type === Alice.NFAInput.SINGLE)
+		return this.value === input;
+		
+	var i = 0, fit = false, expt = this.type === Alice.NFAInput.EXCEPT;
+	for( i = 0; i < this.value.length; i++) {
+		if(this.value[i] < 0 && Alice.DEF_FUNC[this.value[i]](input)) {
 			fit = true;
 			break;
-		}else if(this.value[i]===input) {
+		} else if(this.value[i] === input) {
 			fit = true;
 			break;
 		}
@@ -42,31 +45,26 @@ Alice.NFAInput.prototype.isFit = function(input){
 	 *   if(expt===true) return !fit;
 	 *   else return fit;
 	 */
-	return expt^fit;
+	return expt ^ fit;
 }
 Alice.NFAInput.SINGLE = 0;
 Alice.NFAInput.RANGE = 1;
 Alice.NFAInput.EXCEPT = 2;
 Alice.NFAInput.EMPTY = 4;
-Alice.e = new Alice.NFAInput(Alice.NFAInput.EMPTY,'ε');
-
-
+Alice.e = new Alice.NFAInput(Alice.NFAInput.EMPTY, 'ε');
 
 /**
  * 状态基类
  */
 Alice.State = function(isAccept, name) {
+	this.isAccept = false;
 	if( typeof isAccept === 'boolean') {
 		this.isAccept = isAccept;
 		this.name = name;
 	} else if( typeof isAccept === 'string') {
-		this.isAccept = false;
 		this.name = isAccept;
 	}
-	
-	//在子类中初始化
-	this.moves = null;
-	this.action = null;
+
 }
 Alice.State.prototype.toString = function() {
 	if(this.name)
@@ -83,37 +81,42 @@ Alice.State.prototype.addMove = function(input, next) {
 Alice.State.prototype.getMove = function(input) {
 	throw "must implement (Alice.State.getMove).";
 }
-
-
 /**
  * nfa状态类
  */
 Alice.NFAState = function(isAccept, name) {
 	this.base(isAccept, name);
 	this.id = Alice.NFAState.__auto_id__++;
-	this.moves = [];
+	this.move = null;
+	this.e_moves = [];
 }
 Alice.NFAState.__auto_id__ = 0;
-Alice.NFAState.prototype.toString=function(){
-	var str =  this.callBase('toString');
+Alice.NFAState.prototype.toString = function() {
+	var str = this.callBase('toString');
 	str += "【";
-
-	    for(var i=0;i<this.moves.length;i++)
-			str += this.moves[i][0].toString()+ "->" + this.moves[i][1].id+";";
-
-
-	str+="】";
+	if(this.move)
+		str += this.move[0].toString() + "->" + this.move[1].id + ";";
+	for(var i = 0; i < this.e_moves.length; i++)
+		str += Alice.e.toString() + "->" + this.e_moves[i].id + ";";
+	str += "】";
 	return str;
 }
-Alice.NFAState.prototype.getMove=function(){
-	 
+Alice.NFAState.prototype.getMove = function(input) {
+	if(input === Alice.e)
+		return this.e_moves;
+	else if(this.move[0].isFit(input))
+		return this.move[1];
+	else
+		return null;
+		
 }
-Alice.NFAState.prototype.addMove=function(input, next){
-	if(!next){
-		for(var i=0;i<input.length;i++)
-			this.moves.push(input[i]);
-	}else
-	 	this.moves.push([input,next]);
+Alice.NFAState.prototype.addMove = function(input, next) {
+	if(input === Alice.e)
+		this.e_moves.push(next);
+	else{
+		if(this.move) throw "aready have move in nfastate!";
+		else this.move = [input, next];
+	}
 }
 jQuery.inherit(Alice.NFAState, Alice.State);
 
@@ -121,13 +124,11 @@ jQuery.inherit(Alice.NFAState, Alice.State);
  * 模式的动作类Action，id是用来标识该action的优先级，先声明的模式id小，在lex源码中，当出现
  * 冲突的时候，优先选择id小的。
  */
-Alice.Action = function(func){
+Alice.Action = function(func) {
 	this.id = Alice.Action.__auto_id__++;
 	this.func = func;
 }
 Alice.Action.__auto_id__ = 0;
-
-
 
 /**
  * nfa类
@@ -135,7 +136,7 @@ Alice.Action.__auto_id__ = 0;
 Alice.NFA = function(start, finish) {
 
 	this.states = [];
-	
+
 	this.start = start;
 	this.finish = finish;
 }
@@ -151,18 +152,16 @@ Alice.NFA.prototype.copy = function() {
 	var rtn = new Alice.NFA(this.start.target, this.finish.target);
 	for(var i = 0; i < this.states.length; i++) {
 		src = this.states[i];
-		for(var j = 0; j < src.moves.length; j++) {
-			var m = src.moves[j];
-			targets[i].addMove(m[0], m[1].target);
-		}
+		if(src.move)
+			targets[i].addMove(src.move[0],src.move[1].target);
+		for(var j=0;j<src.e_moves.length;j++)
+			targets[i].addMove(src.e_moves[0],src.e_moves[i].target);
 		rtn.states.push(targets[i]);
 	}
-	for(var i = 0; i < this.inputs.length; i++)
-	rtn.inputs.push(this.inputs[i]);
 
 	//销毁临时附在state上的指向复制后的对象的指针target
 	for(var i = 0; i < this.states.length; i++)
-	delete this.states[i].target;
+		delete this.states[i].target;
 
 	return rtn;
 }
@@ -176,9 +175,9 @@ Alice.NFA.prototype.addState = function(state) {
 }
 
 Alice.NFA.prototype.toString = function() {
-	var rtn="";
-	for(var i=0;i<this.states.length;i++)
-		rtn+=this.states[i].toString()+" ; ";
+	var rtn = "";
+	for(var i = 0; i < this.states.length; i++)
+	rtn += this.states[i].toString() + " ; ";
 	return rtn;
 }
 /***********************/
@@ -217,13 +216,16 @@ Alice.NFA.createJoinNFA = function(nfa1, nfa2) {
 	var rtn = new Alice.NFA(nfa1.start, nfa2.finish);
 	nfa1.finish.isAccept = false;
 	//合并nfa1的接受状态和nfa2的开始状态为同一个状态
-	nfa1.finish.addMove(nfa2.start.moves);
+	if(nfa2.start.move)
+		nfa1.finish.addMove(nfa2.start.move[0],nfa2.start.move[1]);
+	for(var i=0;i<nfa2.start.e_moves.length;i++)
+		nfa1.finish.addMove(Alice.e,nfa2.start.e_moves[i]);
 
 	//将nfa1的状态和nfa2状态增加到新的nfa中，因为nfa1的开始态和nfa2开始态已经合并，
 	//不需要将nfa2的开始态添加。
 	rtn.addState(nfa1.states);
 	for(var i = 0; i < nfa2.states.length; i++) {
-		if(nfa2.states[i].equals(nfa2.start) === false)
+		if(nfa2.states[i] !== nfa2.start)
 			rtn.addState(nfa2.states[i]);
 	}
 	// $.dprint(rtn);
@@ -238,7 +240,7 @@ Alice.NFA.createStarNFA = function(nfa) {
 	var s = new Alice.NFAState();
 	var f = new Alice.NFAState(true);
 	s.addMove(Alice.e, nfa.start);
-	s.addMove(Alice.e, nfa.finish);
+	s.addMove(Alice.e, f);
 	nfa.finish.isAccept = false;
 	nfa.finish.addMove(Alice.e, nfa.start);
 	nfa.finish.addMove(Alice.e, f);
@@ -252,9 +254,9 @@ Alice.NFA.createStarNFA = function(nfa) {
  * 生成一个基本的nfa，只有开始态和接收态两个状态
  */
 Alice.NFA.createSingleNFA = function(input) {
-	if(input!==Alice.e){
-		input = new Alice.NFAInput(Alice.NFAInput.SINGLE,input);
-		Alice.CTable.addInput(input);
+	if(input !== Alice.e) {
+		input = new Alice.NFAInput(Alice.NFAInput.SINGLE, input);
+		Alice.CharTable.addInput(input);
 	}
 	var s = new Alice.NFAState();
 	var f = new Alice.NFAState(true);
@@ -266,15 +268,15 @@ Alice.NFA.createSingleNFA = function(input) {
 /*
  * 处理[]正则符号，生成arr数组中字符的or运算nfa
  */
-Alice.NFA.createMultiNFA = function(arr,except) {
+Alice.NFA.createMultiNFA = function(arr, except) {
 	$.dprint(arr);
 	$.dprint(except);
-	var t = except?Alice.NFAInput.EXCEPT:Alice.NFAInput.RANGE;
-	var input = new Alice.NFAInput(t,arr);
-	Alice.CTable.addInput(input);
+	var t = except ? Alice.NFAInput.EXCEPT : Alice.NFAInput.RANGE;
+	var input = new Alice.NFAInput(t, arr);
+	Alice.CharTable.addInput(input);
 	var s = new Alice.NFAState();
 	var f = new Alice.NFAState(true);
-	s.addMove(input,f);
+	s.addMove(input, f);
 	var nfa = new Alice.NFA(s, f);
 	nfa.addState(s, f);
 	return nfa;
@@ -283,7 +285,7 @@ Alice.NFA.createMultiNFA = function(arr,except) {
  * 处理连续字符串，通常是由引号包含的部分
  */
 Alice.NFA.createStrNFA = function(str) {
-	if(str.length===0)
+	if(str.length === 0)
 		return Alice.NFA.createSingleNFA(Alice.e);
 	var s = new Alice.NFAState();
 	var pre = s, next = null, input = null;
@@ -291,7 +293,7 @@ Alice.NFA.createStrNFA = function(str) {
 	//var f = new Alice.NFAState(true);
 	for(var i = 0; i < str.length; i++) {
 		next = new Alice.NFAState();
-		input = new Alice.NFAInput(Alice.NFAInput.SINGLE,str.charCodeAt(i));
+		input = new Alice.NFAInput(Alice.NFAInput.SINGLE, str.charCodeAt(i));
 		pre.addMove(input, next);
 		nfa.addState(pre);
 		pre = next;
@@ -307,28 +309,27 @@ Alice.NFA.createStrNFA = function(str) {
  */
 Alice.NFA.createNumberNFA = function(nfa, num, from) {
 	var rtn = nfa.copy();
-	var link=(from==null?false:true);
-	var link_node=[];
-	if(from===0)
+	var link = (from == null ? false : true);
+	var link_node = [];
+	if(from === 0)
 		link_node.push(rtn.start);
 	for(var i = 1; i < num; i++) {
-		if(link===true && i>=from)
+		if(link === true && i >= from)
 			link_node.push(rtn.finish);
 		rtn = Alice.NFA.createJoinNFA(rtn, nfa.copy());
 	}
-	if(link===true)
-		for(var i=0;i<link_node.length;i++)
-			link_node[i].addMove(Alice.e,rtn.finish);
+	if(link === true)
+		for(var i = 0; i < link_node.length; i++)
+		link_node[i].addMove(Alice.e, rtn.finish);
 	return rtn;
 }
 Alice.NFA.createBoundNFA = function(nfa, low, high) {
-	
-	if(low===null || low<=0)
-		low=0;
-	
+
+	if(low === null || low <= 0)
+		low = 0;
 	nfa = nfa.copy()
-	
-	if(high===null) {
+
+	if(high === null) {
 		if(low === 0)
 			return Alice.NFA.createStarNFA(nfa);
 		var l = Alice.NFA.createNumberNFA(nfa, low);

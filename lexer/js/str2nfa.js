@@ -425,7 +425,11 @@ Alice.Regular = {};
 	 * not参数指明是否是排除chrs数组中的字符的剩下字符。
 	 */
 	R.Str2Nfa._h_nfa = function(chrs, except) {
-		var uni_chrs = H.uniqueArr(chrs);
+		/*
+		 * 对数组排序并去除重复元素。这样是为了在插入等价类的时候计算其hash值，
+		 * 可以做到尽可能的不对已经插入过的字符集进行等价类操作
+		 */
+		var uni_chrs = H.uniqueSort(chrs);
 		return Alice.NFA.createMultiNFA(chrs,except);
 	}
 	R.Str2Nfa.parse = function(str) {
