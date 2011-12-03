@@ -72,9 +72,6 @@ Alice.State.prototype.toString = function() {
 	else
 		return this.id + (this.isAccept === true ? "[acc]" : "");
 }
-Alice.State.prototype.equals = function(state) {
-	return this.id === state.id;
-}
 Alice.State.prototype.addMove = function(input, next) {
 	throw "must implement (Alice.State.addMove).";
 }

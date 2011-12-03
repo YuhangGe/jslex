@@ -346,10 +346,10 @@ Alice.EquivalenceManager.prototype.toString = function() {
 }
 Alice.EquivalenceManager.prototype.output = function() {
 	$.dprint("----Output----");
-	$.dprint(this.eq_class);
-	$.dprint(this.char_table);
-	$.dprint(this.table_prev);
-	$.dprint(this.table_next);
+	$.aprint(this.eq_class);
+	$.aprint(this.char_table);
+	$.aprint(this.table_prev);
+	$.aprint(this.table_next);
 	$.dprint(this.toString());
 	$.dprint("----End Output----");
 }

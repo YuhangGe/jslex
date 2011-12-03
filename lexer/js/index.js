@@ -42,6 +42,8 @@ function doCheck(){
 	r=Alice.Regular.Str2Nfa.parse(reg_str);
 	$.dprint(r);
 	$.dprint(Alice.CharTable.toString());
+	r2 = Alice.Nfa2Dfa.parse(r);
+	$.dprint(r2);
 }
 
 r2=null;

@@ -170,19 +170,23 @@
 		return format.replace(regex, doFormat);
 	}
 	$.extend({
-		'dprint':function(format, arg1, arg2){
-			var rtn = null;
-			if(arguments.length<=1)
-				if(format instanceof Array || (format.buffer && format.length)){
-					rtn = "";
-					for(var i=0;i<format.length;i++){
-						rtn+=sprintf("%2d ",format[i]);
-					}
-				}else{
-					rtn = format;
+		'aprint' : function(arr) {
+			var rtn = "";
+			if(arr && ( arr instanceof Array || (arr.buffer && arr.length))) {
+				for(var i = 0; i < format.length; i++) {
+					rtn += sprintf("%d ", format[i]);
 				}
+			}
+			if(console)
+				console.log(rtn);
+			return rtn;
+		},
+		'dprint' : function(format, arg1, arg2) {
+			var rtn = null;
+			if(arguments.length <= 1)
+				rtn = format
 			else
-				rtn = sprintf.apply(this,arguments);
+				rtn = sprintf.apply(this, arguments);
 			if(console)
 				console.log(rtn);
 			return rtn;
