@@ -101,7 +101,7 @@ Alice.NFAState.prototype.toString = function() {
 Alice.NFAState.prototype.getMove = function(input) {
 	if(input === Alice.e)
 		return this.e_moves;
-	else if(this.move[0].isFit(input))
+	else if(this.move && this.move[0].isFit(input))
 		return this.move[1];
 	else
 		return null;

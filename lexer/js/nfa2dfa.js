@@ -144,10 +144,10 @@ Alice.Nfa2Dfa = {
 		 * 以下过程参考龙书的算法97页算法3.20：子集构造（subset construction）算法
 		 */
 		var T;
-		while(( T = this.get_untag_state()) !== null) {
+		while(T = this.get_untag_state()) {
 			T.tag = true;
-			$.dprint("untag:"+T.id);
-			$.dprint(T);
+			//$.dprint("untag:"+T.id);
+			//$.dprint(T);
 			/**
 			 * 遍历所有输入符，即所有输入符等价类。
 			 * 等价类的数量可能会非常多（最大跟字符集数量一样大，如果是Unicode字符集，达到0xffff，
@@ -158,8 +158,8 @@ Alice.Nfa2Dfa = {
 			 * 潜在的复杂对于编码没有好处。 
 			 */
 			for(var i = 0; i < eqc.length; i++) {
-				$.dprint('move:'+eqc[i]);
-				$.dprint(T.nfaset);
+				//$.dprint('move:'+eqc[i]);
+				//$.dprint(T.nfaset);
 				/**
 				 * move(T,a):能够从集合T中某个状态s出发通过标号为a的转换到达的NFA状态集合
 				 * 为了效率，在得到该move集合后，会计算集合类NFA状态的所有元素的hash_key，
@@ -170,28 +170,31 @@ Alice.Nfa2Dfa = {
 			
 				if(!mv)
 					continue;
-				$.dprint(mv.move);
+				//$.dprint(mv.move);
 				/*
 				 * 计算move集合的e_closure集合
 				 */
 				var ec = this.e_closure(mv);
-				$.dprint("e_closure");
-				$.dprint(ec.closure);
+				//$.dprint("e_closure");
+				//$.dprint(ec.closure);
 				/**
 				 * 从已经存在的e_closure集中查找该e_closure对应的dfa状态，
 				 * 如果没有打到，说明该dfa状态还示存在，需要新建
 				 */
 				var dfa_state = this.closure_hash_table[ec.hash_key];
-				$.dprint("dfa_state:"+dfa_state);
+				//$.dprint("dfa_state:"+dfa_state);
 				if(!dfa_state) {
 					dfa_state = new Alice.DFAState(ec.is_accept, Alice.Help._n.get());
 					dfa_state.nfaset = ec.closure;
-					$.dprint("push "+dfa_state.id);
-					$.dprint(dfa_state.nfaset);
+					//$.dprint("push "+dfa_state.id);
+					//$.dprint(dfa_state.nfaset);
 					this.add_dfa_state(dfa_state, ec.hash_key);
 				}
-				$.dprint("add "+T.id+" "+eqc[i]+","+dfa_state.id);
-				T.addMove(eqc[i], dfa_state);
+				//$.dprint("add "+T.id+" "+eqc[i]+","+dfa_state.id);
+				var eqc_index = Alice.CharTable.getEqc(eqc[i]);
+				if(eqc_index===0)
+					throw "wrong! eqc_index invalidate";
+				T.addMove(eqc_index, dfa_state);
 			}
 		}
 		//console.log(dstates);

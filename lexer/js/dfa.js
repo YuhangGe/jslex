@@ -38,6 +38,10 @@ Alice.DFAState.prototype.addMove = function(input, next) {
 		throw "DFA 状态转移一个输入只能有一个输出！(defined)";
 }
 Alice.DFAState.prototype.getMove = function(input) {
+	input = Alice.CharTable.getEqc(input.charCodeAt(0));
+	//$.dprint(input);
+	if(input===0)
+		return null;
 	var i = this.input.indexOf(input);
 	if(i < 0)
 		return null;

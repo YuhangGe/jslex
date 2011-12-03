@@ -344,6 +344,11 @@ Alice.EquivalenceManager.prototype.toString = function() {
 	}
 	return rtn;
 }
+Alice.EquivalenceManager.prototype.getEqc = function(input){
+	if(input<0 || input >= this.size)
+		return 0;
+	return this.char_table[input];
+}
 Alice.EquivalenceManager.prototype.output = function() {
 	$.dprint("----Output----");
 	$.aprint(this.eq_class);

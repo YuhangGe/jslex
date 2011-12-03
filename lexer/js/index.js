@@ -30,7 +30,7 @@ r=null;
 function doCheck(){
 	var reg_str=$("#regexp").val();
 	var txt = $("#text").val();
-/*	if(r===null || r.toString()!==reg_str){
+	if(r===null || r.toString()!==reg_str){
 		$.dprint("new regexp:"+reg_str);
 		r=new Alice.RegExp(reg_str);
 	}
@@ -38,12 +38,12 @@ function doCheck(){
 		$("#result").removeClass("failure").html("Success!<br/><i>"+txt+"</i> matches <i>"+reg_str+"</i>");
 	}else{
 		$("#result").addClass("failure").html("Failure!<br/><i>"+txt+"</i> does't match <i>"+reg_str+"</i>");
-	} */
-	r=Alice.Regular.Str2Nfa.parse(reg_str);
-	$.dprint(r);
-	$.dprint(Alice.CharTable.toString());
-	r2 = Alice.Nfa2Dfa.parse(r);
-	$.dprint(r2);
+	} 
+	// r=Alice.Regular.Str2Nfa.parse(reg_str);
+	// $.dprint(r);
+	// $.dprint(Alice.CharTable.toString());
+	// r2 = Alice.Nfa2Dfa.parse(r);
+	// $.dprint(r2);
 }
 
 r2=null;
