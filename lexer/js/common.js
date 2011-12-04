@@ -129,45 +129,45 @@ jQuery.extend(Alice.Help, {
 	},
 	isDigit : function(chr) {
 		//$.dprint("isDigit:"+chr);
-		return chr >= '0' && chr <= '9';
+		return chr >= 48 && chr <= 57;
 	},
 	isNotDigit : function(chr) {
 		return chr < 48 || chr > 57;
 	},
 	isLetter : function(chr) {
 		//$.dprint("isLetter:"+chr);
-		return chr >= 'a' && chr <= 'z' || chr >= 'A' && chr <= 'Z';
+		return chr >= 97 && chr <= 122 || chr >= 65 && chr <= 90;
 	},
 	isNotLetter : function(chr) {
-		return chr < 'A' || chr > 'Z' && chr < 'a' || chr > 'z';
+		return chr < 65 || chr > 90 && chr < 97 || chr > 122;
 	},
 	isWord : function(chr) {
 		//$.dprint("isWord:" + chr);
-		return this.isLetter(chr) || this.isDigit(chr) || chr === '_';
+		return this.isLetter(chr) || this.isDigit(chr) || chr === 95;
 	},
 	isNotWord : function(chr) {
 		return !this.isWord(chr);
 	},
 	isSpace : function(chr) {
-		return chr === ' ' || chr === '\t' || chr === '\n' || chr === '\r' || chr === '\f' || chr === '\v';
+		return chr === 32 || chr === 9 || chr === 10 || chr === 13 || chr === 12 || chr === 11;
 	},
 	isNotSpace : function(chr) {
 		return !this.isNotSpace(chr);
 	},
 	isUpper : function(chr) {
-		return chr >= 'A' && chr <= 'Z';
+		return chr >= 65 && chr <= 90;
 	},
 	isNotUpper : function(chr) {
-		return chr < 'A' || chr > 'Z';
+		return chr < 65 || chr > 90;
 	},
 	isLower : function(chr) {
-		return chr >= 'a' && chr <= 'z';
+		return chr >= 97 && chr <= 122;
 	},
 	isNotLower : function(chr) {
-		return chr < 'a' || chr > 'z';
+		return chr < 97 || chr > 122;
 	},
 	isDot : function(chr) {
-		return chr !== '\n';
+		return chr !== 10;
 	}
 });
 
@@ -183,17 +183,17 @@ Alice.DEF_FUNC = {};
 	var F = Alice.DEF_FUNC;
 	var H = Alice.Help;
 	
-	T.DIGIT = 10; 		//数字：	\d
+	T.DIGIT = 1; 		//数字：	\d
 	T.NOT_DIGIT = -1;	//非数字：	\D
-	T.SPACE = 12;	//空字符\f\n\r\t\v：	\s
+	T.SPACE = 2;	//空字符\f\n\r\t\v：	\s
 	T.NOT_SPACE = -2;	//非字符：	\S
-	T.WORD = 14;		//字符a-zA-Z_：\s
+	T.WORD = 3;		//字符a-zA-Z_：\s
 	T.NOT_WORD = -3;	//非字符：	\W
-	T.LETTER = 16;		//字母：	\a
+	T.LETTER = 4;		//字母：	\a
 	T.NOT_LETTER = -4;	//非字母：	\A
-	T.UPPER = 18;		//大写字母：\u
+	T.UPPER = 5;		//大写字母：\u
 	T.NOT_UPPER = -5;	//非大写字母：\U
-	T.LOWER = 20;	//小写字母：\l
+	T.LOWER = 6;	//小写字母：\l
 	T.NOT_LOWER = -6;	//非小写字母：\L
 	T.DOT = -7;	//除\n外任意字符：.
 	
@@ -204,13 +204,18 @@ Alice.DEF_FUNC = {};
 		return rtn;
 	}
 	D[T.DIGIT] = D[T.NOT_DIGIT] = s2arr("0123456789");
-	D[T.WORD]=s2arr("abcdefghilklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_");
-	D[T.SPACE]=s2arr("\n\t\v\v\f");
-	D[T.LETTER]=s2arr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-	D[T.LOWER]=s2arr("abcdefghigklmnopqrstuvwxyz");
-	D[T.UPPER]=s2arr("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+	D[T.WORD] = D[T.NOT_WORD] = s2arr("abcdefghilklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_");
+	D[T.SPACE] = D[T.NOT_SPACE] = s2arr("\n\t\v\v\f");
+	D[T.LETTER] = D[T.NOT_LETTER] = s2arr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+	D[T.LOWER] = D[T.NOT_LOWER] = s2arr("abcdefghigklmnopqrstuvwxyz");
+	D[T.UPPER] = D[T.NOT_UPPER] = s2arr("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+	D[T.DOT] = s2arr("\n");
 	
 	F[T.NOT_DIGIT] = H.isNotDigit;
 	F[T.NOT_WORD] = H.isNotWord;
-	
+	F[T.NOT_LETTER] = H.isNotLetter;
+	F[T.NOT_UPPER] = H.isNotUpper;
+	F[T.NOT_LOWER] = H.isNotLower;
+	F[T.NOT_SPACE] = H.isNotSpace;
+	F[T.DOT] = H.isDot;
 })();

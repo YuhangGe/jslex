@@ -342,7 +342,7 @@ Alice.Regular = {};
 	R.Str2Nfa._u = function() {
 		var w = "";
 		while(true) {
-			if(this.cur_t.tag === R.Tag['}'] || Alice.Help.isWord(this.cur_t.value) === false)
+			if(this.cur_t.tag === R.Tag['}'] || this._u_not_digit(this.cur_t.value) === false)
 				break;
 			w += this.cur_t.value;
 			this.read_token();
@@ -350,7 +350,10 @@ Alice.Regular = {};
 		if(Alice.Lex.Parser.define[w]!=null){
 			return Alice.Lex.Parser.define[w].copy();
 		}else
-			throw "_u 0";
+			throw "_u 0 :"+w;
+	}
+	R.Str2Nfa._u_not_digit = function(chr){
+		return chr<'0' || chr>'9';
 	}
 	R.Str2Nfa._str = function() {
 		var str = "";
@@ -430,7 +433,8 @@ Alice.Regular = {};
 		 * 可以做到尽可能的不对已经插入过的字符集进行等价类操作
 		 */
 		var uni_chrs = H.uniqueSort(chrs);
-		return Alice.NFA.createMultiNFA(chrs,except);
+		//$.dprint(uni_chrs);
+		return Alice.NFA.createMultiNFA(uni_chrs,except);
 	}
 	R.Str2Nfa.parse = function(str) {
 		this.str = str;

@@ -17,7 +17,7 @@ Alice.Lex.Parser= {
 	var T = Alice.Lex.Tag;
 	var T = Alice.Lex.Token;
 	var P = Alice.Lex.Parser;
-	var H = Alice.Help;
+	
 	
 	P._define=function(){
 		if(this.cur_t==='${'){
@@ -54,7 +54,7 @@ Alice.Lex.Parser= {
 		var func_str="";
 		var c = this.read_ch();
 		var until = '\n';
-		while(c!==null && H.isSpace(c) && c!==until)
+		while(c!==null && this.isSpace(c) && c!==until)
 			c = this.read_ch();
 		if(c==='{'){
 			until = '}';
@@ -68,7 +68,6 @@ Alice.Lex.Parser= {
 		
 		expNfa.finish.isAccept = true;
 		expNfa.finish.action = new Alice.Action(func_str);
-		$.dprint(expNfa.finish.action.id);
 		this.rule.push(lbl);
 	}
 	P._routine=function(){
@@ -92,7 +91,7 @@ Alice.Lex.Parser= {
 	}
 	P.read_word = function(){
 		var c = this.read_ch();
-		while(c!==null && H.isSpace(c))
+		while(c!==null && this.isSpace(c))
 			c = this.read_ch();
 		
 		var w="";
@@ -100,7 +99,7 @@ Alice.Lex.Parser= {
 		if(c==='[')
 			quote = ']';
 		while(c!==null){
-			if(quote===null && H.isSpace(c))
+			if(quote===null && this.isSpace(c))
 				break;
 			w+=c;
 			if(c==='\"' || c==='\''){
@@ -146,7 +145,6 @@ Alice.Lex.Parser= {
 		}
 		
 		var dfa = Alice.Nfa2Dfa.parse(lexNFA);
-		$.dprint(dfa);
 		var m_dfa = Alice.DfaMinimize.parse(dfa);
 		return {
 			dfa : m_dfa,
@@ -154,6 +152,9 @@ Alice.Lex.Parser= {
 		}
 		
 		
+	}
+	P.isSpace = function(chr){
+		return chr===' '||chr==='\n' || chr==='\t' ||chr ==='\r';
 	}
 })();
 

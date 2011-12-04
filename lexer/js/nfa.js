@@ -266,8 +266,8 @@ Alice.NFA.createSingleNFA = function(input) {
  * 处理[]正则符号，生成arr数组中字符的or运算nfa
  */
 Alice.NFA.createMultiNFA = function(arr, except) {
-	$.dprint(arr);
-	$.dprint(except);
+	//$.dprint(arr);
+	//$.dprint(except);
 	var t = except ? Alice.NFAInput.EXCEPT : Alice.NFAInput.RANGE;
 	var input = new Alice.NFAInput(t, arr);
 	Alice.CharTable.addInput(input);
@@ -291,6 +291,7 @@ Alice.NFA.createStrNFA = function(str) {
 	for(var i = 0; i < str.length; i++) {
 		next = new Alice.NFAState();
 		input = new Alice.NFAInput(Alice.NFAInput.SINGLE, str.charCodeAt(i));
+		Alice.CharTable.addInput(input);
 		pre.addMove(input, next);
 		nfa.addState(pre);
 		pre = next;

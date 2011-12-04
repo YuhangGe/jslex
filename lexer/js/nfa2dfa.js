@@ -45,7 +45,7 @@ Alice.Nfa2Dfa = {
 			e_c.push(T[i]);
 			e_id.push(T[i].id);
 			/*if(T[i].isAccept === true){
-			 this.is_accept = true;
+			 	is_accept = true;
 			 }*/
 			is_accept |= T[i].isAccept;
 		}
@@ -76,9 +76,9 @@ Alice.Nfa2Dfa = {
 		 */
 		is_accept = is_accept ? true : false;
 		new_closure = {
-			'hash_key' : hash_key,
-			'closure' : e_c,
-			'is_accept' : is_accept
+			hash_key : hash_key,
+			closure : e_c,
+			is_accept : is_accept
 		};
 		return new_closure;
 	},
@@ -102,8 +102,8 @@ Alice.Nfa2Dfa = {
 			return a > b;
 		}).join(",");
 		return {
-			'hash_key' : hash_key,
-			'move' : mv
+			hash_key : hash_key,
+			move : mv
 		};
 	},
 	//得到dstates中未标记状态
@@ -132,9 +132,9 @@ Alice.Nfa2Dfa = {
 		 */
 		var s0 = new Alice.DFAState(Alice.Help._n.get());
 		var mv0 = {
-			'hash_key':undefined,
-			'move' : [nfa.start],
-			'is_accept': false
+			hash_key : undefined,
+			move : [nfa.start],
+			is_accept: false
 		}
 		var ec0 = this.e_closure(mv0);
 		s0.nfaset = ec0.closure;

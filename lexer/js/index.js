@@ -52,10 +52,10 @@ lex = null;
 function doLex(){
 	var lex_src=$('#lexSrc').val();
 	lex = Alice.Lex.Parser.parse(lex_src);
-	$.dprint(lex.dfa);
+	//$.dprint(lex.dfa);
 	var o = Alice.Lex.Dfa2Str.parse(lex.dfa);
 	$('#lexOutput').val( o.func + o.table + lex.code);
-	//eval($('#lexOutput').val());
+	eval($('#lexOutput').val());
 }
 
 function doCheck2(){
@@ -85,32 +85,8 @@ function runLex(){
 
 /*
 $(function(){
-	// var _D = Alice.DFAState;
-	// var _n = Alice.Help._n;
-	// var ds = new Array(5);
-	// for(var i=0;i<5;i++)
-		// ds[i] = new _D(_n.get());
-	// ds[0].addMove(1,ds[2]);
-	// ds[0].addMove(2,ds[1]);
-	// ds[1].addMove(2,ds[1]);
-	// ds[1].addMove(1,ds[2]);
-	// ds[2].addMove(1,ds[3]);
-	// ds[2].addMove(2,ds[2]);
-	// ds[2].addMove(3,ds[4]);
-	// ds[3].addMove(1,ds[3]);
-	// ds[3].addMove(2,ds[2]);
-	// ds[3].addMove(3,ds[4]);
-	// ds[4].isAccept = true;
-// 	
-	// d = new Alice.DFA(ds[0],ds);
-// 	
-	// $.dprint(d.toString());
-// 	
-	// m_d = Alice.DfaMinimize.parse(d);
-// 	
-	// $.dprint(m_d);
 	
-	r=Alice.Regular.Str2Nfa.parse("(a|b)*abb");
+	r=Alice.Regular.Str2Nfa.parse("a\"123\"b");
 	$.dprint(r);
 	$.dprint(Alice.CharTable.toString());
 	r2 = Alice.Nfa2Dfa.parse(r);

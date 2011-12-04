@@ -66,14 +66,14 @@
 		</div>
 		<div id="result" class="success"></div>
 		<div><textarea id="lexSrc" cols="45" rows="10">		
-DIGIT    [0-9]
-         ID       [a-z][a-z0-9]*
+
+         ID       [a-z][a-z\d]*
      
- INT {DIGIT}+
-FLOAT {DIGIT}+"."{DIGIT}*      
+ INT \d+
+FLOAT \d+"."\d*      
 KEYWORDS if|then|begin|end|procedure|function
 OPERATOR  "+"|"-"|"*"|"/" 
-CMT  "{"[\^{}}\n]*"}" 
+CMT  "/*"[.\n]*"*/" 
 SPACE  [ \t\n]+
 IGNORE .
 
@@ -95,9 +95,9 @@ $$
      
         OPERATOR  $.dprint( "An operator: %s\n", txt);
      
-       CMT
+       CMT $.dprint("comment : %s",txt);
      
-  SPACE
+  SPACE $.dprint("space: "+txt);
      
    IGNORE         $.dprint( "Unrecognized character: %s\n", txt);
 
@@ -114,9 +114,10 @@ $$
 	</div>
 	<div class="c_float">
 		<div><textarea cols="45" rows="20" id="runInput">
-323 skdjla 42, 32 *dls@!^!sdl
-爱你love you daisy.
-323
+if then 323.42 42  a323 32abc /* djsld
+*ds
+**/
+
 		</textarea></div>
 	</div>
 	</body>
