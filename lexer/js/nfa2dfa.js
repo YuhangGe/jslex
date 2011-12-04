@@ -68,7 +68,7 @@ Alice.Nfa2Dfa = {
 		 */
 		hash_key = e_id.sort(function(a,b){
 			return a>b;
-		}).join("");
+		}).join(",");
 		/**
 		 * is_accept |= ...运算后，会从boolean型变成int型，即true/false变成1/0
 		 * 虽然不知道这个在if判断中是否会有区别(javascript没有类型)，
@@ -100,7 +100,7 @@ Alice.Nfa2Dfa = {
 			return null;
 		var hash_key = mv_id.sort(function(a, b) {
 			return a > b;
-		}).join("");
+		}).join(",");
 		return {
 			'hash_key' : hash_key,
 			'move' : mv
@@ -197,6 +197,36 @@ Alice.Nfa2Dfa = {
 				T.addMove(eqc_index, dfa_state);
 			}
 		}
+		
+		/**
+		 * 为每个DFA状态设置action
+		 */
+		for(var i=0;i<this.dstates.length;i++){
+			
+			if(!this.dstates[i].isAccept){
+				continue;
+			}
+			var nfaset = this.dstates[i].nfaset;
+			var min_id = -1, ac = null, j = 0;
+			for(var j=0;j<nfaset.length;j++){
+				if(nfaset[j].isAccept && nfaset[j].action){
+					if(min_id<0){
+						min_id = nfaset[j].action.id;
+						ac = nfaset[j].action;
+					}else if(min_id>nfaset[j].action.id){
+						min_id = nfaset[j].action.id;
+						ac = nfaset[j].action;
+					}
+					
+				}
+			}
+			
+			//$.dprint(min_id);
+			//if(min_id<0)
+				//throw "no action found in accepted state!";
+			this.dstates[i].action = ac;	
+		}
+		
 		//console.log(dstates);
 		var dfa = new Alice.DFA(this.dstates[0]);
 		dfa.addState(this.dstates);

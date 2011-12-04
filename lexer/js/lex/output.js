@@ -2,74 +2,22 @@ Daisy = {};
 
 Daisy.State = function(acc) {
 	this.accept = acc;
-	this.dir = {};
-	this.def = [];
-	this.ept = [];
+	this.input = [];
+	this.next = [];
 }
 
 Daisy.State.prototype.move = function(input) {
-	if(!input)
+	var eqc = Alice.CharTable.getEqc(input);
+	if(eqc){
+		var i = this.input.indexOf(eqc);
+		if(i < 0)
+			return false;
+		else
+			return this.next[i];
+	}else
 		return false;
-	if(this.dir[input])
-		return this.dir[input];
-
-	var i;
-
-	for( i = 0; i < this.def.length; i++)
-	if(this.test(this.def[i], input))
-		return this.defN[i];
-
-	var e, _in;
-
-	for( i = 0; i < this.ept.length; i++) {
-		e = this.ept[i];
-		_in = false;
-		for(var j = 0; j < e.length; j++) {
-			if(this.test(e[j], input) || e[j] === input) {
-				_in = true;
-				break;
-			}
-		}
-		if(_in === false)
-			return this.eptN[i];
-	}
-
-	return false;
-
 }
-Daisy.State.prototype.test = function(c, i) {
-	switch(c) {
-		case 10:
-			if(i >= '0' && i <= '9')
-				return true;
-			break;
-		case 11:
-			if(i < '0' || i > '9')
-				return true;
-			break;
-		case 12:
-			if(i === ' ' || i === '\n' || i === '\t' || i === '\v' || i === '\f' || i === '\r')
-				return true;
-			break;
-		case 13:
-			break;
-		case 14:
-			if(i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z' || i >= '0' && i <= '9' || i === '_')
-				return true;
-			break;
-		case 15:
-			break;
-		case 16:
-			if(i >= 'a' && i <= 'z' || i >= 'A' && i <= 'Z')
-				return true;
-			break;
-		case 22:
-			if(i !== '\n')
-				return true;
-			break;
-	}
-	return false;
-}
+
 
 Daisy.Lexer = function(source) {
 	this.src = source;
@@ -89,8 +37,7 @@ Daisy.Lexer = function(source) {
 	//记录上一次可接受状态。last_state
 	this.l_s = [0, 0, "", false];
 
-	this.len = 0;
-	this.txt = "";
+	this.token = [];
 	this.r = undefined;
 }
 Daisy.Lexer.prototype.setSource = function(source) {
@@ -100,23 +47,21 @@ Daisy.Lexer.prototype.setSource = function(source) {
 	this.c_s = this.i_s;
 	this.n_s = null;
 	this.l_s[3] = false;
-	this.len = 0;
-	this.txt = "";
+	this.token.length = 0;
 	this.r = undefined;
 }
 Daisy.Lexer.prototype.init_s = function() {
 	this.c_s = this.i_s;
-	this.len = 0;
-	this.txt = "";
+	this.token.length = 0;
 	this.l_s[3] = false;
 }
 
 Daisy.Lexer.prototype.read_ch = function() {
 	if(this.idx >= this.end) {
 		this.idx++;
-		return this.chr = false;
+		return this.chr = -1;
 	} else
-		return this.chr = this.src[this.idx++];
+		return this.chr = this.src.charCodeAt(this.idx++);
 }
 Daisy.Lexer.prototype.back_ch = function() {
 	this.idx--;
@@ -130,8 +75,7 @@ Daisy.Lexer.prototype.scan = function() {
 		} else {
 			this.c_s = this.c_s.move(this.read_ch())
 		}
-		this.len++;
-		this.txt += this.chr;
+		this.token.push(this.chr);
 		if(!this.c_s) {
 			if(this.l_s[3]) {
 				//$.dprint("back history action");
@@ -139,7 +83,7 @@ Daisy.Lexer.prototype.scan = function() {
 				this.init_s();
 				this.idx = this.l_s[0] + this.l_s[1];
 				break;
-			} else if(this.read_ch()){
+			} else if(this.read_ch()>=0){
 				//$.dprint("not match at %d, len: %d, txt:%s. skip.", this.idx - 1, this.len, this.txt);
 				this.back_ch();
 				this.init_s();
@@ -153,9 +97,9 @@ Daisy.Lexer.prototype.scan = function() {
 		}
 		if(this.c_s.accept) {
 			if(this.n_s = this.c_s.move(this.read_ch())) {
-				this.l_s = [this.idx - this.len - 1, this.len, this.txt, this.c_s];
+				this.l_s = [this.idx - this.token.length - 1, this.token.length, String.fromCharCode.apply(this,this.token), this.c_s];
 			} else {
-				this.r = this.c_s.action(this.len, this.txt);
+				this.r = this.c_s.action(this.token.length, String.fromCharCode.apply(this,this.token));
 				this.init_s();
 				this.back_ch();
 				break;
@@ -183,121 +127,72 @@ Daisy.lex = function(source) {
 }
 Daisy.S = [];
 Daisy.F = [];
-/*
- Daisy.F = [
- function(len, val) {
- $.dprint("M0 :" + len + ',' + val);
- },
+Daisy.F = [
+function(len, txt) {
+$.dprint("match M1 a, len: %d, txt: %s",len,txt);
+},
+function(len, txt) {
+$.dprint("match M3 a*b+, len: %d, txt: %s",len,txt);
+},
+function(len, txt) {
+$.dprint("match M2 abb, len: %d, txt: %s",len,txt);
+},
 
- function(len, val) {
- $.dprint("M1 :" + len + ',' + val);
- },
+];
+(function() {
+var S = Daisy.S;
+var F = Daisy.F;
 
- function(len, val) {
- $.dprint("M2 :" + len + ',' + val);
- }];
+Daisy.F = [
+function(len, txt) {
+$.dprint("match M1 a, len: %d, txt: %s",len,txt);
+},
+function(len, txt) {
+$.dprint("match M3 a*b+, len: %d, txt: %s",len,txt);
+},
+function(len, txt) {
+$.dprint("match M2 abb, len: %d, txt: %s",len,txt);
+},
 
- Daisy.S = []; (function() {
+];
+(function() {
+var S = Daisy.S;
+var F = Daisy.F;
+for(var i = 0; i < 7; i++)
+	S.push(new Daisy.State(false));
+S[0].input.push(1,2);
+S[0].next.push(S[1],S[2]);
+S[1].accept = true;
+S[1].action = F[0];
+S[1].input.push(1,2);
+S[1].next.push(S[3],S[4]);
+S[2].accept = true;
+S[2].action = F[1];
+S[2].input.push(2);
+S[2].next.push(S[5]);
+S[3].input.push(1,2);
+S[3].next.push(S[3],S[2]);
+S[4].accept = true;
+S[4].action = F[1];
+S[4].input.push(2);
+S[4].next.push(S[6]);
+S[5].accept = true;
+S[5].action = F[1];
+S[5].input.push(2);
+S[5].next.push(S[5]);
+S[6].accept = true;
+S[6].action = F[2];
+S[6].input.push(2);
+S[6].next.push(S[5]);
 
- var S = Daisy.S;
- var F = Daisy.F;
- for(var i = 0; i < 6; i++)
- S.push(new Daisy.State(false));
+})();
 
- S[0].dir = {
- 'a' : S[1],
- 'b' : S[2]
- }
- S[1].dir = {
- 'a' : S[3],
- 'b' : S[5]
- }
- S[1].accept = true;
- S[1].action = F[0];
 
- S[2].dir = {
- 'b' : S[2]
- }
- S[2].accept = true;
- S[2].action = F[2];
+		
+		
 
- S[3].dir = {
- 'a' : S[3],
- 'b' : S[2]
- }
- S[4].dir = {
- 'b' : S[2]
- }
- S[4].accept = true;
- S[4].action = F[1];
+})();
 
- S[5].dir = {
- 'b' : S[4]
- }
- S[5].accept = true;
- S[5].action = F[2];
- })();
- */
-/*
- Daisy.F = [
- function(len, val) {
- $.dprint("M0 : "+len+","+val);
- $.dprint("love you, daisy");
- },
- function(len, val) {
- $.dprint("M1 : "+len+","+val);
- },
- function(len, val) {
- $.dprint("M2 : "+len+","+val);
- },
 
- ];
-
- (function() {
- var S = Daisy.S;
- var F = Daisy.F;
- for(var i = 0; i < 7; i++)
- S.push(new Daisy.State(false));
- S[0].dir = {
- 'a' : S[1],
- 'b' : S[2],
- }
- S[1].accept = true;
- S[1].action = F[0];
- S[1].dir = {
- 'a' : S[3],
- 'b' : S[4],
- }
- S[2].accept = true;
- S[2].action = F[1];
- S[2].dir = {
- 'b' : S[5],
- }
- S[3].dir = {
- 'a' : S[3],
- 'b' : S[2],
- }
- S[4].accept = true;
- S[4].action = F[1];
- S[4].dir = {
- 'b' : S[6],
- }
- S[5].accept = true;
- S[5].action = F[1];
- S[5].dir = {
- 'b' : S[5],
- }
- S[6].accept = true;
- S[6].action = F[2];
- S[6].dir = {
- 'b' : S[5],
- }
-
- })();
-
- $(function() {
- var str = "aabbaaabbabbaaac";
- $.dprint(str);
- Daisy.lex(str);
- })
- */
+		
+		

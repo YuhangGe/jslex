@@ -68,7 +68,7 @@ Alice.Lex.Parser= {
 		
 		expNfa.finish.isAccept = true;
 		expNfa.finish.action = new Alice.Action(func_str);
-		
+		$.dprint(expNfa.finish.action.id);
 		this.rule.push(lbl);
 	}
 	P._routine=function(){
@@ -145,9 +145,12 @@ Alice.Lex.Parser= {
 			lexNFA.addState(nfaExp.states);
 		}
 		
+		var dfa = Alice.Nfa2Dfa.parse(lexNFA);
+		$.dprint(dfa);
+		var m_dfa = Alice.DfaMinimize.parse(dfa);
 		return {
-			'dfa':Alice.Nfa2Dfa.parse(lexNFA),
-			'code' : this.routine
+			dfa : m_dfa,
+			code : this.routine
 		}
 		
 		

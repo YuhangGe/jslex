@@ -47,53 +47,28 @@ Alice.Lex.Dfa2Str={
 	},
 	parseState:function(s){
 		var s_id = "S["+s.id+"]";
-		if(s.isAccept===true && s.nfaset.length>0 ){
+		if(s.isAccept===true){
 			this.append(s_id+".accept = true;\n");
-			//查找dfa状态关联的nfa状态中，最先声明的action
-			var min_fid = 99999;
-			var min_i = -1;
-			for(var i=0;i<s.nfaset.length;i++){
-				if(s.nfaset[i].isAccept && min_fid>s.nfaset[i].action.id){
-					min_fid= s.nfaset[i].action.id;
-					min_i = i;
-				}
-					
-			}
-			var fid = this.func_hash[min_fid];
+			var fid = this.func_hash[s.action.id];
 			if(!fid){
-				fid = this.appendFunc(s.nfaset[min_i].action.func);
-				this.func_hash[min_fid] = fid;
+				fid = this.appendFunc(s.action.func);
+				this.func_hash[s.action.id] = fid;
 			}
-				 
 			this.append(s_id+".action = F["+fid+"];\n");
 		}
 		
-		var dir = s.moves.directed;
-		var dir_str = "";
-		for(var d in dir) {
-			var _d = Alice.Help._d[d]?Alice.Help._d[d]:d;
-			dir_str += "'"+ _d + "' : S["+dir[d].id + "],\n";
+		if(s.input.length!==s.next.length)
+			throw "dfa 状态的input 和next不对应，这个不应该出现。请联系开发人员";
+			
+		if(s.input.length<=0)
+			return;
+			
+		var next_id = [];
+		for(var i=0;i<s.next.length;i++){
+			next_id.push("S["+s.next[i].id+"]");
 		}
-		if(dir_str.length!==0)
-			this.append(s_id+".dir = {\n"+dir_str+"}\n");
+		this.append(s_id+".input.push("+s.input.join(",")+");\n");
+		this.append(s_id+".next.push("+next_id.join(",")+");\n");
 		
-		var def = s.moves.defined;
-		var defN = s.moves.definedNext;
-		var dl = def.length;
-		if(dl > 0){
-			$.dprint(def);
-			var defN_str="";
-			this.append(s_id+".def = ["+def.join(",")+"];\n");
-			for(var i=0;i<dl;i++)
-				defN_str += "S["+defN[i].id+"], ";
-			this.append(s_id+".defN = [" + defN_str +"];\n");
-		}
-		 
-		// var ept = s.moves.excepted;
-		// var ept_str = "", ept_next_str = "";
-		// for(var i = 0; i < ept.length; i++) {
-		 	// ept_str += ept[i] +","
-		// }
-	
 	}
 }

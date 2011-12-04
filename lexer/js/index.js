@@ -55,7 +55,7 @@ function doLex(){
 	$.dprint(lex.dfa);
 	var o = Alice.Lex.Dfa2Str.parse(lex.dfa);
 	$('#lexOutput').val( o.func + o.table + lex.code);
-	eval($('#lexOutput').val());
+	//eval($('#lexOutput').val());
 }
 
 function doCheck2(){
@@ -83,6 +83,7 @@ function runLex(){
 	
 }
 
+/*
 $(function(){
 	// var _D = Alice.DFAState;
 	// var _n = Alice.Help._n;
@@ -117,4 +118,4 @@ $(function(){
 	r3 = Alice.DfaMinimize.parse(r2);
 	$.dprint(r3);
 });
-
+*/

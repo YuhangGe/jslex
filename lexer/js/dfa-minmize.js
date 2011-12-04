@@ -113,8 +113,9 @@ Alice.DfaMinimize = {
 		var debug = 0;
 
 		this.init(dfa);
-		this.output(); outer:
-		while(true && debug < 10000000) { inner:
+		//this.output();
+		outer:
+		while(true && debug < 10000000) {
 			for(var i = 0; i < eqc.length; i++) {
 
 				if(debug++ > 10000000) {
@@ -129,7 +130,7 @@ Alice.DfaMinimize = {
 				//$.dprint("*****");
 				if(!this.is_group_set_same()) {
 					this.swap_group_set();
-					this.output();
+					//this.output();
 					continue outer;
 				}
 
@@ -140,7 +141,7 @@ Alice.DfaMinimize = {
 			debug++;
 		}
 		//$.dprint("finish at debug is : %d", debug);
-		this.output();
+		//this.output();
 
 		Alice.DFAState.__auto_id__ = 0;
 
@@ -149,20 +150,28 @@ Alice.DfaMinimize = {
 		for(var i = 0; i < new_size; i++) {
 			new_states[i] = new Alice.DFAState(i.toString());
 		}
-		
+
 		var new_start = new_states[this.group_id[dfa.start.__minimize_id__]];
 		for(var i = 0; i < new_size; i++) {
 			var old_s = this.dfa_states[this.group_set[i]];
 			for(var j = 0; j < old_s.input.length; j++) {
 				var new_next = this.group_id[old_s.next[j].__minimize_id__];
 				//$.dprint("new next %d",new_next);
-				new_states[i].addMove(old_s.input[j],new_states[new_next]);
+				new_states[i].addMove(old_s.input[j], new_states[new_next]);
 			}
 		}
-		for(var i=0;i<this.accept_states.length;i++){
-			new_states[this.group_id[this.accept_states[i].__minimize_id__]].isAccept = true;
+		for(var i = 0; i < this.accept_states.length; i++) {
+			var gid = this.group_id[this.accept_states[i].__minimize_id__];
+			new_states[gid].isAccept = true;
+			if(!new_states[gid].action)
+				new_states[gid].action = this.accept_states[i].action;
+			else {
+				$.dprint("最小化DFA时出现问题，Action丢失。");
+			}
 		}
-		return new Alice.DFA(new_start,new_states);
+
+		$.dprint("dfa minimized. %d states to %d states.", this.size, new_size);
+		return new Alice.DFA(new_start, new_states);
 
 	},
 	output : function() {
