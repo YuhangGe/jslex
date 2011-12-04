@@ -114,19 +114,19 @@ Alice.DfaMinimize = {
 
 		this.init(dfa);
 		this.output(); outer:
-		while(true && debug < 100000) { inner:
+		while(true && debug < 10000000) { inner:
 			for(var i = 0; i < eqc.length; i++) {
 
-				if(debug++ > 100000) {
+				if(debug++ > 10000000) {
 					break outer;
 				}
 				this.get_group_id_tmp(Alice.CharTable.getEqc(eqc[i]));
-				$.aprint(this.group_id);
-				$.aprint(this.group_id_tmp);
+				//$.aprint(this.group_id);
+				//$.aprint(this.group_id_tmp);
 				this.get_group_set_new();
-				$.aprint(this.group_set);
-				$.aprint(this.group_set_new);
-				$.dprint("*****");
+				//$.aprint(this.group_set);
+				//$.aprint(this.group_set_new);
+				//$.dprint("*****");
 				if(!this.is_group_set_same()) {
 					this.swap_group_set();
 					this.output();
@@ -139,7 +139,7 @@ Alice.DfaMinimize = {
 				break;
 			debug++;
 		}
-		$.dprint("finish at debug is : %d", debug);
+		//$.dprint("finish at debug is : %d", debug);
 		this.output();
 
 		Alice.DFAState.__auto_id__ = 0;
