@@ -38,6 +38,7 @@ Alice.Lex.Dfa2Str={
 			this.parseState(dfa.states[i]);
 		}
 		
+		this.append("Daisy.StartState = S["+dfa.startIndex+"];\n");
 		
 		return {
 			'table': "(function() {\nvar S = Daisy.S;\nvar F = Daisy.F;\n"+this.table.join("")+"\n})();\n",

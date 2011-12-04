@@ -26,11 +26,38 @@ Alice.DfaMinimize = {
 		for(var i = 0; i < this.size; i++) {
 			this.dfa_states[i].__minimize_id__ = i;
 			if(this.dfa_states[i].isAccept) {
-				this.group_id_tmp[i] = -1;
 				this.accept_states.push(this.dfa_states[i]);
 			}
 		}
 		this.get_first_group_set();
+	},
+	get_first_group_set : function() {
+		
+		var act_table = {};
+		var max_id = 1,n=0;
+		for(var i=0;i<this.size;i++){
+			if(this.dfa_states[i].isAccept){
+				if(this.dfa_states[i].action){
+					var a_id = this.dfa_states[i].action.id, t_id = act_table[a_id];
+					if(t_id===undefined){
+						t_id = max_id++;
+						act_table[a_id] = t_id;
+					}
+					this.group_id_tmp[i] = t_id;
+				}else{
+					this.group_id_tmp[i] = -1;
+				}
+			}else{
+				this.group_id_tmp[i] = 0;
+			}
+		}
+		//$.aprint(this.group_id_tmp);
+		this.get_group_set_new();
+		this.swap_group_set();
+		this.group_set_new[this.size] = this.group_set[this.size];
+		
+		//this.output();
+		 
 	},
 	swap_index_and_id : function(x, y) {
 		var tmp = this.dfa_states[x];
@@ -102,11 +129,6 @@ Alice.DfaMinimize = {
 		this.group_set_new = this.group_set;
 		this.group_set = tmp;
 	},
-	get_first_group_set : function() {
-		this.get_group_set_new();
-		this.swap_group_set();
-		this.group_set_new[this.size] = this.group_set[this.size];
-	},
 	parse : function(dfa) {
 		var eqc = Alice.CharTable.eq_class;
 
@@ -125,6 +147,9 @@ Alice.DfaMinimize = {
 				//$.aprint(this.group_id);
 				//$.aprint(this.group_id_tmp);
 				this.get_group_set_new();
+				//$.dprint(this.get_names());
+				//$.aprint(this.group_id);
+				//$.aprint(this.group_id_tmp);
 				//$.aprint(this.group_set);
 				//$.aprint(this.group_set_new);
 				//$.dprint("*****");
@@ -151,7 +176,8 @@ Alice.DfaMinimize = {
 			new_states[i] = new Alice.DFAState(i.toString());
 		}
 
-		var new_start = new_states[this.group_id[dfa.start.__minimize_id__]];
+		var new_start_index = this.group_id[dfa.start.__minimize_id__];
+		var new_start = new_states[new_start_index];
 		for(var i = 0; i < new_size; i++) {
 			var old_s = this.dfa_states[this.group_set[i]];
 			for(var j = 0; j < old_s.input.length; j++) {
@@ -163,22 +189,28 @@ Alice.DfaMinimize = {
 		for(var i = 0; i < this.accept_states.length; i++) {
 			var gid = this.group_id[this.accept_states[i].__minimize_id__];
 			new_states[gid].isAccept = true;
+			if(!this.accept_states[i].action)
+				continue;
 			if(!new_states[gid].action)
 				new_states[gid].action = this.accept_states[i].action;
-			else {
+			else if(new_states[gid].action !== this.accept_states[i].action){
 				$.dprint("最小化DFA时出现问题，Action丢失。");
 			}
 		}
 
 		$.dprint("dfa minimized. %d states to %d states.", this.size, new_size);
-		return new Alice.DFA(new_start, new_states);
-
+		var new_dfa = new Alice.DFA(new_start, new_states);
+		new_dfa.startIndex = new_start_index;
+		return new_dfa;
 	},
-	output : function() {
+	get_names : function(){
 		var d_id = [];
 		for(var i = 0; i < this.size; i++)
-		d_id.push(this.dfa_states[i].id);
-		$.aprint(d_id);
+			d_id.push(this.dfa_states[i].name+"("+this.dfa_states[i].id+")");
+		return d_id.join(" ");
+	},
+	output : function() {
+		$.dprint(this.get_names());
 		$.aprint(this.group_id);
 		$.aprint(this.group_set);
 		$.dprint("-------------");

@@ -1,9 +1,10 @@
 Daisy = {};
-
+Daisy.__id__ = 0;
 Daisy.State = function(acc) {
 	this.accept = acc;
 	this.input = [];
 	this.next = [];
+	this.id = Daisy.__id__++;
 }
 
 Daisy.State.prototype.move = function(input) {
@@ -26,7 +27,7 @@ Daisy.Lexer = function(source) {
 	this.idx = 0;
 	this.chr = null;
 	//初始状态，init_state，恒为状态表中的第一个起始状态。
-	this.i_s = Daisy.S[0];
+	this.i_s = Daisy.StartState;
 	//当前状态，current_state
 	this.c_s = this.i_s;
 	/*
@@ -73,7 +74,8 @@ Daisy.Lexer.prototype.scan = function() {
 			this.c_s = this.n_s;
 			this.n_s = false;
 		} else {
-			this.c_s = this.c_s.move(this.read_ch())
+			this.read_ch();
+			this.c_s = this.c_s.move(this.chr);
 		}
 		this.token.push(this.chr);
 		if(!this.c_s) {
@@ -127,71 +129,50 @@ Daisy.lex = function(source) {
 }
 Daisy.S = [];
 Daisy.F = [];
+
+
 Daisy.F = [
 function(len, txt) {
-$.dprint("match M1 a, len: %d, txt: %s",len,txt);
+$.dprint("match M2 abb, len: %d, txt: %s",len,txt);
 },
 function(len, txt) {
 $.dprint("match M3 a*b+, len: %d, txt: %s",len,txt);
 },
 function(len, txt) {
-$.dprint("match M2 abb, len: %d, txt: %s",len,txt);
+$.dprint("match M1 a, len: %d, txt: %s",len,txt);
 },
 
 ];
 (function() {
 var S = Daisy.S;
 var F = Daisy.F;
-
-Daisy.F = [
-function(len, txt) {
-$.dprint("match M1 a, len: %d, txt: %s",len,txt);
-},
-function(len, txt) {
-$.dprint("match M3 a*b+, len: %d, txt: %s",len,txt);
-},
-function(len, txt) {
-$.dprint("match M2 abb, len: %d, txt: %s",len,txt);
-},
-
-];
-(function() {
-var S = Daisy.S;
-var F = Daisy.F;
-for(var i = 0; i < 7; i++)
+for(var i = 0; i < 6; i++)
 	S.push(new Daisy.State(false));
-S[0].input.push(1,2);
-S[0].next.push(S[1],S[2]);
+S[0].accept = true;
+S[0].action = F[0];
+S[0].input.push(2);
+S[0].next.push(S[1]);
 S[1].accept = true;
-S[1].action = F[0];
-S[1].input.push(1,2);
-S[1].next.push(S[3],S[4]);
+S[1].action = F[1];
+S[1].input.push(2);
+S[1].next.push(S[1]);
 S[2].accept = true;
 S[2].action = F[1];
 S[2].input.push(2);
-S[2].next.push(S[5]);
+S[2].next.push(S[0]);
+S[3].accept = true;
+S[3].action = F[2];
 S[3].input.push(1,2);
-S[3].next.push(S[3],S[2]);
-S[4].accept = true;
-S[4].action = F[1];
-S[4].input.push(2);
-S[4].next.push(S[6]);
-S[5].accept = true;
-S[5].action = F[1];
-S[5].input.push(2);
-S[5].next.push(S[5]);
-S[6].accept = true;
-S[6].action = F[2];
-S[6].input.push(2);
-S[6].next.push(S[5]);
+S[3].next.push(S[4],S[2]);
+S[4].input.push(1,2);
+S[4].next.push(S[4],S[1]);
+S[5].input.push(1,2);
+S[5].next.push(S[3],S[1]);
+
+Daisy.StartState = S[5];
 
 })();
 
-
-		
-		
-
-})();
 
 
 		
