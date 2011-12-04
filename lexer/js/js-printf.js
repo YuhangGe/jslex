@@ -173,8 +173,8 @@
 		'aprint' : function(arr) {
 			var rtn = "";
 			if(arr && ( arr instanceof Array || (arr.buffer && arr.length))) {
-				for(var i = 0; i < format.length; i++) {
-					rtn += sprintf("%d ", format[i]);
+				for(var i = 0; i < arr.length; i++) {
+					rtn += sprintf("%d ", arr[i]);
 				}
 			}
 			if(console)

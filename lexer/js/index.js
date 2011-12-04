@@ -83,3 +83,38 @@ function runLex(){
 	
 }
 
+$(function(){
+	// var _D = Alice.DFAState;
+	// var _n = Alice.Help._n;
+	// var ds = new Array(5);
+	// for(var i=0;i<5;i++)
+		// ds[i] = new _D(_n.get());
+	// ds[0].addMove(1,ds[2]);
+	// ds[0].addMove(2,ds[1]);
+	// ds[1].addMove(2,ds[1]);
+	// ds[1].addMove(1,ds[2]);
+	// ds[2].addMove(1,ds[3]);
+	// ds[2].addMove(2,ds[2]);
+	// ds[2].addMove(3,ds[4]);
+	// ds[3].addMove(1,ds[3]);
+	// ds[3].addMove(2,ds[2]);
+	// ds[3].addMove(3,ds[4]);
+	// ds[4].isAccept = true;
+// 	
+	// d = new Alice.DFA(ds[0],ds);
+// 	
+	// $.dprint(d.toString());
+// 	
+	// m_d = Alice.DfaMinimize.parse(d);
+// 	
+	// $.dprint(m_d);
+	
+	r=Alice.Regular.Str2Nfa.parse("(a|b)*abb");
+	$.dprint(r);
+	$.dprint(Alice.CharTable.toString());
+	r2 = Alice.Nfa2Dfa.parse(r);
+	$.dprint(r2);
+	r3 = Alice.DfaMinimize.parse(r2);
+	$.dprint(r3);
+});
+

@@ -7,7 +7,7 @@
 
 /**
  * dfa.js
- * dfa的数据结构。继承自nfa的相关类，因为具体近乎一样的性质。参考龙书《编译原理》第二版
+ * dfa的数据结构。参考龙书《编译原理》第二版
  */
 if( typeof Alice === 'undefined')
 	Alice = {};
@@ -38,10 +38,6 @@ Alice.DFAState.prototype.addMove = function(input, next) {
 		throw "DFA 状态转移一个输入只能有一个输出！(defined)";
 }
 Alice.DFAState.prototype.getMove = function(input) {
-	input = Alice.CharTable.getEqc(input.charCodeAt(0));
-	//$.dprint(input);
-	if(input===0)
-		return null;
 	var i = this.input.indexOf(input);
 	if(i < 0)
 		return null;
@@ -50,9 +46,11 @@ Alice.DFAState.prototype.getMove = function(input) {
 }
 $.inherit(Alice.DFAState, Alice.State);
 
-Alice.DFA = function(start, finish) {
+Alice.DFA = function(start,states) {
 	this.states = [];
 	this.start = start;
+	if(states)
+		this.addState(states);
 }
 
 Alice.DFA.prototype.addState = function(state) {
