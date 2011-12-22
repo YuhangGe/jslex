@@ -34,11 +34,18 @@ Alice.DFAState.prototype.addMove = function(input, next) {
 	if(this.input.indexOf(input) < 0) {
 		this.input.push(input);
 		this.next.push(next);
-	} else
-		throw "DFA 状态转移一个输入只能有一个输出！(defined)";
+	} else{
+		$.aprint(this.input);
+		$.dprint(input);
+		throw "_addMove();DFA 状态转移一个输入只能有一个输出！(defined)";
+	}
 }
 Alice.DFAState.prototype.getMove = function(input) {
-	var i = this.input.indexOf(input);
+	var eqc = Alice.CharTable.getEqc(input);
+	return this.getEqcMove(eqc);
+}
+Alice.DFAState.prototype.getEqcMove = function(eqc) {
+	var i = this.input.indexOf(eqc);
 	if(i < 0)
 		return null;
 	else

@@ -146,6 +146,7 @@ Alice.Lex.Parser= {
 		
 		var dfa = Alice.Nfa2Dfa.parse(lexNFA);
 		var m_dfa = Alice.DfaMinimize.parse(dfa);
+		Alice.Dfa2Table.parse(m_dfa);
 		return {
 			dfa : m_dfa,
 			code : this.routine

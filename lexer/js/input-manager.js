@@ -53,6 +53,9 @@ Alice.EquivalenceManager = function(char_table_size) {
 	 * 要么成为了几个等价类的部分。但不论怎样，当这个字符集再次出现，对当前等价类不会有任何影响。
 	 */
 	this.hash_table = {};
+	
+	/* 生成第一个等价类，即所有输入符属于初始化等价类0 */
+	this.init();
 }
 Alice.EquivalenceManager.prototype.addInput = function(nfaInput) {
 	if(nfaInput === Alice.e)
@@ -75,31 +78,36 @@ Alice.EquivalenceManager.prototype.addInput = function(nfaInput) {
 	}
 
 }
+
+/*
+ * 构建初始的等价类，即开始时所有字符都属于同一个等价类0
+ */
 Alice.EquivalenceManager.prototype.init = function() {
+	this.table_next[this.size-1] = this.table_prev[0] = -1;
+	this.table_next[0] = 1;
+	this.table_prev[this.size-1] = this.size - 2;
+	for(var i = 1; i < this.size - 1; i++) {
+		this.table_next[i] = i+1;
+		this.table_prev[i] = i-1;
+	}
+	this.eq_class.push(0);
+}
+Alice.EquivalenceManager.prototype.reset = function() {
 	for(var i = 0; i < this.size; i++) {
 		this.char_table[i] = 0;
-		this.table_next = 0;
-		this.table_prev = 0;
+		this.table_next[i] = 0;
+		this.table_prev[i] = 0;
 	}
 	this.eq_class.length = 0;
+	this.init();
 }
+
 /**
  * 插入单个字符
  */
 Alice.EquivalenceManager.prototype.addChar = function(input) {
-	//查找字符对应的等价类
-	var eqc = this.char_table[input];
-	if(eqc === 0) {
-		/*
-		 * 如果没有找到，新建一个等价类
-		 */
-		this.char_table[input] = ++this.eqc_max_id;
-		this.table_next[input] = this.table_prev[input] = -1;
-		this.eq_class.push(input);
-		return;
-	}
+
 	/*
-	 * 找到了，先修改原来的等价类：
 	 *  如果prev==next==-1说明原等价类已经是单字符，返回
 	 *  如果next>0修改next的prev指针
 	 *  如果prev>0修改prev的next指针

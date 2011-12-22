@@ -9,14 +9,13 @@ Daisy.State = function(acc) {
 
 Daisy.State.prototype.move = function(input) {
 	var eqc = Alice.CharTable.getEqc(input);
-	if(eqc){
+
 		var i = this.input.indexOf(eqc);
 		if(i < 0)
 			return false;
 		else
 			return this.next[i];
-	}else
-		return false;
+
 }
 
 

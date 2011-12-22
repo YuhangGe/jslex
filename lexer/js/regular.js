@@ -8,12 +8,17 @@ Alice.RegExp=function(str){
 }
 
 Alice.RegExp.prototype.compile=function(){
+	Alice.CharTable.reset();
 	var nfa=Alice.Regular.Str2Nfa.parse(this.str);
 	$.dprint('-------------');
 	$.dprint(nfa);
 	$.dprint('--------------');
-	this.dfa=Alice.Nfa2Dfa.parse(nfa);
+	this.dfa = Alice.Nfa2Dfa.parse(nfa);
 	$.dprint(this.dfa);
+	this.dfa = Alice.DfaMinimize.parse(this.dfa);
+	$.dprint(this.dfa);
+	Alice.Dfa2Table.parse(this.dfa);
+
 }
 Alice.RegExp.prototype.test=function(value){
 	if(this.dfa===null)

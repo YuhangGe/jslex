@@ -192,8 +192,7 @@ Alice.Nfa2Dfa = {
 				}
 				//$.dprint("add "+T.id+" "+eqc[i]+","+dfa_state.id);
 				var eqc_index = Alice.CharTable.getEqc(eqc[i]);
-				if(eqc_index===0)
-					throw "wrong! eqc_index invalidate";
+				
 				T.addMove(eqc_index, dfa_state);
 			}
 		}
@@ -230,7 +229,7 @@ Alice.Nfa2Dfa = {
 		//console.log(dstates);
 		var dfa = new Alice.DFA(this.dstates[0]);
 		dfa.addState(this.dstates);
-
+	
 		return dfa;
 	}
 }

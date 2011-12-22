@@ -2,6 +2,17 @@ if( typeof Alice === 'undefined')
 	Alice = {};
 
 Alice.DfaMinimize = {
+	/*
+	 * 
+	 * size: dfa状态的数量
+	 * group_id : 每个dfa状态对应的划分的id
+	 * group_id_tmp: 
+	 * group_set : 划分的集合。数组中每一个元素，代表该划分的结束位置；
+	 *   划分的开始位置，由上一个元素（即上一个划分的结束位置）+1来确定。第一个划分的开始位置默认为0.
+	 *   因为划分的总数，最多和总的dfa状态数相同，因此group_set的大小是size+1，
+	 *   最后多出来的一位保存划分的实际数量
+	 * group_set_new : 
+	 */
 	dfa_states : null,
 	group_id : null,
 	group_id_tmp : null,
@@ -93,7 +104,7 @@ Alice.DfaMinimize = {
 	},
 	get_group_id_tmp : function(input) {
 		for(var i = 0; i < this.size; i++) {
-			var next_dfa = this.dfa_states[i].getMove(input);
+			var next_dfa = this.dfa_states[i].getEqcMove(input);
 			var n_id = -1;
 			if(next_dfa) {
 				n_id = this.group_id[next_dfa.__minimize_id__];
@@ -143,6 +154,7 @@ Alice.DfaMinimize = {
 				if(debug++ > 10000000) {
 					break outer;
 				}
+				//$.dprint(Alice.CharTable.getEqc(eqc[i]));
 				this.get_group_id_tmp(Alice.CharTable.getEqc(eqc[i]));
 				//$.aprint(this.group_id);
 				//$.aprint(this.group_id_tmp);

@@ -25,7 +25,7 @@ Alice.AutoMata.prototype.check=function(str){
 		state=state.getMove(this.cur_ch);
 		if(!state){
 			$.dprint("not found next state!")
-			$.dprint(this.cur_ch+" -) "+pre_state);
+			$.dprint("%c(%d) :: %s",this.cur_ch,Alice.CharTable.getEqc(this.cur_ch),pre_state);
 			return false;
 		}
 		else{
