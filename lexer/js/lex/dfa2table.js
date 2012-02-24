@@ -29,6 +29,7 @@ Alice.Dfa2Table = {
 		for(var i = 0; i < len; i++) {
 			var ipt = sts[i].input;
 			var base_id = this.check_base(ipt);
+            $.dprint(base_id);
 			for(var j = 0; j < ipt.length; j++) {
 				this.next[base_id + ipt[j]] = sts[i].next[j].next_id;
 				this.check[base_id + ipt[j]] = i;
@@ -44,9 +45,9 @@ Alice.Dfa2Table = {
 		$.aprint(this.base);
 		$.aprint(this.next);
 		$.aprint(this.check);
-		var r = (len + this.next.length) / (len * Alice.CharTable.eq_class.length);
-		$.dprint("Dfa2Table: states %d * eqc %d table compressed to base %d + next %d, radio: %f", len, Alice.CharTable.eq_class.length, len, this.next.length, r);
-		if(r >= 1)
-			$.dprint("Oh Fuck!!! radio is not less than 1.")
+		//var r = (len + this.next.length*2) / (len * Alice.CharTable.eq_class.length);
+		//$.dprint("Dfa2Table: states %d * eqc %d table compressed to base(default) %d + next(check) %d, radio: %f", len, Alice.CharTable.eq_class.length, len, this.next.length, r);
+		//if(r >= 1)
+			//$.dprint("Oh Fuck!!! radio is not less than 1.")
 	}
 }

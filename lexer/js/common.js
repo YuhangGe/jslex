@@ -168,6 +168,64 @@ jQuery.extend(Alice.Help, {
 	},
 	isDot : function(chr) {
 		return chr !== 10;
+	},
+	/*
+	 * 将数组压缩成字符串，字符串的第一个字符的ascii码代表当前字符串压缩格式。
+	 * 0代表直接压缩，1代表隔位压缩。如数组[2,2,2,3,3,5,0xfff0,0xfff0,9,9,9,9]
+	 * 直接压缩的结果是 "\0\2\2\2\3\3\5\ufff0\ufff0\9\9\9\9"
+	 * 隔位压缩的结果是 "\1\3\2\2\3\1\5\2\ufff0\4\9"，即前一位代表后一位字符的重复数量。
+	 * 压缩格式的选择根据最后生成的字符串的长度而定。
+	 */
+	array_to_str : function(arr){
+		var s_0 = ["\\0"],s_1 = ["\\1"],s_0_n = 0,s_1_n=0;
+		var pre_i = arr[0], pre_c = this.int_to_char(pre_i),pre_n = 1,len=arr.length-1;
+		s_0.push(pre_c);
+		for(var i=1;i<=len;i++){
+			var cur_i = arr[i],cur_c = this.int_to_char(cur_i);
+			s_0_n += cur_c.length;
+			s_0.push(cur_c);
+			if(cur_i!==pre_i || i===len){
+				var tmp = this.int_to_char(i===len?pre_n+1:pre_n);
+				s_1_n+= tmp.length+pre_c.length;
+				s_1.push(tmp);
+				s_1.push(pre_c);
+				pre_c = cur_c;
+				pre_i = cur_i;
+				pre_n = 1;
+			}else{
+				pre_n++;
+			}
+		}
+		return s_0_n<=s_1_n?s_0.join(""):s_1.join("");
+	},
+	int_to_char : function(i){
+		if(i<64){
+			return "\\" + i.toString(8);
+		}else if(i<256){
+			return "\\x" + i.toString(16);
+		}else if(i<0x1000){
+			return "\\u0" + i.toString(16);
+		}else{
+			return "\\u" + i.toString(16);
+		}
+	},
+	/**
+	 * 将上面函数压缩的字符串还原成
+	 */
+	str_to_array : function(str,arr){
+		var t = str.charCodeAt(0),len=str.length,c=0;
+		for(var i=1;i<len;i++){
+			if(t===0)
+				arr[i-1] = str.charCodeAt(i);
+			else{
+				var n = str.charCodeAt(i),v = str.charCodeAt(i+1);
+				for(var j=0;j<n;j++){
+					arr[c]= v;
+					c++;
+				}
+				i++;
+			}
+		}
 	}
 });
 

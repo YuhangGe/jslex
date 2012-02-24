@@ -1,24 +1,4 @@
 
-// var sa=new _s("A");
-// var sb=new _s("B");
-// var sc=new _s("C");
-// var sd=new _s("D");
-// var se=new _s(true,"E");
-//
-// sa.addMove("a",sb);
-// sa.addMove("b",sc);
-// sb.addMove("a",sb);
-// sb.addMove("b",sd);
-// sc.addMove("a",sb);
-// sc.addMove("b",sc);
-// sd.addMove("a",sb);
-// sd.addMove("b",se);
-// se.addMove("b",sc);
-// se.addMove("a",sb);
-//
-// var nfa=new Alice.NFA(sa,se);
-// nfa.addState(sa,sb,sc,sd,se);
-
 function quickAddMove(table){
 	for(var i=0;i<table.length;i++){
 		var l=table[i];
@@ -83,15 +63,19 @@ function runLex(){
 	
 }
 
-/*
+
 $(function(){
 	
-	r=Alice.Regular.Str2Nfa.parse("a\"123\"b");
-	$.dprint(r);
-	$.dprint(Alice.CharTable.toString());
-	r2 = Alice.Nfa2Dfa.parse(r);
-	$.dprint(r2);
-	r3 = Alice.DfaMinimize.parse(r2);
-	$.dprint(r3);
+	lex = Alice.Lex.Parser.parse("M0 \d+\nM1 a\nM2 b\n$$\nM0 {$.dprint(\"M0\")}\nM1 {$.dprint(\"a\")}\nM2 {$.dprint(\"b\")}\n$$");
+	$.dprint(lex);
+	o = Alice.Lex.Dfa2Str.parse(lex.dfa);
+	$.dprint(o);
+	var a=[2,2,2,3,3,5,0xfff0,0x345,9,9,9,9];
+	//a= [1,2,3,4,5,6,7,8,9];
+	var b=[],s=Alice.Help.array_to_str(a);
+	$.dprint(s);
+	var s2 = eval("\""+s+"\"");
+	Alice.Help.str_to_array(s2,b);
+	$.dprint(a);
+	$.dprint(b);
 });
-*/

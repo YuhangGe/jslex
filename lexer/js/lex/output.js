@@ -21,8 +21,7 @@ Daisy.State.prototype.move = function(input) {
 
 Daisy.Lexer = function(source) {
 	this.src = source;
-	if(this.src)
-		this.end = this.src.length;
+	this.end = this.src.length;
 	this.idx = 0;
 	this.chr = null;
 	//初始状态，init_state，恒为状态表中的第一个起始状态。
