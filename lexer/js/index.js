@@ -66,16 +66,8 @@ function runLex(){
 
 $(function(){
 	
-	lex = Alice.Lex.Parser.parse("M0 \d+\nM1 a\nM2 b\n$$\nM0 {$.dprint(\"M0\")}\nM1 {$.dprint(\"a\")}\nM2 {$.dprint(\"b\")}\n$$");
+	lex = Alice.Lex.Parser.parse("M1 a\nM2 abb\nM3 a*b+\n$$\nM1 {$.dprint(\"M1 a: %s\",yytxt)}\nM2 {$.dprint(\"M2 abb:%s\",yytxt)}\nM3 {$.dprint(\"M3 a*b+: %s\",yytxt)}\n$$");
 	$.dprint(lex);
 	o = Alice.Lex.Dfa2Str.parse(lex.dfa);
 	$.dprint(o);
-	var a=[2,2,2,3,3,5,0xfff0,0x345,9,9,9,9];
-	//a= [1,2,3,4,5,6,7,8,9];
-	var b=[],s=Alice.Help.array_to_str(a);
-	$.dprint(s);
-	var s2 = eval("\""+s+"\"");
-	Alice.Help.str_to_array(s2,b);
-	$.dprint(a);
-	$.dprint(b);
 });

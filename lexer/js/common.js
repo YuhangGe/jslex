@@ -199,6 +199,11 @@ jQuery.extend(Alice.Help, {
 		return s_0_n<=s_1_n?s_0.join(""):s_1.join("");
 	},
 	int_to_char : function(i){
+		if(i==null){
+			i = 0;
+		}else{
+			i++;
+		}
 		if(i<64){
 			return "\\" + i.toString(8);
 		}else if(i<256){
@@ -216,9 +221,9 @@ jQuery.extend(Alice.Help, {
 		var t = str.charCodeAt(0),len=str.length,c=0;
 		for(var i=1;i<len;i++){
 			if(t===0)
-				arr[i-1] = str.charCodeAt(i);
+				arr[i-1] = str.charCodeAt(i) - 1;
 			else{
-				var n = str.charCodeAt(i),v = str.charCodeAt(i+1);
+				var n = str.charCodeAt(i) - 1 ,v = str.charCodeAt(i+1) -1;
 				for(var j=0;j<n;j++){
 					arr[c]= v;
 					c++;
