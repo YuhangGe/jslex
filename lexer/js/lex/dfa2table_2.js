@@ -6,6 +6,8 @@ Alice.Dfa2Table_2 = {
 	base : [],
 	next : [],
 	check : [],
+	action : [],
+	init_state_index: -1,
 	/**
 	 * 对dfa的状态按其输入符集合大小排序。
 	 * 排序的目的在于，只可能数量少的集合可能是数量大的集合的子集，
@@ -102,6 +104,8 @@ Alice.Dfa2Table_2 = {
         dfa.table_default = this.def;
 		dfa.table_next = this.next;
         dfa.table_check = this.check;
+        dfa.table_action = this.action;
+        dfa.table_init_state = this.init_state_index;
         //$.aprint(this.base);
 		//$.aprint(this.def);
 		
