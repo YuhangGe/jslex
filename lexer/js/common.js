@@ -88,6 +88,12 @@ jQuery.extend(Alice.Help, {
 		for(var i=0;i<arr2.length;i++)
 			arr1.push(arr2[i]);
 	},
+	arrCopy: function(arr){
+		var new_arr = [];
+		for(var i=0;i<arr.length;i++)
+			new_arr.push(arr[i]);
+		return new_arr;
+	},
 	/**
 	 * 得到实际串的不重复循环，主要用在生成DFA状态时状态的名称。
 	 * a,b,c,...,z,aa,bb,cc,...,zz,aaa,....
@@ -176,7 +182,7 @@ jQuery.extend(Alice.Help, {
 	 * 隔位压缩的结果是 "\1\3\2\2\3\1\5\2\ufff0\4\9"，即前一位代表后一位字符的重复数量。
 	 * 压缩格式的选择根据最后生成的字符串的长度而定。
 	 */
-	array_to_str : function(arr){
+	arr_to_str : function(arr){
 		var s_0 = ["\\0"],s_1 = ["\\1"],s_0_n = 0,s_1_n=0;
 		var pre_i = arr[0], pre_c = this.int_to_char(pre_i),pre_n = 1,len=arr.length-1;
 		s_0.push(pre_c);
@@ -184,8 +190,8 @@ jQuery.extend(Alice.Help, {
 			var cur_i = arr[i],cur_c = this.int_to_char(cur_i);
 			s_0_n += cur_c.length;
 			s_0.push(cur_c);
-			if(cur_i!==pre_i || i===len){
-				var tmp = this.int_to_char(i===len?pre_n+1:pre_n);
+			if(cur_i!==pre_i){
+				var tmp = this.int_to_char(pre_n);
 				s_1_n+= tmp.length+pre_c.length;
 				s_1.push(tmp);
 				s_1.push(pre_c);
@@ -194,6 +200,12 @@ jQuery.extend(Alice.Help, {
 				pre_n = 1;
 			}else{
 				pre_n++;
+			}
+			if(i===len){
+				var tmp = this.int_to_char(pre_n);
+				s_1_n+= tmp.length+pre_c.length;
+				s_1.push(tmp);
+				s_1.push(pre_c);
 			}
 		}
 		return s_0_n<=s_1_n?s_0.join(""):s_1.join("");

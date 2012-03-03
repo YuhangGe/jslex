@@ -143,10 +143,24 @@ Alice.Lex.Parser= {
 			lexStart.addMove(Alice.e,nfaExp.start);
 			lexNFA.addState(nfaExp.states);
 		}
-		
+		//$.dprint(lexNFA);
 		var dfa = Alice.Nfa2Dfa.parse(lexNFA);
+		//$.dprint(dfa);
 		var m_dfa = Alice.DfaMinimize.parse(dfa);
+		//$.dprint(m_dfa);
 		Alice.Dfa2Table_2.parse(m_dfa);
+		/*$.aprint(m_dfa.table_base);
+		$.dprint(Alice.Help.array_to_str(m_dfa.table_base));
+		$.aprint(m_dfa.table_default);
+		$.dprint(Alice.Help.array_to_str(m_dfa.table_default));
+		$.aprint(m_dfa.table_check);
+		$.dprint(Alice.Help.array_to_str(m_dfa.table_check));
+		$.aprint(m_dfa.table_next);
+		$.dprint(Alice.Help.array_to_str(m_dfa.table_next));
+		$.aprint(m_dfa.table_action);
+		$.dprint(Alice.Help.array_to_str(m_dfa.table_action));
+		$.dprint(Alice.Help.array_to_str(Alice.CharTable.char_table));
+		*/
 		return {
 			dfa : m_dfa,
 			code : this.routine

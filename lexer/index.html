@@ -21,10 +21,10 @@
 		<script src="js/lex/dfa2table.js" type="text/javascript"></script>
 		
 		<script src="js/lex/lex2dfa.js" type="text/javascript"></script>
-		<script src="js/lex/dfa2str.js" type="text/javascript"></script>
+		<script src="js/lex/dfa2str_2.js" type="text/javascript"></script>
 		<script src="js/lex/dfa2lex.js" type="text/javascript"></script>
-		<script src="js/lex/output.js" type="text/javascript"></script>
-		<!--<script src="js/lex/output2.js" type="text/javascript"></script>-->
+		<!--<script src="js/lex/output.js" type="text/javascript"></script>-->
+		<script src="js/lex/output2.js" type="text/javascript"></script>
 		<script src="js/str2nfa.js" type="text/javascript"></script>
 		<script src="js/index.js" type="text/javascript"></script>
 	</head>
@@ -93,26 +93,26 @@ IGNORE .
 $$
      
   INT           {
-                     $.dprint( "An integer: %s (%d)\n", txt,     Number(txt));
+                     $.dprint( "An integer: %s (%d)\n", yytxt,     Number(yytxt));
                      }
      
      FLOAT      {
-                     $.dprint( "A float: %s (%g)\n", txt,     Number(txt) );
+                     $.dprint( "A float: %s (%g)\n", yytxt,     Number(yytxt) );
                      }
      
     KEYWORDS       {
-                     $.dprint( "A keyword: %s\n", txt);
+                     $.dprint( "A keyword: %s\n", yytxt);
                      }
      
-        ID        $.dprint( "An identifier: %s\n", txt);
+        ID        $.dprint( "An identifier: %s\n", yytxt);
      
-        OPERATOR  $.dprint( "An operator: %s\n", txt);
+        OPERATOR  $.dprint( "An operator: %s\n", yytxt);
      
-       CMT $.dprint("comment : %s",txt);
+       CMT $.dprint("comment : %s",yytxt);
      
-  SPACE $.dprint("space: "+txt);
+  SPACE $.dprint("space: "+yytxt);
      
-   IGNORE         $.dprint( "Unrecognized character: %s\n", txt);
+   IGNORE         $.dprint( "Unrecognized character: %s\n", yytxt);
 
 $$
 

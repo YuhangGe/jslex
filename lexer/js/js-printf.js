@@ -174,12 +174,15 @@
 			var rtn = "";
 			if(arr && ( arr instanceof Array || (arr.buffer && arr.length))) {
 				for(var i = 0; i < arr.length; i++) {
-					rtn += sprintf("%d ", arr[i]);
+					if(arr[i]!=null)
+						rtn += sprintf("%d ", arr[i]);
+					else
+						rtn += "null ";
 				}
 			}
 			if(console)
 				console.log(rtn);
-			return rtn;
+			//return rtn;
 		},
 		'dprint' : function(format, arg1, arg2) {
 			var rtn = null;

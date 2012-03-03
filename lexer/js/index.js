@@ -32,9 +32,9 @@ lex = null;
 function doLex(){
 	var lex_src=$('#lexSrc').val();
 	lex = Alice.Lex.Parser.parse(lex_src);
-	//$.dprint(lex.dfa);
-	var o = Alice.Lex.Dfa2Str.parse(lex.dfa);
-	$('#lexOutput').val( o.func + o.table + lex.code);
+	$.dprint(lex.dfa);
+	var o = Alice.Lex.Dfa2Str_2.parse(lex.dfa);
+	$('#lexOutput').val( o);
 	eval($('#lexOutput').val());
 }
 
@@ -49,25 +49,27 @@ function doCheck2(){
 }
 
 function runLex(){
-	// var TOTAL = 500;
-	// var time = 0;
-	// for(var i=0;i<TOTAL;i++){
-		// var b = new Date().getTime();
-		// Daisy.lex($('#runInput').val());
-		// var e = new Date().getTime();
-		// time += e-b;
-	// }
-	// var a = time / TOTAL;
-	// $.dprint("%d tests, time %d, average time %s",TOTAL,time,a.toString());
-	Daisy.lex($('#runInput').val());
+	 var TOTAL = 1;
+	 var time = 0;
+	 for(var i=0;i<TOTAL;i++){
+		 var b = new Date().getTime();
+		 JSLexer.lex($('#runInput').val());
+		 var e = new Date().getTime();
+		 time += e-b;
+	}
+	var a = time / TOTAL;
+	$.dprint("%d tests, time %d, average time %s",TOTAL,time,a.toString());
+	//JSLexer.lex($('#runInput').val());
 	
 }
 
 
 $(function(){
 	
-	lex = Alice.Lex.Parser.parse("M1 a\nM2 abb\nM3 a*b+\n$$\nM1 {$.dprint(\"M1 a: %s\",yytxt)}\nM2 {$.dprint(\"M2 abb:%s\",yytxt)}\nM3 {$.dprint(\"M3 a*b+: %s\",yytxt)}\n$$");
-	$.dprint(lex);
-	o = Alice.Lex.Dfa2Str.parse(lex.dfa);
-	$.dprint(o);
+	//lex = Alice.Lex.Parser.parse("M1 a\nM2 abb\nM3 a*b+\n$$\nM1 {$.dprint(\"M1 a: %s\",yytxt)}\nM2 {$.dprint(\"M2 abb:%s\",yytxt)}\nM3 {$.dprint(\"M3 a*b+: %s\",yytxt)}\n$$");
+	//$.dprint(lex);
+	
+	//JSLexer.lex("aabc");
+	//o = Alice.Lex.Dfa2Str_2.parse(lex.dfa);
+	//$.dprint(o);
 });

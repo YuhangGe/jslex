@@ -212,7 +212,7 @@ Alice.DfaMinimize = {
 
 		$.dprint("dfa minimized. %d states to %d states.", this.size, new_size);
 		var new_dfa = new Alice.DFA(new_start, new_states);
-		new_dfa.startIndex = new_start_index;
+		//new_dfa.startIndex = new_start_index;
 		return new_dfa;
 	},
 	get_names : function(){
