@@ -77,17 +77,24 @@ Alice.Dfa2Table_2 = {
 				s2.table_input[j] = undefined;
 		}
 	},
-	parse : function(dfa){
-		var sts = dfa.states;
+
+	parse : function(dfa_obj){
+		
+		var sts = [];
+		for(var i=0;i<dfa_obj.dfa_array.length;i++){
+			for(var j=0;j<dfa_obj.dfa_array[i].states.length;j++)
+				sts.push(dfa_obj.dfa_array[i].states[j]);
+		}
 		var len = sts.length;
 		var input_max = Alice.CharTable.eq_class.length - 1;
 		this.def = [];
 		this.def.length = len;
 		this.base = [];
 		this.base.length = len;
+		this.action = [];
 		this.action.length = len;
-		this.next.length = 0;
-		this.check.length = 0;
+		this.next = [];
+		this.check = [];
 		
 		for(var i=0;i<len;i++){
 			sts[i].table_input = Alice.Help.arrCopy(sts[i].input);
@@ -142,13 +149,15 @@ Alice.Dfa2Table_2 = {
 		}
         
         
-        dfa.table_base = this.base;
-        dfa.table_default = this.def;
-		dfa.table_next = this.next;
-        dfa.table_check = this.check;
-        dfa.table_action = this.action;
-        dfa.table_eqc = Alice.CharTable.char_table;
-        dfa.table_init_state = dfa.start.id;
+        dfa_obj.table_base = this.base;
+        dfa_obj.table_default = this.def;
+		dfa_obj.table_next = this.next;
+        dfa_obj.table_check = this.check;
+        dfa_obj.table_action = this.action;
+        dfa_obj.table_states = dfa_obj.states;
+        dfa_obj.table_eqc = Alice.CharTable.char_table;
+        dfa_obj.table_init_state = dfa_obj.default_dfa.start.id;
+       
         //$.aprint(this.base);
 		//$.aprint(this.def);
 		

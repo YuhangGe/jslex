@@ -100,9 +100,21 @@ OPERATOR {THREE_OPE}|{TWO_OPE}|{ONE_OPE}
 
 LINE_CMT "//"[.]*
 
-REG "/"[\S]+"/"g?i?m?
+BLOCK_CMT_B "/*"
+BLOCK_CMT_E "*/"
+BLOCK_CMT_C [.\n]
 
-STRING \".*\"
+REG "/"[^*/][\S]*"/"g?i?m?
+
+STR_A_B \"
+STR_A_C [^"\n]
+STR_A_D \\\"
+STR_A_E \"|\n
+
+STR_B_B \'
+STR_B_C [^'\n]
+STR_B_D \\\'
+STR_B_E \'|\n
 
 OTHER [.\n]
 
@@ -117,8 +129,18 @@ ID {yycolor="id";}
 
 OPERATOR {yycolor="operator";}
 LINE_CMT {yycolor="comment";}
+BLOCK_CMT_B {yycolor="comment";this.yygoto(BLOCK_COMMENT);}
+<BLOCK_COMMENT> BLOCK_CMT_E {yycolor="comment";this.yygoto(DEFAULT);}
+<BLOCK_COMMENT> BLOCK_CMT_C {yycolor="comment";}
 REG {yycolor="regexp";}
-STRING {yycolor="string";}
+STR_A_B {yycolor="string";this.yygoto(STRING_A);}
+<STRING_A> STR_A_C {yycolor="string";}
+<STRING_A> STR_A_D {yycolor="string";}
+<STRING_A> STR_A_E {yycolor="string";this.yygoto(DEFAULT);}
+STR_B_B {yycolor="string";this.yygoto(STRING_B);}
+<STRING_B> STR_B_C {yycolor="string";}
+<STRING_B> STR_B_D {yycolor="string";}
+<STRING_B> STR_B_E {yycolor="string";this.yygoto(DEFAULT);}
 OTHER {yycolor="default";}
 
 	</textarea>

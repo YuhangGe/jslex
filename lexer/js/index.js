@@ -33,7 +33,7 @@ function doLex(template){
 	var lex_src=$('#lexSrc').val();
 	lex = Alice.Lex.Parser.parse(lex_src);
 	//$.dprint(lex.dfa);
-	var o = Alice.Lex.Dfa2Str_2.parse(lex.dfa,template);
+	var o = Alice.Lex.Dfa2Str_2.parse(lex.dfa_obj,template);
 	$('#lexOutput').val( o);
 	eval($('#lexOutput').val());
 }

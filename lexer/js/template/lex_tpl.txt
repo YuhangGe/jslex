@@ -1,32 +1,6 @@
 (function(window) {
-	var str_to_array = function(strs, arrs) {
-		for(var j = 0; j < strs.length; j++) {
-			var str = strs[j], arr = arrs[j], t = str.charCodeAt(0), len = str.length, c = 0;
-			for(var i = 1; i < len; i++) {
-				if(t === 0)
-					arr[i - 1] = str.charCodeAt(i) - 1;
-				else {
-					var n = str.charCodeAt(i) - 1, v = str.charCodeAt(i + 1) - 1;
-					for(var k = 0; k < n; k++) {
-						arr[c] = v;
-						c++;
-					}
-					i++;
-				}
-			}
-		}
 
-	}
-	window.TABLE = {
-		_base : new Int32Array($$_BASE_LEN_$$),
-		_default : new Int32Array($$_DEFAULT_LEN_$$),
-		_check : new Int32Array($$_CHECK_LEN_$$),
-		_next : new Int32Array($$_NEXT_LEN_$$),
-		_action : new Int32Array($$_ACTION_LEN_$$),
-		_eqc : new Int32Array($$_EQC_LEN_$$)
-	};
-
-	str_to_array(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [TABLE._base, TABLE._default,TABLE._check, TABLE._next,TABLE._action,TABLE._eqc]);
+	var $$_LEX_STATES_$$;
 
 	var Daisy = function() {
 		this.src = null;
@@ -35,11 +9,42 @@
 		this.chr = -1;
 		//初始状态，init_state，恒为状态表中的第一个起始状态。
 		this.i_s = $$_INIT_STATE_$$;
+		
+		this.TABLE = {
+			_base : new Int32Array($$_BASE_LEN_$$),
+			_default : new Int32Array($$_DEFAULT_LEN_$$),
+			_check : new Int32Array($$_CHECK_LEN_$$),
+			_next : new Int32Array($$_NEXT_LEN_$$),
+			_action : new Int32Array($$_ACTION_LEN_$$),
+			_eqc : new Int32Array($$_EQC_LEN_$$)
+		};
+
+		this._str_to_arr(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [this.TABLE._base, this.TABLE._default, this.TABLE._check, this.TABLE._next, this.TABLE._action, this.TABLE._eqc]);
 
 	}
-	var NO_ACTION = -1, UNKNOW_CHAR = -2, UNMATCH_CHAR = -3;
-
+	Daisy.ACT_TYPE = {
+		NO_ACTION : -1,
+		UNKNOW_CHAR : -2,
+		UNMATCH_CHAR : -3
+	}
 	Daisy.prototype = {
+		_str_to_arr : function(strs, arrs) {
+			for(var j = 0; j < strs.length; j++) {
+				var str = strs[j], arr = arrs[j], t = str.charCodeAt(0), len = str.length, c = 0;
+				for(var i = 1; i < len; i++) {
+					if(t === 0)
+						arr[i - 1] = str.charCodeAt(i) - 1;
+					else {
+						var n = str.charCodeAt(i) - 1, v = str.charCodeAt(i + 1) - 1;
+						for(var k = 0; k < n; k++) {
+							arr[c] = v;
+							c++;
+						}
+						i++;
+					}
+				}
+			}
+		},
 		setSource : function(source) {
 			this.src = source;
 			this.end = this.src.length;
@@ -57,8 +62,8 @@
 			this.idx = 0;
 			while(go_on) {
 				var yylen = 0, yytxt = "";
-				var state = this.i_s, action = NO_ACTION;
-				var pre_idx = this.idx, pre_action = NO_ACTION, pre_act_len = 0;
+				var state = this.i_s, action = Daisy.ACT_TYPE.NO_ACTION;
+				var pre_idx = this.idx, pre_action = Daisy.ACT_TYPE.NO_ACTION, pre_act_len = 0;
 
 				while(true) {
 					if(this.read_ch() < 0) {
@@ -67,7 +72,7 @@
 							yylen = pre_act_len;
 							this.idx = pre_idx + pre_act_len;
 						} else if(pre_idx < this.end) {
-							action = UNMATCH_CHAR;
+							action = Daisy.ACT_TYPE.UNMATCH_CHAR;
 							this.idx = pre_idx + 1;
 						}
 						if(pre_idx >= this.end) {
@@ -77,21 +82,21 @@
 					} else {
 						yylen++;
 					}
-					var eqc = TABLE._eqc[this.chr];
+					var eqc = this.TABLE._eqc[this.chr];
 					//$.dprint("chr: %d,eqc %d",this.chr,eqc);
 					if(eqc === undefined) {
-						action = UNKNOW_CHAR;
+						action = Daisy.ACT_TYPE.UNKNOW_CHAR;
 						break;
 					}
 					var offset, next = -1, s = state;
 
 					while(s >= 0) {
-						offset = TABLE._base[s] + eqc;
-						if(TABLE._check[offset] === s) {
-							next = TABLE._next[offset];
+						offset = this.TABLE._base[s] + eqc;
+						if(this.TABLE._check[offset] === s) {
+							next = this.TABLE._next[offset];
 							break;
 						} else {
-							s = TABLE._default[s];
+							s = this.TABLE._default[s];
 						}
 					}
 
@@ -101,14 +106,14 @@
 							yylen = pre_act_len;
 							this.idx = pre_idx + pre_act_len;
 						} else {
-							action = UNMATCH_CHAR;
+							action = Daisy.ACT_TYPE.UNMATCH_CHAR;
 							this.idx = pre_idx + 1;
 						}
 						//跳出内层while，执行对应的action动作
 						break;
 					} else {
 						state = next;
-						action = TABLE._action[next];
+						action = this.TABLE._action[next];
 						if(action >= 0) {
 							/**
 							 * 如果action>=0，说明该状态为accept状态。
@@ -120,10 +125,10 @@
 				}
 				yytxt = this.src.substr(pre_idx, yylen);
 				switch(action) {
-					case UNKNOW_CHAR:
+					case Daisy.ACT_TYPE.UNKNOW_CHAR:
 						$.dprint("unknow char %d(%c)",this.chr,this.chr);
 						break;
-					case UNMATCH_CHAR:
+					case Daisy.ACT_TYPE.UNMATCH_CHAR:
 						$.dprint("unmath char %d(%c)",this.chr,this.chr);
 						break;
 						
@@ -134,6 +139,9 @@
 						break;
 				}
 			}
+		},
+		yygoto: function(state){
+			this.i_s = state;
 		},
 		lex : function(source) {
 			if(source)

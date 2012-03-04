@@ -17,7 +17,8 @@ Alice.Lex.Parser= {
 	idx : 0,
 	cur_t : null,
 	define : {},
-	rule : [],
+	define_used : {},
+	rule : {"DEFAULT":[]},
 	routine : ""
 };
 
@@ -62,11 +63,31 @@ Alice.Lex.Parser= {
 		this._routine();
 	}
 	P._r_line = function(){
-		var lbl=this.cur_t;
+		var lbl = this.cur_t,state="DEFAULT";
+		if(this.cur_t==="<"){
+			state = this.read_word();
+			if(state==="Daisy"){
+				throw "不能使用Daisy作为状态标识。"
+			}
+			//$.dprint(state);
+			this.idx--;
+
+			if(this.read_word()!==">")
+				throw "error! state must be closed by '>'."
+			lbl = this.read_word();
+		}
+		//$.dprint("state: %s, lbl: %s",state,lbl);
 		var expNfa = this.define[lbl];
 		if(expNfa == null)
 			throw "没有定义的标识@_r_line 0:"+lbl;
-		
+		if(this.define_used[lbl]===true){
+			/**
+			 * 如果在define块定义的标识已经被某个状态集使用过，则必须使用它的拷贝来生成一个rule
+			 */
+			expNfa = expNfa.copy();
+		}else{
+			this.define_used[lbl]=true;
+		}
 		var func_str="";
 		var c = this.read_ch();
 		var until = '\n';
@@ -84,7 +105,11 @@ Alice.Lex.Parser= {
 		
 		expNfa.finish.isAccept = true;
 		expNfa.finish.action = new Alice.Action(func_str);
-		this.rule.push(lbl);
+		
+		if(this.rule[state]==null){
+			this.rule[state]=[];
+		}
+		this.rule[state].push(expNfa);
 	}
 	P._routine=function(){
 		this.routine.length=0;
@@ -105,20 +130,28 @@ Alice.Lex.Parser= {
 		if(this.idx>0)
 			this.idx--;
 	}
+
 	P.read_word = function(){
 		var c = this.read_ch();
 		while(c!==null && this.isSpace(c))
 			c = this.read_ch();
+		if(c==="<" || c===">")
+			return this.cur_t = c;
 		
 		var w="";
 		var quote=null;
 		if(c==='[')
 			quote = ']';
 		while(c!==null){
-			if(quote===null && this.isSpace(c))
+			if(quote===null && (this.isSpace(c)||c===">"))
 				break;
 			w+=c;
-			if(c==='\"' || c==='\''){
+			 
+			if(c==="\\"){
+				c=this.read_ch();
+				if(c!==null)
+					w+=c
+			}else if(c==='\"' || c==='\''){
 				if(quote===c)
 					quote=null;
 				else if(quote===null)
@@ -144,35 +177,46 @@ Alice.Lex.Parser= {
 		this.len = source.length;
 		//begin parse
 		this.read_word();
-		try{
-			this._define();
-		}catch(e){
-			console.log(e);
-			console.trace();
-		}
-		
+
+		this._define();
+	
 		this._rule();
 		this._routine();
 		
 		
-		var lexNFA = new Alice.NFA();
-		var lexStart = new Alice.NFAState();
-		lexNFA.start=lexStart;
-		lexNFA.addState(lexStart);
 		
+		var dfa_arr=[],default_dfa=null,states={};
 		//$.dprint(lexNFA);
-		
-		for(var i=0;i<this.rule.length;i++){
-			var nfaExp = this.define[this.rule[i]];
-			lexStart.addMove(Alice.e,nfaExp.start);
-			lexNFA.addState(nfaExp.states);
+		for(var s in this.rule){
+			var rs = this.rule[s];
+			var lexNFA = new Alice.NFA();
+			var lexStart = new Alice.NFAState();
+			lexNFA.start=lexStart;
+			lexNFA.addState(lexStart);
+			for(var i=0;i<rs.length;i++){
+				var nfaExp = rs[i];
+				lexStart.addMove(Alice.e,nfaExp.start);
+				lexNFA.addState(nfaExp.states);
+			}
+			//$.dprint(lexNFA);
+			var dfa = Alice.Nfa2Dfa.parse(lexNFA);
+			//$.dprint(dfa);
+			var m_dfa = Alice.DfaMinimize.parse(dfa);
+			//$.dprint(m_dfa);
+			m_dfa.state_name = s;
+			dfa_arr.push(m_dfa);
+			if(s==="DEFAULT")
+				default_dfa = m_dfa;
+			
 		}
-		//$.dprint(lexNFA);
-		var dfa = Alice.Nfa2Dfa.parse(lexNFA);
-		//$.dprint(dfa);
-		var m_dfa = Alice.DfaMinimize.parse(dfa);
-		//$.dprint(m_dfa);
-		Alice.Dfa2Table_2.parse(m_dfa);
+		//$.dprint(dfa_arr);
+		
+		var dfa_obj = {
+			dfa_array : dfa_arr,
+			default_dfa : default_dfa,
+		}
+		
+		Alice.Dfa2Table_2.parse(dfa_obj);
 		/*$.aprint(m_dfa.table_base);
 		$.dprint(Alice.Help.array_to_str(m_dfa.table_base));
 		$.aprint(m_dfa.table_default);
@@ -186,7 +230,7 @@ Alice.Lex.Parser= {
 		$.dprint(Alice.Help.array_to_str(Alice.CharTable.char_table));
 		*/
 		return {
-			dfa : m_dfa,
+			dfa_obj : dfa_obj,
 			code : this.routine
 		}
 		
