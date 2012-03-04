@@ -26,7 +26,6 @@ Alice.Lex.Dfa2Str_2 = {
 		}
 
 		
-		
 		var H = Alice.Help;
 		this.output = this.output
 			.replace(/\$\$_BASE_LEN_\$\$/g,dfa_obj.table_base.length)
