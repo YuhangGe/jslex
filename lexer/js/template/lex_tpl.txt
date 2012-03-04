@@ -17,7 +17,7 @@
 		}
 
 	}
-	var TABLE = {
+	window.TABLE = {
 		_base : new Int32Array($$_BASE_LEN_$$),
 		_default : new Int32Array($$_DEFAULT_LEN_$$),
 		_check : new Int32Array($$_CHECK_LEN_$$),

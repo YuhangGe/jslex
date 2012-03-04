@@ -152,7 +152,7 @@ Alice.NFA.prototype.copy = function() {
 		if(src.move)
 			targets[i].addMove(src.move[0],src.move[1].target);
 		for(var j=0;j<src.e_moves.length;j++)
-			targets[i].addMove(src.e_moves[0],src.e_moves[i].target);
+			targets[i].addMove(Alice.e,src.e_moves[j].target);
 		rtn.states.push(targets[i]);
 	}
 

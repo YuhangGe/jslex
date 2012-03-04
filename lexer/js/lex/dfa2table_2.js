@@ -108,7 +108,7 @@ Alice.Dfa2Table_2 = {
 				if(this.is_in(sts[j],sts[i])){
 					this.del_set(sts[j],sts[i]);
 					this.def[i]=j;
-					$.dprint("s in : %d in %d",j,i);
+					//$.dprint("s in : %d in %d",j,i);
 					break;
 				}
 			}

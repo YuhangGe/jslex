@@ -1,3 +1,12 @@
+/**
+ * 将lex规则转换成dfa
+ * 注意标志符目前暂时不支持数字。即可以 
+ * NUM \d+ 但不能  NUM_1 \d+
+ * 同时，如果由已经定义的规则再组合规则，则需要用{}引用。
+ * 比如  
+ * FLOAT {NUM}\.{NUM}
+ * 但是如果是 FLOAT NUM\.NUM则是把NUM当作直接的字符串。
+ */
 if(typeof Alice ==='undefined')
 	Alice={};
 
@@ -26,7 +35,10 @@ Alice.Lex.Parser= {
 		}
 		
 		while(this.cur_t !== '$$' && this.cur_t !=null){
+				//$.dprint(this.cur_t);
 			this._d_line();
+			//$.aprint(Alice.CharTable.char_table);
+			//$.aprint(Alice.CharTable.eq_class);
 			this.read_word();
 		}
 		this.read_word();
@@ -34,14 +46,18 @@ Alice.Lex.Parser= {
 	P._d_line = function(){
 		var lbl = this.cur_t;
 		var exp = this.read_word();
+		
 		var r = Alice.Regular.Str2Nfa.parse(exp);
 		r.finish.isAccept=false;
+		//$.dprint(lbl);
 		this.define[lbl]=r;
 	}
 	P._rule=function(){
 		while(this.cur_t !== '$$' && this.cur_t !=null){
+		
 			this._r_line();	
 			this.read_word();
+			
 		}
 		this._routine();
 	}
@@ -49,7 +65,7 @@ Alice.Lex.Parser= {
 		var lbl=this.cur_t;
 		var expNfa = this.define[lbl];
 		if(expNfa == null)
-			throw "_r_line 0:"+lbl;
+			throw "没有定义的标识@_r_line 0:"+lbl;
 		
 		var func_str="";
 		var c = this.read_ch();
@@ -128,7 +144,13 @@ Alice.Lex.Parser= {
 		this.len = source.length;
 		//begin parse
 		this.read_word();
-		this._define();
+		try{
+			this._define();
+		}catch(e){
+			console.log(e);
+			console.trace();
+		}
+		
 		this._rule();
 		this._routine();
 		
@@ -137,6 +159,8 @@ Alice.Lex.Parser= {
 		var lexStart = new Alice.NFAState();
 		lexNFA.start=lexStart;
 		lexNFA.addState(lexStart);
+		
+		//$.dprint(lexNFA);
 		
 		for(var i=0;i<this.rule.length;i++){
 			var nfaExp = this.define[this.rule[i]];

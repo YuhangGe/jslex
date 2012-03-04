@@ -55,6 +55,7 @@ jQuery.extend(Alice.Help, {
 			if(u_arr.indexOf(arr[i])===-1)
 				u_arr.push(arr[i]);
 		}
+  
 		return u_arr;
 	},
 	/**
@@ -158,7 +159,7 @@ jQuery.extend(Alice.Help, {
 		return chr === 32 || chr === 9 || chr === 10 || chr === 13 || chr === 12 || chr === 11;
 	},
 	isNotSpace : function(chr) {
-		return !this.isNotSpace(chr);
+		return !Alice.Help.isSpace(chr);
 	},
 	isUpper : function(chr) {
 		return chr >= 65 && chr <= 90;

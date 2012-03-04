@@ -37,6 +37,7 @@ Alice.DFAState.prototype.addMove = function(input, next) {
 	} else{
 		$.aprint(this.input);
 		$.dprint(input);
+		console.trace();
 		throw "_addMove();DFA 状态转移一个输入只能有一个输出！(defined)";
 	}
 }

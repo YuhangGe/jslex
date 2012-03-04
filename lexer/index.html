@@ -78,49 +78,53 @@
 			</div>
 			<div id="result" class="success"></div>
 			<div>
-				<textarea id="lexSrc" cols="45" rows="10">		
+			<textarea id="lexSrc" cols="45" rows="10">		
 
-         ID       [a-z][a-z\d]*
-     
- INT \d+
-FLOAT \d+"."\d*      
-KEYWORDS if|then|begin|end|procedure|function
-OPERATOR  "+"|"-"|"*"|"/" 
-CMT  "/*"[.\n]*"*/" 
-SPACE  [ \t\n]+
-IGNORE .
+INT \d+
+FLOAT \d*\.\d+
+NUM \-?({INT}|{FLOAT})
 
-$$
-     
-  INT           {
-                     $.dprint( "An integer: %s (%d)\n", yytxt,     Number(yytxt));
-                     }
-     
-     FLOAT      {
-                     $.dprint( "A float: %s (%g)\n", yytxt,     Number(yytxt) );
-                     }
-     
-    KEYWORDS       {
-                     $.dprint( "A keyword: %s\n", yytxt);
-                     }
-     
-        ID        $.dprint( "An identifier: %s\n", yytxt);
-     
-        OPERATOR  $.dprint( "An operator: %s\n", yytxt);
-     
-       CMT $.dprint("comment : %s",yytxt);
-     
-  SPACE $.dprint("space: "+yytxt);
-     
-   IGNORE         $.dprint( "Unrecognized character: %s\n", yytxt);
+VALUE {NUM}|true|false|null|undefined
+
+KEYWORD this|function|if|else|do|while|break|var|for|in|break|switch|case|return|new|continue
+
+OBJECT Array|Object|RegExp|String|Int32Array|ArrayBuffer|Int16Array|Int8Array
+
+ID [\w$][\w$\d]*
+
+THREE_OPE "==="|">>>"
+TWO_OPE "++"|"--"|"<="|">="|"=="|">>"|"<<"|"&&"|"||"
+ONE_OPE "+"|"-"|"*"|"/"|"!"|"&"|"|"|"^"|"%"|"="
+
+OPERATOR {THREE_OPE}|{TWO_OPE}|{ONE_OPE}
+
+LINE_CMT "//"[.]*
+
+REG "/"[\S]+"/"g?i?m?
+
+STRING \".*\"
+
+OTHER [.\n]
 
 $$
 
 
-		
-		</textarea>
+VALUE {yycolor="value";}
+
+KEYWORD {yycolor="keyword";}
+OBJECT {yycolor="object";}
+ID {yycolor="id";}
+
+OPERATOR {yycolor="operator";}
+LINE_CMT {yycolor="comment";}
+REG {yycolor="regexp";}
+STRING {yycolor="string";}
+OTHER {yycolor="default";}
+
+	</textarea>
 </div>			<div>
-				<input type="button" onclick="doLex();" value="Lex"/>
+				<input type="button" onclick="doLex('lex');" value="Lex"/>
+				<input type="button" onclick="doLex('editor');" value="LexEditor" />
 			</div>
 		</div>
 		<div class="c_float">

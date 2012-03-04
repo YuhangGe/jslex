@@ -29,11 +29,11 @@ function doCheck(){
 r2=null;
 lex = null;
 
-function doLex(){
+function doLex(template){
 	var lex_src=$('#lexSrc').val();
 	lex = Alice.Lex.Parser.parse(lex_src);
-	$.dprint(lex.dfa);
-	var o = Alice.Lex.Dfa2Str_2.parse(lex.dfa);
+	//$.dprint(lex.dfa);
+	var o = Alice.Lex.Dfa2Str_2.parse(lex.dfa,template);
 	$('#lexOutput').val( o);
 	eval($('#lexOutput').val());
 }

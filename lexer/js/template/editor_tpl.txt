@@ -1,0 +1,129 @@
+if( typeof Daisy === 'undefined')
+	Daisy = {};
+if( typeof Daisy.Lexer === 'undefined')
+	Daisy.Lexer = {};
+	
+(function(D, L) {
+	var TABLE = {
+		_base : new Int32Array($$_BASE_LEN_$$),
+		_default : new Int32Array($$_DEFAULT_LEN_$$),
+		_check : new Int32Array($$_CHECK_LEN_$$),
+		_next : new Int32Array($$_NEXT_LEN_$$),
+		_action : new Int32Array($$_ACTION_LEN_$$),
+		_eqc : new Int32Array($$_EQC_LEN_$$)
+	};
+
+	
+	L.$$_LEX_NAME_$$ = function(editor) {
+		this.editor = editor;
+		this.src = null;
+		this.theme = editor.theme;
+		this.end = 0;
+		this.idx = 0;
+		this.chr = -1;
+		//初始状态，init_state，恒为状态表中的第一个起始状态。
+		this.i_s = $$_INIT_STATE_$$;
+		
+		D.Help.str_to_arr(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [TABLE._base, TABLE._default,TABLE._check, TABLE._next,TABLE._action,TABLE._eqc]);
+
+	}
+	var NO_ACTION = -1, UNKNOW_CHAR = -2, UNMATCH_CHAR = -3;
+
+	L.$$_LEX_NAME_$$.prototype = {
+		read_ch : function() {
+			if(this.idx >= this.end) {
+				return this.chr = -1;
+			} else
+				return this.chr = this.src[this.idx++].charCodeAt(0);
+		},
+		do_lex : function() {
+			var go_on = true;
+			this.idx = 0;
+			while(go_on) {
+				var yylen = 0;
+				var state = this.i_s, action = NO_ACTION;
+				var pre_idx = this.idx, pre_action = NO_ACTION, pre_act_len = 0;
+
+				while(true) {
+					if(this.read_ch() < 0) {
+						if(pre_action >= 0) {
+							action = pre_action;
+							yylen = pre_act_len;
+							this.idx = pre_idx + pre_act_len;
+						} else if(pre_idx < this.end) {
+							action = UNMATCH_CHAR;
+							this.idx = pre_idx + 1;
+						}
+						if(pre_idx >= this.end) {
+							go_on = false;
+						}
+						break;
+					} else {
+						yylen++;
+					}
+					var eqc = TABLE._eqc[this.chr];
+					
+					if(eqc === undefined) {
+						action = UNKNOW_CHAR;
+						break;
+					}
+					var offset, next = -1, s = state;
+
+					while(s >= 0) {
+						offset = TABLE._base[s] + eqc;
+						if(TABLE._check[offset] === s) {
+							next = TABLE._next[offset];
+							break;
+						} else {
+							s = TABLE._default[s];
+						}
+					}
+
+					if(next < 0) {
+						if(pre_action >= 0) {
+							action = pre_action;
+							yylen = pre_act_len;
+							this.idx = pre_idx + pre_act_len;
+						} else {
+							action = UNMATCH_CHAR;
+							this.idx = pre_idx + 1;
+						}
+						//跳出内层while，执行对应的action动作
+						break;
+					} else {
+						state = next;
+						action = TABLE._action[next];
+						if(action >= 0) {
+							/**
+							 * 如果action>=0，说明该状态为accept状态。
+							 */
+							pre_action = action;
+							pre_act_len = yylen;
+						}
+					}
+				}
+	
+				var yycolor = "default";
+				switch(action) {
+					
+
+					$$_ACTION_TABLE_$$
+					
+					case UNKNOW_CHAR:
+					case UNMATCH_CHAR:
+					default :
+						yycolor = "default";
+						break;
+				}
+				this.editor.doc.setColor(pre_idx,yylen,yycolor);
+			}
+			//$.log("idx:"+this.idx);
+		},
+		lex : function() {
+			this.src = this.editor.doc.text_array;
+			this.end = this.src.length;
+			this.do_lex();
+		}
+	}
+
+})(Daisy, Daisy.Lexer);

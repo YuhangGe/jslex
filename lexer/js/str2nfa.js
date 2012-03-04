@@ -124,11 +124,12 @@ Alice.Regular = {};
 		switch(c) {
 			case '\\':
 				c = this.read_ch();
+				//$.dprint(c);
 				if(c === null)
 					throw 1;
 				if(R.Escape[c] != null)
 					this.cur_t = new R.Token(R.Tag.CHAR, R.Escape[c]);
-				else if(R.Defined[c] != null) {
+				else if(R.Defined[c] != null && c!==".") {
 					this.cur_t = new R.Token(R.Tag.DEFINED, R.Defined[c]);
 				} else
 					this.cur_t = new R.Token(R.Tag.CHAR, c);
