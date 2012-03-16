@@ -12,11 +12,12 @@ Alice.Lex.Dfa2Str_2 = {
 	parse : function(dfa_obj, template) {
 		if(template === "editor") {
 			if(this.template.editor == null)
-				this.template.editor = jQuery.ajax("js/template/editor_tpl.txt", {
+				this.template.editor = jQuery.ajax("js/template/editor_tpl.txt?r="+Math.random(), {
 					async : false
 				}).responseText;
 			this.output = this.template.editor;
-			this.lex_name = "JS";
+			this.lex_name = "Javascript";
+			this.ignore_case = false;
 		} else {
 			if(this.template.lex == null)
 				this.template.lex = jQuery.ajax("js/template/lex_tpl.txt", {
@@ -43,9 +44,10 @@ Alice.Lex.Dfa2Str_2 = {
 			.replace(/\$\$_INIT_STATE_\$\$/g,dfa_obj.table_init_state)
 			.replace(/\$\$_LEX_STATES_\$\$/g,this.parseState(dfa_obj))
 			.replace("$$_ACTION_TABLE_$$",this.parseTable(dfa_obj))
-			.replace(/\$\$_LEX_NAME_\$\$/g, this.lex_name);
-		
-		
+			.replace(/\$\$_LEX_NAME_\$\$/g, this.lex_name)
+			.replace("$$_IGNORE_CASE_0_$$",this.ignore_case?"/*":"")
+			.replace("$$_IGNORE_CASE_1_$$",this.ignore_case?"*/":"/*")
+			.replace("$$_IGNORE_CASE_2_$$",this.ignore_case?"":"*/");
 		return this.output;
 
 	},

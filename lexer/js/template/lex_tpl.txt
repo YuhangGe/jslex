@@ -11,13 +11,14 @@
 		this.i_s = $$_INIT_STATE_$$;
 		
 		this.TABLE = {
-			_base : new Int32Array($$_BASE_LEN_$$),
-			_default : new Int32Array($$_DEFAULT_LEN_$$),
-			_check : new Int32Array($$_CHECK_LEN_$$),
-			_next : new Int32Array($$_NEXT_LEN_$$),
-			_action : new Int32Array($$_ACTION_LEN_$$),
-			_eqc : new Int32Array($$_EQC_LEN_$$)
+			_base : (window.Int32Array?new Int32Array($$_BASE_LEN_$$):new Array($$_BASE_LEN_$$)),
+			_default : (window.Int32Array?new Int32Array($$_DEFAULT_LEN_$$):new Array($$_DEFAULT_LEN_$$)),
+			_check : (window.Int32Array?new Int32Array($$_CHECK_LEN_$$):new Array($$_CHECK_LEN_$$)),
+			_next : (window.Int32Array?new Int32Array($$_NEXT_LEN_$$):new Array($$_NEXT_LEN_$$)),
+			_action : (window.Int32Array?new Int32Array($$_ACTION_LEN_$$):new Array($$_ACTION_LEN_$$)),
+			_eqc : (window.Int32Array?new Int32Array($$_EQC_LEN_$$):new Array($$_EQC_LEN_$$))
 		};
+
 
 		this._str_to_arr(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [this.TABLE._base, this.TABLE._default, this.TABLE._check, this.TABLE._next, this.TABLE._action, this.TABLE._eqc]);
 
@@ -52,10 +53,18 @@
 			this.chr = -1;
 		},
 		read_ch : function() {
-			if(this.idx >= this.end) {
+			if(this.idx >= this.end)
 				return this.chr = -1;
-			} else
-				return this.chr = this.src.charCodeAt(this.idx++);
+			else{
+				$$_IGNORE_CASE_0_$$ 
+				return this.chr = this.src[this.idx++].charCodeAt(0);
+				$$_IGNORE_CASE_1_$$ 
+				this.chr = this.src[this.idx++].charCodeAt(0);
+				if(this.chr>=65&&this.chr<=90)
+					this.chr += 32;
+				return this.chr;
+				$$_IGNORE_CASE_2_$$ 
+			}
 		},
 		do_lex : function() {
 			var go_on = true;
@@ -85,7 +94,12 @@
 					var eqc = this.TABLE._eqc[this.chr];
 					//$.dprint("chr: %d,eqc %d",this.chr,eqc);
 					if(eqc === undefined) {
-						action = Daisy.ACT_TYPE.UNKNOW_CHAR;
+						if(pre_action >= 0) {
+							action = pre_action;
+							yylen = pre_act_len;
+							this.idx = pre_idx + pre_act_len;
+						}else
+							action = L.ACT_TYPE.UNKNOW_CHAR;
 						break;
 					}
 					var offset, next = -1, s = state;
