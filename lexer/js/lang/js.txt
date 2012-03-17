@@ -25,9 +25,13 @@ LINE_CMT_C [.]*
 LINE_CMT_E \n
 
 BLOCK_CMT_B "/*"
+
 BLOCK_CMT_E "*/"
 BLOCK_CMT_C [.\n]
 
+DOC_CMT_B "/**"
+DOC_CMT_E "*/"
+DOC_CMT_C [.\n]
 
 REG "/"[^*/]([^\n/]|"\/")*"/"g?i?m?
 
@@ -61,16 +65,21 @@ LINE_CMT_B {this.yystyle="comment";this.yydefault="comment";this.yygoto(LINE_COM
 <LINE_COMMENT> LINE_CMT_E {this.yystyle="comment";this.yydefault="default";this.yygoto(DEFAULT);}
 <LINE_COMMENT> LINE_CMT_C {this.yystyle="comment";}
 
-BLOCK_CMT_B {this.yystyle="comment";this.yydefault="comment";this.yygoto(BLOCK_COMMENT);}
+BLOCK_CMT_B {this.yystyle="comment";this.yydefault="blockcomment";this.yygoto(BLOCK_COMMENT);}
 <BLOCK_COMMENT> BLOCK_CMT_E {this.yystyle="comment";this.yydefault="default";this.yygoto(DEFAULT);}
 <BLOCK_COMMENT> BLOCK_CMT_C {this.yystyle="comment";}
+
+DOC_CMT_B {this.yystyle="doccomment";this.yydefault="doccomment";this.yygoto(DOC_COMMENT);}
+<DOC_COMMENT> DOC_CMT_E {this.yystyle="doccomment";this.yydefault="default";this.yygoto(DEFAULT);}
+<DOC_COMMENT> DOC_CMT_C {this.yystyle="doccomment";}
+
 REG {this.yystyle="regexp";}
-STR_A_B {this.yystyle="string";this.yygoto(STRING_A);}
+STR_A_B {this.yystyle="string";this.yydefault="string";this.yygoto(STRING_A);}
 <STRING_A> STR_A_C {this.yystyle="string";}
 <STRING_A> STR_A_D {this.yystyle="string";}
-<STRING_A> STR_A_E {this.yystyle="string";this.yygoto(DEFAULT);}
-STR_B_B {this.yystyle="string";this.yygoto(STRING_B);}
+<STRING_A> STR_A_E {this.yystyle="string";this.yydefault="default";this.yygoto(DEFAULT);}
+STR_B_B {this.yystyle="string";this.yydefault="string";this.yygoto(STRING_B);}
 <STRING_B> STR_B_C {this.yystyle="string";}
 <STRING_B> STR_B_D {this.yystyle="string";}
-<STRING_B> STR_B_E {this.yystyle="string";this.yygoto(DEFAULT);}
+<STRING_B> STR_B_E {this.yystyle="string";this.yydefault="default";this.yygoto(DEFAULT);}
 OTHER {this.yystyle="default";}
