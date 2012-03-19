@@ -65,7 +65,7 @@ LINE_CMT_B {this.yystyle="comment";this.yydefault="comment";this.yygoto(LINE_COM
 <LINE_COMMENT> LINE_CMT_E {this.yystyle="comment";this.yydefault="default";this.yygoto(DEFAULT);}
 <LINE_COMMENT> LINE_CMT_C {this.yystyle="comment";}
 
-BLOCK_CMT_B {this.yystyle="comment";this.yydefault="blockcomment";this.yygoto(BLOCK_COMMENT);}
+BLOCK_CMT_B {this.yystyle="comment";this.yydefault="comment";this.yygoto(BLOCK_COMMENT);}
 <BLOCK_COMMENT> BLOCK_CMT_E {this.yystyle="comment";this.yydefault="default";this.yygoto(DEFAULT);}
 <BLOCK_COMMENT> BLOCK_CMT_C {this.yystyle="comment";}
 
