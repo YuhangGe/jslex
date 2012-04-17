@@ -37,7 +37,7 @@ ID {this.yystyle="id";}
 
 OPERATOR {this.yystyle="operator";}
 
-CMT_B{this.yystyle="comment";this.yydefault="comment";this.yygoto(COMMENT);}
+CMT_B {this.yystyle="comment";this.yydefault="comment";this.yygoto(COMMENT);}
 <COMMENT> CMT_C {this.yystyle="comment";}
 <COMMENT> CMT_E {this.yystyle="comment";this.yydefault="default";this.yygoto(DEFAULT);}
 
