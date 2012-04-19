@@ -1,0 +1,70 @@
+\chapter{简单命令}
+\label{cha:intro}
+这一章介绍一些基本的 \LaTeX 命令，包括字体、数学公式、表格、插图、参考文献等。
+
+\section{封面}
+封面的例子请参看 \verb|cover.tex| 。里面的命令非常简单，一看即会。
+姓名、论文题目、导师姓名职称等信息在 \verb|name.tex| 中，自己填一下。
+
+\section{字体}
+\begin{center}
+\begin{tabular}{lc}
+\verb|\song| & \song 宋体\\
+\verb|\kai|  & \kai  楷书\\
+\verb|\hei|  & \hei  黑体\\
+\verb|\fs|   & \fs   仿宋\\
+\verb|\li|   & \li   隶书\\
+\verb|\yy|   & \yy   幼圆\\
+\verb|\zs|   & \zs   中宋\\
+\end{tabular}
+\end{center}
+
+封面字体宋体加粗效果不好看，采用华文中宋字体。
+字体下载请点击下面的链接或自行搜索该字体：\\
+\url{https://jianguoyun.com/c/pubfile/Lye3gYc3po3MwHB-Cd2j9Vj-3EH6MG1XbiAmcxZzvak}
+\section{数学}
+自己找本书看吧。推荐 lshort 和 lnotes 这两本。\\
+\url{http://www.dralpha.com/chs/tech/lnotes2.pdf}\\
+\url{http://ftp.ctex.org/mirrors/CTAN/info/lshort/chinese/lshort-zh-cn.pdf}
+
+\section{表格}
+自己找本书看吧。
+
+\section{插图}
+插图命令：
+\begin{verbatim}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=1.97cm]{logo}}
+\caption{南京大学校徽}
+\label{fig:logo}
+\end{figure}
+\end{verbatim}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=1.97cm]{logo}}
+\caption{南京大学校徽}
+\label{fig:logo}
+\end{figure}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[height=2cm]{name}}
+\caption{南京大学毛体校名}
+\label{fig:name}
+\end{figure}
+
+
+\section{参考文献}
+Casting Metal Nanowires Within Discrete Self-Assembled Peptide Nanotubes{\cite{casting}}
+
+Blue Luminescence Based on Quantum Confinement at Peptide Nanotubes{\cite{qc}}
+
+\section{编译方法}
+采用 \texttt{xelatex} 编译，流程：
+\begin{verbatim}
+xelatex main
+bibtex  main
+xelatex main
+xelatex main
+\end{verbatim}
+对于 Linux 用户，我写了个简单的 \texttt{Makefile}，在当前目录终端下输入 \texttt{make} 即可。
+

@@ -1,0 +1,51 @@
+\newenvironment{abstract}{
+\thispagestyle{plain}
+\pagenumbering{Roman}
+\pdfbookmark[0]{中文摘要}{abstract}
+\begin{center}
+{\bf\kai\zihao{-2} \uuline{南~京~大~学~本~科~生~毕~业~论~文~中~文~摘~要}}
+\end{center}
+\bigskip
+
+\noindent
+\begin{minipage}{\textwidth}
+\kai\zihao{4}%
+\noindent{毕业论文题目：}\NJUTunderline{\thesistitle}\\
+\NJUTunderline{\department}{院系}\NJUTunderline{\major}{专业}
+\NJUTunderline{\enteryear}{级本科生}\hfill{姓名：}\NJUTunderline{\myname}\\
+{指导教师（姓名、职称）：}\uline{\hfill\advisor 、\advisorjob\hfill}
+\end{minipage}
+
+\vskip 1cm
+\begin{center}
+{\heiti\zihao{-3} 摘\quad 要}
+\end{center}\par
+\kai\zihao{-4}
+}{}
+\newcommand\keywords[1]{\vspace{2ex}\noindent{\hei 关键词：} {\kai #1}}
+
+\newenvironment{englishabstract}{
+\clearpage
+\thispagestyle{plain}
+\pdfbookmark[0]{英文摘要}{englishabstract}
+\begin{center}
+{\bf\kai\zihao{-2} \uuline{南~京~大~学~本~科~生~毕~业~论~文~英~文~摘~要}}
+\end{center}
+\bigskip
+
+\noindent
+{\zihao{4}%
+\begin{description}
+\item{THESIS:} {\bf\ethesistitle}
+\item{DEPARTMENT:} {\bf\edepartment}
+\item{SPECIALIZATION:} {\bf\emajor}
+\item{UNDERGRADUATE:} {\bf\emyname}
+\item{MENTOR:} {\bf\eadvisor}
+\end{description}
+}
+\vskip 1cm
+\begin{center}
+{\bf\zihao{-3} Abstract}
+\end{center}\par
+}{}
+\newcommand\englishkeywords[1]{\vspace{2ex}\noindent{\bf Keywords:} #1}

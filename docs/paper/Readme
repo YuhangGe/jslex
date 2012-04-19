@@ -1,0 +1,38 @@
+这个文档主要依据薛瑞尼的清华大学学位论文模板进行修改，符合南京大学本科毕业论文格式要求。
+
+修改记录：
+1. 摘要页页码为大写罗马数字。
+2. 字体使用 winfonts 系列。
+3. 不同段落之间有一个小小的间隔。
+4. 破折号。
+5. 修改列表环境，使之更加紧凑。
+6. 把图表标题中默认的冒号改为空格，空格尺寸为 1em。
+7. hyperref 和 tabularx 有冲突，调整了一下顺序。
+8. hyperref 增加了 PDF 标题选项。
+9. 每页脚注独立编号，即从 1 开始计数。
+10. 英文摘要页重要信息加粗显示。
+
+目录说明：
+════╤═══ ./data/
+    ╞═ abstract_format.tex	摘要页版式
+    ╞═ abstract.tex	摘要。包括中英文摘要内容和关键字
+    ╞═ ack.tex		致谢
+    ╞═ chap01.tex	第一章
+    ╞═ chap02.tex	第二章
+    ╞═ cover.tex	封面部分，包括中英文封面
+    ╞═ name.tex		论文题目，作者，指导老师等信息在此填写
+    ╞═ preamble.tex	导言区，包括宏包、宏包选项、自定义命令等内容
+   ═╪═══ ./figures/
+    ╞═ logo.eps		这个目录存放图片
+   ═╪═══ ./ref/
+    ╞═ reference.bib
+   ═╪═══ ./main.tex	主文档
+   ═╪═══ ./main_example.pdf	实例
+   ═╪═══ ./Makefile	我用的 Ubuntu，Windows 下的 makefile 不会写。。。
+   ═╪═══ ./Readme	README
+
+用法：
+我用的是 Ubuntu 10.04 + TeX Live 2010，如果你跟我一样，那再好不过了，make 一下就行了，然后 make clean 清除不需要的文件。
+需要使用者自行填写的文件为：abstract.tex，ack.tex，chap0x.tex，name.tex，reference.bib。
+
+至于 Windows 用户，最好也用 xelatex 编译，如果出错，自己看着调整吧。我只是把我修改过的东西分享出来，你又没付费，我才不负责解答疑问呢，哼！
