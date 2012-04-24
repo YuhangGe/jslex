@@ -1,7 +1,7 @@
 #Alice Lex
 AliceLex is a Lexical Analyser Generator(similar to Lex) which produces Javascript language source code, it is implemented in Javascript.  
 AliceLex was developed by [Yuhang Ge](http://xiaoge.me) at [Nanjing University](http://nju.edu.cn).  
-See online demo here: [http://xiaoge.me/lex](http://xiaoge.me/lex)  
+See online demo here: [http://lex.xiaoge.me/](http://lex.xiaoge.me/)  
   
   
 Alice Lex 是JavaScript版本的词法分析器自动生成上具（即lex），类似于GNU的[flex](http://flex.sourceforge.net/)软件。  
