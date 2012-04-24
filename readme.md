@@ -18,7 +18,7 @@ Alice Lex 是JavaScript版本的词法分析器自动生成上具（即lex），
 * 本项目是本人在[南京大学软件学院](http://software.nju.edu.cn)的本科毕业设计
 * 与词法分析器自动生成工具相配合的文法解析器生成工具（即传统的lex和yacc的关系），在JavaScript上的实现版本，正在构思中。
 
-## Contact Author
+## Contact
 * website: [http://xiaoge.me](http://xiaoge.me)
 * email: [abraham1@163.com](mailto:abraham1@163.com) | [abeyuhang@gmail.com](mailto:abeyuhang@gmail.com)
 * address: [Software Institute](http://software.nju.edu.cn), [Nanjing University](http://nju.edu.cn)
