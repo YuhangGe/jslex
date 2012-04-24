@@ -27,7 +27,7 @@
 				this.ignore_case = false;
 			} else {
 				if(this.template.lex == null)
-					this.template.lex = jQuery.ajax("../src/template/lex_tpl.txt", {
+					this.template.lex = jQuery.ajax("../src/template/lex_tpl.txt?r=" + Math.random(), {
 						async : false
 					}).responseText;
 				this.output = this.template.lex

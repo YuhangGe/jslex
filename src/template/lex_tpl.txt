@@ -154,7 +154,9 @@
 			}
 		},
 		_log : function(msg){
-			if(typeof console !== 'undefined')
+			if(typeof jQuery !== 'undefined' && typeof jQuery.log !== 'undefined'){
+				jQuery.log.apply(this,arguments);
+			}else if(typeof console !== 'undefined')
 				console.log(msg);
 		},
 		yygoto: function(state){

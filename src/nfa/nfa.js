@@ -76,7 +76,7 @@
 				if(src.move)
 					targets[i].addMove(src.move[0], src.move[1].target);
 				for(var j = 0; j < src.e_moves.length; j++)
-					targets[i].addMove(N.Input.e, src.e_moves[j].target);
+					targets[i].addMove(C.Input.e, src.e_moves[j].target);
 				rtn.states.push(targets[i]);
 			}
 
@@ -116,12 +116,12 @@
 
 			var s = new N.NFAState();
 			var f = new N.NFAState(true);
-			s.addMove(N.Input.e, nfa1.start);
-			s.addMove(N.Input.e, nfa2.start);
+			s.addMove(C.Input.e, nfa1.start);
+			s.addMove(C.Input.e, nfa2.start);
 			nfa1.finish.isAccept = false;
-			nfa1.finish.addMove(N.Input.e, f);
+			nfa1.finish.addMove(C.Input.e, f);
 			nfa2.finish.isAccept = false;
-			nfa2.finish.addMove(N.Input.e, f);
+			nfa2.finish.addMove(C.Input.e, f);
 			var rtn = new N.NFA(s, f);
 			rtn.addState(nfa1.states);
 			rtn.addState(nfa2.states);
@@ -143,7 +143,7 @@
 			if(nfa2.start.move)
 				nfa1.finish.addMove(nfa2.start.move[0], nfa2.start.move[1]);
 			for(var i = 0; i < nfa2.start.e_moves.length; i++)
-				nfa1.finish.addMove(N.Input.e, nfa2.start.e_moves[i]);
+				nfa1.finish.addMove(C.Input.e, nfa2.start.e_moves[i]);
 
 			//将nfa1的状态和nfa2状态增加到新的nfa中，因为nfa1的开始态和nfa2开始态已经合并，
 			//不需要将nfa2的开始态添加。
@@ -161,13 +161,14 @@
 		 * 即r=s*
 		 */
 		createStarNFA : function(nfa) {
+			$.log(N)
 			var s = new N.NFAState();
 			var f = new N.NFAState(true);
-			s.addMove(N.Input.e, nfa.start);
-			s.addMove(N.Input.e, f);
+			s.addMove(C.Input.e, nfa.start);
+			s.addMove(C.Input.e, f);
 			nfa.finish.isAccept = false;
-			nfa.finish.addMove(N.Input.e, nfa.start);
-			nfa.finish.addMove(N.Input.e, f);
+			nfa.finish.addMove(C.Input.e, nfa.start);
+			nfa.finish.addMove(C.Input.e, f);
 			var snfa = new N.NFA(s, f);
 			snfa.addState(s, f);
 			snfa.addState(nfa.states);
@@ -178,7 +179,7 @@
 		 * 生成一个基本的nfa，只有开始态和接收态两个状态
 		 */
 		createSingleNFA : function(input) {
-			if(input !== N.Input.e) {
+			if(input !== C.Input.e) {
 				input = new C.Input(C.Input.Type.SINGLE, input);
 				Alice.CharTable.addInput(input);
 			}
@@ -210,7 +211,7 @@
 		 */
 		createStrNFA : function(str) {
 			if(str.length === 0)
-				return N.NFA.createSingleNFA(N.Input.e);
+				return N.NFA.createSingleNFA(C.Input.e);
 			var s = new N.NFAState();
 			var pre = s, next = null, input = null;
 			var nfa = new N.NFA();
@@ -245,7 +246,7 @@
 			}
 			if(link === true)
 				for(var i = 0; i < link_node.length; i++)
-					link_node[i].addMove(N.Input.e, rtn.finish);
+					link_node[i].addMove(C.Input.e, rtn.finish);
 			return rtn;
 		},
 		createBoundNFA : function(nfa, low, high) {

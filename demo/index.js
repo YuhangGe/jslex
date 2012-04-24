@@ -49,7 +49,7 @@ function runLex(){
 		 time += e-b;
 	}
 	var a = time / TOTAL;
-	$.dprint("%d tests, time %d, average time %s",TOTAL,time,a.toString());
+	$.log("%d tests, time %d, average time %s",TOTAL,time,a.toString());
 	//JSLexer.lex($('#runInput').val());
 	
 }
