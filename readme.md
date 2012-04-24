@@ -1,6 +1,6 @@
 #Alice Lex
 AliceLex is a Lexical Analyser Generator(similar to Lex) which produces Javascript language source code, it is implemented in Javascript.  
-AliceLex was developed by [Yuhang Ge](http://xiaoge.me) at [Nanjing University](http://nju.edu.cn).  
+AliceLex was developed by [XiaoGe](http://xiaoge.me) at [Nanjing University](http://nju.edu.cn).  
 See online demo here: [http://lex.xiaoge.me/](http://lex.xiaoge.me/)  
   
   
