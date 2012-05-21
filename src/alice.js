@@ -11,6 +11,11 @@
  * 公共模块，包括各种辅助函数，辅助类
  */
 Alice = {
+	__RUNTIME__ : "$$_RUNTIME_$$", // __runtime__ : js 或  node 。当前是否在nodejs上运行
+	parse : function(lex_src){
+		var lex = Alice.Core.Lexer.parse(lex_src);
+		return Alice.Dfa.Dfa2Src.parse(lex.dfa_obj, lex.routine);
+	},
 	Core : {
 		/**
 		 * Core 命名空间，包括核心逻辑的实现处理 
@@ -42,7 +47,9 @@ Alice = {
 				else
 					throw "extend error!"
 			}
-		}
+		},
+		
 	}
-}
+};
+
 

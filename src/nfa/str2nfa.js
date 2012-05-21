@@ -66,7 +66,7 @@
 		'W' : C.Tag.NOT_WORD,
 		'.' : C.Tag.DOT
 	};
-$.log(N.Defined);
+
 	/**
 	 * 从正则字符串到nfa，参看龙书。
 	 * 此处使用lr的自顶向下递归进行语法制导翻译，对于具体的nfa的生成，包括各种运算，交由Alice.NFA类的静态函数进行。
@@ -363,15 +363,15 @@ $.log(N.Defined);
 		_h : function() {
 
 			var not = false;
-			if(this.cur_t.tag === R.Tag['^']) {
+			if(this.cur_t.tag === N.Tag['^']) {
 				not = true;
 				this.read_token();
 			}
 			var chrs = [];
-			while(this.cur_t.tag !== R.Tag[']'] && this.cur_t !== R.Token.EOF) {
+			while(this.cur_t.tag !== N.Tag[']'] && this.cur_t !== N.Token.EOF) {
 				var c_from, c_to;
 				c_from = this.cur_t.value;
-				if(this.cur_t.tag === R.Tag.DEFINED) {
+				if(this.cur_t.tag === N.Tag.DEFINED) {
 					if(c_from > 0) {
 						H.arrUnion(chrs, C.DEF_INPUT[c_from]);
 					} else {
@@ -385,11 +385,11 @@ $.log(N.Defined);
 					chrs.push(c_from.charCodeAt(0));
 				} else {
 					this.read_token();
-					if(this.cur_t.tag === R.Tag[']']) {
+					if(this.cur_t.tag === N.Tag[']']) {
 						chrs.push(c_from.charCodeAt(0));
 						chrs.push('-'.charCodeAt(0));
 						break;
-					} else if(this.cur_t.tag === R.Tag.DEFINED) {
+					} else if(this.cur_t.tag === N.Tag.DEFINED) {
 						throw "_h 0";
 					}
 					c_to = this.cur_t.value;

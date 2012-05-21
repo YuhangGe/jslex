@@ -1,4 +1,4 @@
-(function(window) {
+(function() {
 
 	var $$_LEX_STATES_$$;
 
@@ -11,18 +11,19 @@
 		this.i_s = $$_INIT_STATE_$$;
 		
 		this.TABLE = {
-			_base : (window.Int32Array?new Int32Array($$_BASE_LEN_$$):new Array($$_BASE_LEN_$$)),
-			_default : (window.Int32Array?new Int32Array($$_DEFAULT_LEN_$$):new Array($$_DEFAULT_LEN_$$)),
-			_check : (window.Int32Array?new Int32Array($$_CHECK_LEN_$$):new Array($$_CHECK_LEN_$$)),
-			_next : (window.Int32Array?new Int32Array($$_NEXT_LEN_$$):new Array($$_NEXT_LEN_$$)),
-			_action : (window.Int32Array?new Int32Array($$_ACTION_LEN_$$):new Array($$_ACTION_LEN_$$)),
-			_eqc : (window.Int32Array?new Int32Array($$_EQC_LEN_$$):new Array($$_EQC_LEN_$$))
+			_base : new Int32Array($$_BASE_LEN_$$),
+			_default : new Int32Array($$_DEFAULT_LEN_$$),
+			_check : new Int32Array($$_CHECK_LEN_$$),
+			_next : new Int32Array($$_NEXT_LEN_$$),
+			_action : new Int32Array($$_ACTION_LEN_$$),
+			_eqc : new Int32Array($$_EQC_LEN_$$)
 		};
 
 
 		this._str_to_arr(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [this.TABLE._base, this.TABLE._default, this.TABLE._check, this.TABLE._next, this.TABLE._action, this.TABLE._eqc]);
 		
 		##_CONSTRUCT_##
+		
 	}
 	Daisy.ACT_TYPE = {
 		NO_ACTION : -1,
@@ -140,10 +141,10 @@
 				yytxt = this.src.substr(pre_idx, yylen);
 				switch(action) {
 					case Daisy.ACT_TYPE.UNKNOW_CHAR:
-						this._log("unknow char %d(%c)",this.chr,this.chr);
+						//this._log("unknow char %d(%c)",this.chr,this.chr);
 						break;
 					case Daisy.ACT_TYPE.UNMATCH_CHAR:
-						this._log("unmath char %d(%c)",this.chr,this.chr);
+						//this._log("unmath char %d(%c)",this.chr,this.chr);
 						break;
 						
 					$$_ACTION_TABLE_$$
@@ -155,10 +156,7 @@
 			}
 		},
 		_log : function(msg){
-			if(typeof jQuery !== 'undefined' && typeof jQuery.log !== 'undefined'){
-				jQuery.log.apply(this,arguments);
-			}else if(typeof console !== 'undefined')
-				console.log(msg);
+			console.log(msg);
 		},
 		yygoto: function(state){
 			this.i_s = state;
@@ -169,7 +167,6 @@
 		lex_finish : function(){
 			##_FINISH_##
 		},
-		
 		lex : function(source) {
 			if(source)
 				this.setSource(source);
@@ -178,6 +175,10 @@
 			this.lex_finish();
 		}
 	}
-
-	window.$$_LEX_NAME_$$ = Daisy;
-})(window);
+	var argv = process.argv;
+	if(argv.length<3){
+		return;
+	}
+	var lexer = new Daisy(), fs = require("fs");
+	lexer.lex(fs.readFileSync(argv[2]).toString());
+})();

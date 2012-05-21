@@ -218,7 +218,7 @@
 			//var f = new N.NFAState(true);
 			for(var i = 0; i < str.length; i++) {
 				next = new N.NFAState();
-				input = new C.Input(C.Input.SINGLE, str.charCodeAt(i));
+				input = new C.Input(C.Input.Type.SINGLE, str.charCodeAt(i));
 				Alice.CharTable.addInput(input);
 				pre.addMove(input, next);
 				nfa.addState(pre);

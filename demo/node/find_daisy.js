@@ -1,6 +1,6 @@
-(function(window) {
+(function() {
 
-	var $$_LEX_STATES_$$;
+	var DEFAULT = 6;
 
 	var Daisy = function() {
 		this.src = null;
@@ -8,21 +8,22 @@
 		this.idx = 0;
 		this.chr = -1;
 		//初始状态，init_state，恒为状态表中的第一个起始状态。
-		this.i_s = $$_INIT_STATE_$$;
+		this.i_s = 6;
 		
 		this.TABLE = {
-			_base : (window.Int32Array?new Int32Array($$_BASE_LEN_$$):new Array($$_BASE_LEN_$$)),
-			_default : (window.Int32Array?new Int32Array($$_DEFAULT_LEN_$$):new Array($$_DEFAULT_LEN_$$)),
-			_check : (window.Int32Array?new Int32Array($$_CHECK_LEN_$$):new Array($$_CHECK_LEN_$$)),
-			_next : (window.Int32Array?new Int32Array($$_NEXT_LEN_$$):new Array($$_NEXT_LEN_$$)),
-			_action : (window.Int32Array?new Int32Array($$_ACTION_LEN_$$):new Array($$_ACTION_LEN_$$)),
-			_eqc : (window.Int32Array?new Int32Array($$_EQC_LEN_$$):new Array($$_EQC_LEN_$$))
+			_base : new Int32Array(7),
+			_default : new Int32Array(7),
+			_check : new Int32Array(12),
+			_next : new Int32Array(12),
+			_action : new Int32Array(7),
+			_eqc : new Int32Array(256)
 		};
 
 
-		this._str_to_arr(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [this.TABLE._base, this.TABLE._default, this.TABLE._check, this.TABLE._next, this.TABLE._action, this.TABLE._eqc]);
+		this._str_to_arr(["\1\7\1\2\7", "\1\10\0", "\0\0\0\3\4\5\6\7\7\7\7\7\7","\0\0\0\4\5\6\1\2\3\2\2\2\2", "\0\1\2\2\0\0\0\0", "\1\x62\1\2\3\3\1\2\2\5\1\2\4\12\1\2\5\6\1\2\6\x87\1"], [this.TABLE._base, this.TABLE._default, this.TABLE._check, this.TABLE._next, this.TABLE._action, this.TABLE._eqc]);
 		
-		##_CONSTRUCT_##
+		
+		
 	}
 	Daisy.ACT_TYPE = {
 		NO_ACTION : -1,
@@ -57,14 +58,14 @@
 			if(this.idx >= this.end)
 				return this.chr = -1;
 			else{
-				$$_IGNORE_CASE_0_$$ 
+				/* 
 				return this.chr = this.src[this.idx++].charCodeAt(0);
-				$$_IGNORE_CASE_1_$$ 
+				*/ 
 				this.chr = this.src[this.idx++].charCodeAt(0);
 				if(this.chr>=65&&this.chr<=90)
 					this.chr += 32;
 				return this.chr;
-				$$_IGNORE_CASE_2_$$ 
+				 
 			}
 		},
 		do_lex : function() {
@@ -140,13 +141,19 @@
 				yytxt = this.src.substr(pre_idx, yylen);
 				switch(action) {
 					case Daisy.ACT_TYPE.UNKNOW_CHAR:
-						this._log("unknow char %d(%c)",this.chr,this.chr);
+						//this._log("unknow char %d(%c)",this.chr,this.chr);
 						break;
 					case Daisy.ACT_TYPE.UNMATCH_CHAR:
-						this._log("unmath char %d(%c)",this.chr,this.chr);
+						//this._log("unmath char %d(%c)",this.chr,this.chr);
 						break;
 						
-					$$_ACTION_TABLE_$$
+					case 0:
+console.log("I found you, Daisy. Even your name is \"" + yytxt + "\"");
+break;
+case 1:
+
+break;
+
 					
 					default :
 						// do nothing...
@@ -155,21 +162,17 @@
 			}
 		},
 		_log : function(msg){
-			if(typeof jQuery !== 'undefined' && typeof jQuery.log !== 'undefined'){
-				jQuery.log.apply(this,arguments);
-			}else if(typeof console !== 'undefined')
-				console.log(msg);
+			console.log(msg);
 		},
 		yygoto: function(state){
 			this.i_s = state;
 		},
 		lex_start : function(){
-			##_START_##
+			
 		},
 		lex_finish : function(){
-			##_FINISH_##
+			
 		},
-		
 		lex : function(source) {
 			if(source)
 				this.setSource(source);
@@ -178,6 +181,10 @@
 			this.lex_finish();
 		}
 	}
-
-	window.$$_LEX_NAME_$$ = Daisy;
-})(window);
+	var argv = process.argv;
+	if(argv.length<3){
+		return;
+	}
+	var lexer = new Daisy(), fs = require("fs");
+	lexer.lex(fs.readFileSync(argv[2]).toString());
+})();

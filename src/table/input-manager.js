@@ -23,26 +23,26 @@
 		* 双向链表，保存等价输入字符集信息
 		*/
 		//保存字符对应的等价类编号
-		this.char_table = window.Int32Array ? new Int32Array(this.size) : new Array(this.size);
+		this.char_table = Int32Array ? new Int32Array(this.size) : new Array(this.size);
 		//等价类中下一个字符位置
-		this.table_next = window.Int32Array ? new Int32Array(this.size) : new Array(this.size);
+		this.table_next = Int32Array ? new Int32Array(this.size) : new Array(this.size);
 		//等价类中上一个字符位置
-		this.table_prev = window.Int32Array ? new Int32Array(this.size) : new Array(this.size);
+		this.table_prev = Int32Array ? new Int32Array(this.size) : new Array(this.size);
 
 		/*
 		 * empty_set:恒为0的数组，用来清空其它数组。通过Int32Array的set函数
 		 */
-		this.empty_set = window.Int32Array ? new Int32Array(this.size + 1) : new Array(this.size + 1);
+		this.empty_set = Int32Array ? new Int32Array(this.size + 1) : new Array(this.size + 1);
 		/**
 		 * 输入字符集，某位置1表示包含该字符。this.size+1，
 		 * 额外添加的一位，用来表示字符集中字符个数
 		 */
-		this.input_set = window.Int32Array ? new Int32Array(this.size + 1) : new Array(this.size + 1);
+		this.input_set = Int32Array ? new Int32Array(this.size + 1) : new Array(this.size + 1);
 		/*
 		 * 储存字符集和等价类相比较后的结果，是一个单向链表，
 		 * 数值是指向下一位的指针。其中链表头保存在额外的this.size+1中
 		 */
-		this.compare_set = window.Int32Array ? new Int32Array(this.size + 1) : new Array(this.size + 1);
+		this.compare_set = Int32Array ? new Int32Array(this.size + 1) : new Array(this.size + 1);
 		/*
 		 * 等价类的集合，储存的是双向链表的表头集合，每个元素指向char_table中的对应位置，
 		 * 该位置是某个等价类的链表头所在位置。通过eq_class，可以遍历所有等价类。

@@ -31,8 +31,8 @@ D.DfaMinimize = {
 		this.dfa_states = dfa.states;
 		this.accept_states = [];
 		this.size = this.dfa_states.length;
-		this.group_id = window.Int32Array? new Int32Array(this.size) : new Array(this.size);
-		this.group_id_tmp = window.Int32Array? new Int32Array(this.size) : new Array(this.size);
+		this.group_id = Int32Array? new Int32Array(this.size) : new Array(this.size);
+		this.group_id_tmp = Int32Array? new Int32Array(this.size) : new Array(this.size);
 		/**
 		 * this.size+1:最后一位保存划分的数量
 		 */

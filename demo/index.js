@@ -29,27 +29,26 @@ function doCheck(){
 r2=null;
 lex = null;
 
-function doLex(template){
+function doLex(){
 	var lex_src=$('#lexSrc').val();
-	lex = Alice.Core.Lexer.parse(lex_src);
-	//$.dprint(lex.dfa);
-	var o = Alice.Dfa.Dfa2Src.parse(lex.dfa_obj,template);
-	$('#lexOutput').val( o);
+	$('#lexOutput').val(Alice.parse(lex_src));
 	eval($('#lexOutput').val());
+	
+	lexer = new JSLexer();
 }
 
 
 function runLex(){
-	 var TOTAL = 1;
-	 var time = 0;
-	 for(var i=0;i<TOTAL;i++){
-		 var b = new Date().getTime();
-		 JSLexer.lex($('#runInput').val());
-		 var e = new Date().getTime();
-		 time += e-b;
-	}
-	var a = time / TOTAL;
-	$.log("%d tests, time %d, average time %s",TOTAL,time,a.toString());
+	 //var TOTAL = 1;
+	 //var time = 0;
+	 //for(var i=0;i<TOTAL;i++){
+		// var b = new Date().getTime();
+		 lexer.lex($('#runInput').val());
+		 //var e = new Date().getTime();
+		// time += e-b;
+	//}
+	//var a = time / TOTAL;
+	//$.log("%d tests, time %d, average time %s",TOTAL,time,a.toString());
 	//JSLexer.lex($('#runInput').val());
 	
 }

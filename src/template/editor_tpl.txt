@@ -35,14 +35,10 @@ if( typeof Daisy.Lexer === 'undefined')
 			if(this.idx >= this.end)
 				return this.chr = -1;
 			else{
-				$$_IGNORE_CASE_0_$$ 
-				return this.chr = this.src[this.idx++].charCodeAt(0);
-				$$_IGNORE_CASE_1_$$ 
 				this.chr = this.src[this.idx++].charCodeAt(0);
 				if(this.chr>=65&&this.chr<=90)
 					this.chr += 32;
 				return this.chr;
-				$$_IGNORE_CASE_2_$$ 
 			}
 		},
 		do_lex : function() {

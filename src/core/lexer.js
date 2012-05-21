@@ -18,13 +18,37 @@
 		rule : {
 			"DEFAULT" : []
 		},
-		routine : ""
+		routine : {'construct': '','start': '', 'finish' : '', 'error':''}
 	};
 	U.extend(C.Lexer, {
 		_define : function() {
-			if(this.cur_t === '${') {
-
-				this.read_word();
+			var in_option = true;
+			while(in_option){
+				var option = this.cur_t.toLowerCase();
+				switch(option){
+					case '$caseignore':
+						this.read_word();
+						D.Dfa2Src.case_ignore = this.cur_t.toLowerCase()==="true"?true:false;
+						if(this.cur_t==='true'){
+							$.log("option - case ignore: true");
+						}
+						this.read_word();
+						break;
+					case '$lexname':
+						this.read_word();
+						D.Dfa2Src.lex_name = this.cur_t;
+						$.log("option - lex name: "+this.cur_t);
+						this.read_word();
+						break;
+					case '$template':
+					    this.read_word();
+					    D.Dfa2Src.template = this.cur_t;
+					    $.log("option - template name: "+this.cur_t);
+					    this.read_word();
+					default:
+						in_option= false;
+						break;
+				}
 			}
 
 			while(this.cur_t !== '$$' && this.cur_t != null) {
@@ -52,6 +76,7 @@
 				this.read_word();
 
 			}
+			this.read_word();
 			this._routine();
 		},
 		_r_line : function() {
@@ -104,12 +129,35 @@
 			this.rule[state].push(expNfa);
 		},
 		_routine : function() {
-			this.routine.length = 0;
+			while(this.cur_t!==null){
+				this._routine_line(this.cur_t);
+				this.read_word();
+			}
+			
+		},
+		_routine_line : function(name){
+			name = name.toLowerCase();
+			var func_str = "";
 			var c = this.read_ch();
-			while(c !== null) {
-				this.routine += c;
+			var until = '\n';
+			while(c !== null && this.isSpace(c) && c !== until)
+			c = this.read_ch();
+			if(c === '{') {
+				until = '}';
 				c = this.read_ch();
 			}
+			while(c !== null && c !== until) {
+				func_str += c;
+				c = this.read_ch();
+			}
+			if(['$construct','$start','$finish','$error'].indexOf(name)<0){
+				console.log("warning: unknow global function "+name+", ignored.");
+				return;
+			}else{
+				$.log(name);
+				$.log(func_str);
+			}
+			this.routine[name.substring(1,name.length)] = func_str;
 		},
 		read_ch : function() {
 			if(this.idx === this.len) {
@@ -220,7 +268,7 @@
 			 */
 			return {
 				dfa_obj : dfa_obj,
-				code : this.routine
+				routine : this.routine
 			}
 
 		},
