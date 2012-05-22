@@ -1,89 +1,83 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Alice-Lex</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<script src="../lib/jquery-1.5.1.js" type="text/javascript"></script>
-		<script src="../lib/js-oo.js" type="text/javascript"></script>
-		<script src="../lib/js-printf.js" type="text/javascript"></script>
-		
-		<script src="../src/alice.js" type="text/javascript"></script>
-				<script src="../src/utility/utility.js" type="text/javascript"></script>
-		<script src="../src/core/core.js" type="text/javascript"></script>
-		<script src="../src/core/lexer.js" type="text/javascript"></script>
-		
-		<script src="../src/table/dfa2table.js" type="text/javascript"></script>
-		<script src="../src/table/input-manager.js" type="text/javascript"></script>
-		
-		<script src="../src/nfa/nfa.js" type="text/javascript"></script>
-		<script src="../src/nfa/nfa2dfa.js" type="text/javascript"></script>
-		<script src="../src/nfa/str2nfa.js" type="text/javascript"></script>
-		
-		<script src="../src/dfa/dfa.js" type="text/javascript"></script>
-		<script src="../src/dfa/dfa-minmize.js" type="text/javascript"></script>
-		<script src="../src/dfa/dfa2src.js" type="text/javascript"></script>
-		
-		
-		
-		<script src="index.js" type="text/javascript"></script>
-	</head>
-	<body>
-		<style type="text/css">
-			* {
-				margin: 0px;
-				padding: 0px;
-			}
-			div {
-				margin: 5px;
-				min-height: 30px;
-				font-size: 25px;
-			}
-			label {
-				margin-right: 5px;
-				display: inline-block;
-				width: 100px;
-			}
-			div input[type="text"] {
-				width: 250px;
-				height: 100%;
-				font-size: 20px;
-				padding-left: 3px;
-			}
-			.success {
-				color: green;
-			}
-			.failure {
-				color: red;
-			}
-			i {
-				color: #008000;
-			}
-			.c_float {
-				float: left;
-			}
-		</style>
-		<div class="c_float">
-			<textarea id="lexSrc" cols="45" rows="10"></textarea>
-			<div>
-				<input type="button" onclick="doLex('lex');" value="Lex"/>
-				<input type="button" onclick="doLex('editor');" value="LexEditor" />
-			</div>
-		</div>
-		<div class="c_float">
-			<div>
-				<textarea cols="45" rows="20" id="lexOutput"></textarea>
-</div>			<div>
-				<input type="button" value="Run" onclick="runLex();" />
-			</div>
-		</div>
-		<div class="c_float">
-			<div>
-				<textarea cols="45" rows="20" id="runInput">
-if then 323.42 42  a323 32abc /* djsld
-*ds
-**/
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Alice Lex - Demo</title>
+<meta name="keywords" content="alicelex lex javascript" />
+<link href="styles.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="demo.css" rel="stylesheet" type="text/css"/>
+ <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<script src="alicelex.js" type="text/javascript"></script>
+        <script type="text/javascript" src="demo.js"></script>
+</head>
+<body>
 
-		</textarea>
-</div>		</div>
-	</body>
+<div id="content">
+<!-- header begins -->
+<div id="header">
+  	<div id="logo"> 
+    	<div id="logo_t">
+            <span id="logo_t2">Alice Lex</span><br />
+            <p>JavaScript词法分析器生成工具演示界面</p>
+        </div>
+    </div>
+   
+</div>
+
+<!-- header ends -->
+<!-- content begins -->
+ <div id="main">
+	<div id="right">
+		<h2>在线演示Demo</h2><br/>
+		<div id="panel-demo" style="display: none;">
+	<h4>Lex规则文本/源码<input type='button' value="转换" id="btn-lex" onclick="doLex();"/></h4>
+			<textarea id="lex-src" readonly="true"></textarea>
+			<h4>词法分析文本<input type="button" value="分析" id="btn-run" onclick="doRun();"/></h4>
+			<textarea id="lex-input"></textarea>
+			<h4>结果输出<input type="button" value="清空" onclick="clearLog();" /></h4>
+			<textarea id="lex-output" readonly="true"></textarea>
+          		
+			
+		</div>
+		
+		<div id="panel-tip">
+			<p style="margin-top: 30px;">请点击左边栏Demo列表选择示例</p>
+		</div>
+	</div>	
+	<div id="left">
+		<div class="titl_left">Demo列表</div>
+			<div class="ug"> 		
+                <ul>
+                    <li><a href="javascript:showDemo('counter');">Line Counter</a></li>
+                    <li><a href="javascript:showDemo('daisy');">Find Daisy</a></li>
+                    <li><a href="javascript:showDemo('state');">State</a></li>
+                    <li><a href="http://editor.xiaoge.me">Daisy Editor</a></li>
+                </ul>
+            </div>
+            <br/>
+			<div class="titl_left">友情链接</div>
+			<div class="ug"> 		
+                <ul>
+                    <li><a href="http://xiaoge.me">小葛的空间</a></li>
+                    <li><a href="mailto:abraham1@163.com">联系开发者</a></li>
+                    <li><a href="http://weibo.com/abeyuhang">关注微博</a></li>
+                    <li><a href="https://github.com/YuhangGe/daisy-editor">GitHub</a></li>
+                    <li><a href="http://software.nju.edu.cn">Software Institute</a></li>
+                    <li><a href="http://nju.edu.cn">Nanjing University</a></li>
+                </ul>
+            </div>
+		
+	</div>
+<!--content ends -->
+<!--footer begins -->
+	<div style="clear: both"></div>
+	</div>
+</div>
+<div id="footer">
+<p>Daisy Editor Demo - Design and Written By <a href="http://xiaoge.me">XiaoGe</a></p>
+<p>To Daisy, To My Love.</p>
+	</div>
+
+<!-- footer ends-->
+</body>
 </html>

@@ -1,0 +1,21 @@
+#lex-src, #lex-input, #lex-output{
+	width: 99%;
+	height: 150px;
+	border: 1px solid blue;
+	border-color: rgba(0,0,255,0.3);
+	margin-bottom: 10px;
+	resize: none;
+}
+
+#lex-output{
+	height: 100px;
+}
+
+#lex-src-txt:focus, #lex-input:focus, #lex-output:focus{
+	border-color: rgba(255, 165, 0, 0.6);
+}
+
+#right h4 input[type=button]{
+	float: right;
+	margin-right: 10px;
+}

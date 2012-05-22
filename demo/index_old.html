@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Alice-Lex</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script src="../lib/jquery-1.5.1.js" type="text/javascript"></script>
+		<script src="../lib/js-oo.js" type="text/javascript"></script>
+		<script src="../lib/js-printf.js" type="text/javascript"></script>
+		
+		<script src="../src/alice.js" type="text/javascript"></script>
+				<script src="../src/utility/utility.js" type="text/javascript"></script>
+		<script src="../src/core/core.js" type="text/javascript"></script>
+		<script src="../src/core/lexer.js" type="text/javascript"></script>
+		
+		<script src="../src/table/dfa2table.js" type="text/javascript"></script>
+		<script src="../src/table/input-manager.js" type="text/javascript"></script>
+		
+		<script src="../src/nfa/nfa.js" type="text/javascript"></script>
+		<script src="../src/nfa/nfa2dfa.js" type="text/javascript"></script>
+		<script src="../src/nfa/str2nfa.js" type="text/javascript"></script>
+		
+		<script src="../src/dfa/dfa.js" type="text/javascript"></script>
+		<script src="../src/dfa/dfa-minmize.js" type="text/javascript"></script>
+		<script src="../src/dfa/dfa2src.js" type="text/javascript"></script>
+		
+		
+		
+		<script src="index.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			div {
+				margin: 5px;
+				min-height: 30px;
+				font-size: 25px;
+			}
+			label {
+				margin-right: 5px;
+				display: inline-block;
+				width: 100px;
+			}
+			div input[type="text"] {
+				width: 250px;
+				height: 100%;
+				font-size: 20px;
+				padding-left: 3px;
+			}
+			.success {
+				color: green;
+			}
+			.failure {
+				color: red;
+			}
+			i {
+				color: #008000;
+			}
+			.c_float {
+				float: left;
+			}
+		</style>
+		<div class="c_float">
+			<textarea id="lexSrc" cols="45" rows="10"></textarea>
+			<div>
+				<input type="button" onclick="doLex('lex');" value="Lex"/>
+				<input type="button" onclick="doLex('editor');" value="LexEditor" />
+			</div>
+		</div>
+		<div class="c_float">
+			<div>
+				<textarea cols="45" rows="20" id="lexOutput"></textarea>
+</div>			<div>
+				<input type="button" value="Run" onclick="runLex();" />
+			</div>
+		</div>
+		<div class="c_float">
+			<div>
+				<textarea cols="45" rows="20" id="runInput">
+if then 323.42 42  a323 32abc /* djsld
+*ds
+**/
+
+		</textarea>
+</div>		</div>
+	</body>
+</html>
