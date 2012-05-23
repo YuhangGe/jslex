@@ -42,8 +42,6 @@ function _showDemo(name) {
 	if(demo_hash[name] == null) {
 		demo_hash[name] = loadDemo(name);
 	}
-	$("#panel-demo").show();
-	$("#panel-tip").hide();
 	$("#btn-lex").attr("disabled", false);
 	$("#btn-run").attr("disabled", true);
 	$("#lex-src").val(demo_hash[name].lex);
