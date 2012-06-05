@@ -45,7 +45,7 @@
 	}
 	D[T.DIGIT] = D[T.NOT_DIGIT] = s2arr("0123456789");
 	D[T.WORD] = D[T.NOT_WORD] = s2arr("abcdefghilklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_");
-	D[T.SPACE] = D[T.NOT_SPACE] = s2arr("\n\t\v\v\f");
+	D[T.SPACE] = D[T.NOT_SPACE] = s2arr("\n\t\v\v\f\x20");//是空格
 	D[T.LETTER] = D[T.NOT_LETTER] = s2arr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 	D[T.LOWER] = D[T.NOT_LOWER] = s2arr("abcdefghigklmnopqrstuvwxyz");
 	D[T.UPPER] = D[T.NOT_UPPER] = s2arr("ABCDEFGHIJKLMNOPQRSTUVWXYZ");

@@ -161,7 +161,7 @@
 		 * 即r=s*
 		 */
 		createStarNFA : function(nfa) {
-			$.log(N)
+			//$.log(N)
 			var s = new N.NFAState();
 			var f = new N.NFAState(true);
 			s.addMove(C.Input.e, nfa.start);

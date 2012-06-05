@@ -173,6 +173,7 @@
 		lex : function(source) {
 			if(source)
 				this.setSource(source);
+			this.i_s = $$_INIT_STATE_$$;
 			this.lex_start();
 			this.do_lex();
 			this.lex_finish();

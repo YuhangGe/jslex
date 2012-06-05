@@ -12,9 +12,10 @@
  */
 Alice = {
 	__RUNTIME__ : "$$_RUNTIME_$$", // __runtime__ : js 或  node 。当前是否在nodejs上运行
+	__lex__ : null,
 	parse : function(lex_src){
-		var lex = Alice.Core.Lexer.parse(lex_src);
-		return Alice.Dfa.Dfa2Src.parse(lex.dfa_obj, lex.routine);
+		this.__lex__ = Alice.Core.Lexer.parse(lex_src);
+		return Alice.Dfa.Dfa2Src.parse(this.__lex__.dfa_obj, this.__lex__.routine);
 	},
 	Core : {
 		/**
