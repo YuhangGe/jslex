@@ -211,7 +211,9 @@
 		},
 		_t : function() {
 			var nfa1 = this._s();
-			switch(this.cur_t.tag) {
+			out:
+			while(true){
+				switch(this.cur_t.tag) {
 
 				case N.Tag['*']:
 					//$.dprint('*');
@@ -238,8 +240,12 @@
 					}
 
 					break;
-				//$.dprint(nfa1);
+				default:
+					break out;
+				}
+				this.read_token();
 			}
+			
 
 			//$.dprint(nfa1);
 
@@ -373,7 +379,7 @@
 				c_from = this.cur_t.value;
 				if(this.cur_t.tag === N.Tag.DEFINED) {
 					if(c_from > 0) {
-						H.arrUnion(chrs, C.DEF_INPUT[c_from]);
+						U.arrUnion(chrs, C.DEF_INPUT[c_from]);
 					} else {
 						chrs.push(c_from);
 					}

@@ -69,7 +69,6 @@
 		},
 		do_lex : function() {
 			var go_on = true;
-			this.idx = 0;
 			while(go_on) {
 				var yylen = 0, yytxt = "";
 				var state = this.i_s, action = Daisy.ACT_TYPE.NO_ACTION;

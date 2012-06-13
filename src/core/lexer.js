@@ -64,7 +64,7 @@
 				//$.aprint(Alice.CharTable.eq_class);
 				this.read_word();
 			}
-			
+
 		},
 		_d_line : function() {
 			var lbl = this.cur_t;
@@ -76,15 +76,15 @@
 			this.define[lbl] = r;
 		},
 		_rule : function() {
-			this.read_word("{","<");
+			this.read_word("{", "<");
 			//$.log(this.cur_t)
 			while (this.cur_t !== '$$' && this.cur_t != null) {
 
 				this._r_line();
-				this.read_word("{","<");
+				this.read_word("{", "<");
 
 			}
-		
+
 		},
 		_r_line : function() {
 			var lbl = this.cur_t, states = [];
@@ -95,11 +95,11 @@
 				} else {
 					states.push(s)
 				}
-				if(this.read_word(null,">")!==">"){
+				if (this.read_word(null, ">") !== ">") {
 					throw "state name must be closed by '>'";
 				}
-				
-				lbl = this.read_word("{","<");
+
+				lbl = this.read_word("{", "<");
 			}
 			if (states.length === 0) {
 				states.push('DEFAULT');
@@ -189,7 +189,7 @@
 				this.idx--;
 		},
 		/**
-		 * 读取一个word, e_until是直到这个字符但不包含这个字符的集合，c_until是直到这个字符同时包含这个字符的集合 
+		 * 读取一个word, e_until是直到这个字符但不包含这个字符的集合，c_until是直到这个字符同时包含这个字符的集合
 		 */
 		read_word : function(e_until, c_until) {
 			var c = this.read_ch(), e_until = e_until == null ? '' : e_until, c_until = c_until == null ? '' : c_until;
@@ -201,16 +201,16 @@
 			if (c === '[')
 				quote = ']';
 			while (c !== null) {
-				if (quote === null){
-					if(this.isSpace(c))
+				if (quote === null) {
+					if (this.isSpace(c))
 						break;
-					if(e_until.indexOf(c)>=0){
+					if (e_until.indexOf(c) >= 0) {
 						//由于不包含这个字符，要回退
 						this.idx--;
 						break;
 					}
-					if(c_until.indexOf(c)>=0){
-						w+=c;
+					if (c_until.indexOf(c) >= 0) {
+						w += c;
 						break;
 					}
 				}
