@@ -16,6 +16,7 @@
 		template_hash : {},
 		act_hash : {},
 		lex_name : "JSLexer",
+        lex_arguments : {},
 		case_ignore : false,
 		getTemplate : function(){
 			if(Alice.__RUNTIME__ && Alice.__RUNTIME__==='node'){
@@ -55,12 +56,14 @@
 				.replace(/\$\$_LEX_STATES_\$\$/g, this.parseState(dfa_obj))
 				.replace("$$_ACTION_TABLE_$$", this.parseTable(dfa_obj))
 				.replace(/\$\$_LEX_NAME_\$\$/g, this.lex_name)
-				.replace("$$_IGNORE_CASE_0_$$", this.case_ignore ? "/*" : "")
-				.replace("$$_IGNORE_CASE_1_$$", this.case_ignore ? "*/" : "/*")
-				.replace("$$_IGNORE_CASE_2_$$", this.case_ignore ? "" : "*/")
+				.replace("$$_IGNORE_CASE_BEGIN_$$", this.case_ignore ? "" : "/*")
+				.replace("$$_IGNORE_CASE_END_$$", this.case_ignore ? "" : "*/")
 				.replace("##_CONSTRUCT_##", routine['construct'])
 				.replace("##_START_##", routine['start'])
 				.replace("##_FINISH_##", routine['finish']);
+            output = output.replace(/\$\$_ARGUMENT\[(\s*[^\]]+\s*)\]_\$\$/g, function(m, c) {
+                return D.Dfa2Src.lex_arguments[c];
+            });
 			return output;
 
 		},

@@ -34,6 +34,10 @@
 				switch(option) {
 					case '$caseignore':
 						this.read_word();
+                        /**
+                         * 如果忽略大小写，则统一转成小写
+                         * @type {Boolean}
+                         */
 						D.Dfa2Src.case_ignore = this.cur_t.toLowerCase() === "true" ? true : false;
 						if (this.cur_t === 'true') {
 							$.log("option - case ignore: true");
@@ -51,6 +55,14 @@
 						D.Dfa2Src.template = this.cur_t;
 						$.log("option - template name: " + this.cur_t);
 						this.read_word();
+                        break;
+                    case '$argument' :
+                        var ak = this.read_word();
+                        var av = this.read_word();
+                        D.Dfa2Src.lex_arguments[ak] = av;
+                        $.log("option - argument:{" + ak + "->" + av + "}");
+                        this.read_word();
+                        break;
 					default:
 						in_option = false;
 						break;

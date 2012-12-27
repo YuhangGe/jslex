@@ -11,7 +11,7 @@
 	height: 100px;
 }
 
-#lex-src-txt:focus, #lex-input:focus, #lex-output:focus{
+#lex-src-txt :focus, #lex-input:focus, #lex-output:focus{
 	border-color: rgba(255, 165, 0, 0.6);
 }
 
@@ -19,3 +19,8 @@
 	float: right;
 	margin-right: 10px;
 }
+
+.oew{
+
+}
+

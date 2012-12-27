@@ -12,9 +12,13 @@
  */
 Alice = {
 	__RUNTIME__ : "js", // __runtime__ : js 或  node 。当前是否在nodejs上运行
+	__lex__ : null,
+    setTemplate : function(tpl) {
+        Alice.Dfa.Dfa2Src.template = tpl;
+    },
 	parse : function(lex_src){
-		var lex = Alice.Core.Lexer.parse(lex_src);
-		return Alice.Dfa.Dfa2Src.parse(lex.dfa_obj, lex.routine);
+		this.__lex__ = Alice.Core.Lexer.parse(lex_src);
+		return Alice.Dfa.Dfa2Src.parse(this.__lex__.dfa_obj, this.__lex__.routine);
 	},
 	Core : {
 		/**
@@ -437,8 +441,8 @@ Alice = {
 		return rtn;
 	}
 	D[T.DIGIT] = D[T.NOT_DIGIT] = s2arr("0123456789");
-	D[T.WORD] = D[T.NOT_WORD] = s2arr("abcdefghilklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_");
-	D[T.SPACE] = D[T.NOT_SPACE] = s2arr("\n\t\v\v\f");
+	D[T.WORD] = D[T.NOT_WORD] = s2arr("0123456789abcdefghilklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_");
+	D[T.SPACE] = D[T.NOT_SPACE] = s2arr("\n\t\v\v\f\x20");//是空格
 	D[T.LETTER] = D[T.NOT_LETTER] = s2arr("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 	D[T.LOWER] = D[T.NOT_LOWER] = s2arr("abcdefghigklmnopqrstuvwxyz");
 	D[T.UPPER] = D[T.NOT_UPPER] = s2arr("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
@@ -561,18 +565,24 @@ Alice = {
 		rule : {
 			"DEFAULT" : []
 		},
-		routine : {'construct': '','start': '', 'finish' : '', 'error':''}
+		routine : {
+			'construct' : '',
+			'start' : '',
+			'finish' : '',
+			'error' : ''
+		}
 	};
 	U.extend(C.Lexer, {
 		_define : function() {
+			this.read_word();
 			var in_option = true;
-			while(in_option){
+			while (in_option) {
 				var option = this.cur_t.toLowerCase();
-				switch(option){
+				switch(option) {
 					case '$caseignore':
 						this.read_word();
-						D.Dfa2Src.case_ignore = this.cur_t.toLowerCase()==="true"?true:false;
-						if(this.cur_t==='true'){
+						D.Dfa2Src.case_ignore = this.cur_t.toLowerCase() === "true" ? true : false;
+						if (this.cur_t === 'true') {
 							$.log("option - case ignore: true");
 						}
 						this.read_word();
@@ -580,28 +590,34 @@ Alice = {
 					case '$lexname':
 						this.read_word();
 						D.Dfa2Src.lex_name = this.cur_t;
-						$.log("option - lex name: "+this.cur_t);
+						$.log("option - lex name: " + this.cur_t);
 						this.read_word();
 						break;
 					case '$template':
-					    this.read_word();
-					    D.Dfa2Src.template = this.cur_t;
-					    $.log("option - template name: "+this.cur_t);
-					    this.read_word();
+						this.read_word();
+						D.Dfa2Src.template = this.cur_t;
+						$.log("option - template name: " + this.cur_t);
+						this.read_word();
+                    case '$argument' :
+                        var ak = this.read_word();
+                        var av = this.read_word();
+                        D.Dfa2Src.lex_arguments[ak] = av;
+                        $.log("option - argument:{" + ak + "->" + av + "}");
+                        this.read_word();
 					default:
-						in_option= false;
+						in_option = false;
 						break;
 				}
 			}
 
-			while(this.cur_t !== '$$' && this.cur_t != null) {
+			while (this.cur_t !== '$$' && this.cur_t != null) {
 				//$.dprint(this.cur_t);
 				this._d_line();
 				//$.aprint(Alice.CharTable.char_table);
 				//$.aprint(Alice.CharTable.eq_class);
 				this.read_word();
 			}
-			this.read_word();
+
 		},
 		_d_line : function() {
 			var lbl = this.cur_t;
@@ -613,140 +629,163 @@ Alice = {
 			this.define[lbl] = r;
 		},
 		_rule : function() {
-			while(this.cur_t !== '$$' && this.cur_t != null) {
+			this.read_word("{", "<");
+			//$.log(this.cur_t)
+			while (this.cur_t !== '$$' && this.cur_t != null) {
 
 				this._r_line();
-				this.read_word();
+				this.read_word("{", "<");
 
 			}
-			this.read_word();
-			this._routine();
+
 		},
 		_r_line : function() {
-			var lbl = this.cur_t, state = "DEFAULT";
-			if(this.cur_t === "<") {
-				state = this.read_word();
-				if(state === "Daisy") {
-					throw "不能使用Daisy作为状态标识。"
+			var lbl = this.cur_t, states = [];
+			while (lbl === "<") {
+				var s = this.read_word(">");
+				if (s === "Daisy") {
+					console.log("不能使用Daisy作为状态标识，已经忽略.");
+				} else {
+					states.push(s)
 				}
-				//$.dprint(state);
-				this.idx--;
+				if (this.read_word(null, ">") !== ">") {
+					throw "state name must be closed by '>'";
+				}
 
-				if(this.read_word() !== ">")
-					throw "error! state must be closed by '>'."
-				lbl = this.read_word();
+				lbl = this.read_word("{", "<");
 			}
+			if (states.length === 0) {
+				states.push('DEFAULT');
+			}
+			//$.log(lbl)
+			//$.log(states)
 			//$.dprint("state: %s, lbl: %s",state,lbl);
-			var expNfa = this.define[lbl];
-			if(expNfa == null)
-				throw "没有定义的标识@_r_line 0:" + lbl;
-			if(this.define_used[lbl] === true) {
-				/**
-				 * 如果在define块定义的标识已经被某个状态集使用过，则必须使用它的拷贝来生成一个rule
-				 */
-				expNfa = expNfa.copy();
-			} else {
-				this.define_used[lbl] = true;
-			}
+
 			var func_str = "";
 			var c = this.read_ch();
 			var until = '\n';
-			while(c !== null && this.isSpace(c) && c !== until)
+			while (c !== null && this.isSpace(c) && c !== until)
 			c = this.read_ch();
-			if(c === '{') {
+			//$.log(c)
+			if (c === '{') {
 				until = '}';
 				c = this.read_ch();
 			}
-			while(c !== null && c !== until) {
+			while (c !== null && c !== until) {
 				func_str += c;
 				c = this.read_ch();
 			}
 			//this.read_ch();
 
-			expNfa.finish.isAccept = true;
-			expNfa.finish.action = new C.Action(func_str);
-
-			if(this.rule[state] == null) {
-				this.rule[state] = [];
+			for (var i = 0; i < states.length; i++) {
+				var expNfa = this.define[lbl];
+				if (expNfa == null)
+					throw "没有定义的标识@_r_line 0:" + lbl;
+				if (this.define_used[lbl] === true) {
+					/**
+					 * 如果在define块定义的标识已经被某个状态集使用过，则必须使用它的拷贝来生成一个rule
+					 */
+					expNfa = expNfa.copy();
+				} else {
+					this.define_used[lbl] = true;
+				}
+				expNfa.finish.isAccept = true;
+				expNfa.finish.action = new C.Action(func_str);
+				if (this.rule[states[i]] == null) {
+					this.rule[states[i]] = [];
+				}
+				this.rule[states[i]].push(expNfa);
 			}
-			this.rule[state].push(expNfa);
+
 		},
 		_routine : function() {
-			while(this.cur_t!==null){
+			this.read_word();
+			while (this.cur_t !== null) {
 				this._routine_line(this.cur_t);
 				this.read_word();
 			}
-			
+
 		},
-		_routine_line : function(name){
+		_routine_line : function(name) {
 			name = name.toLowerCase();
 			var func_str = "";
 			var c = this.read_ch();
 			var until = '\n';
-			while(c !== null && this.isSpace(c) && c !== until)
+			while (c !== null && this.isSpace(c) && c !== until)
 			c = this.read_ch();
-			if(c === '{') {
+			if (c === '{') {
 				until = '}';
 				c = this.read_ch();
 			}
-			while(c !== null && c !== until) {
+			while (c !== null && c !== until) {
 				func_str += c;
 				c = this.read_ch();
 			}
-			if(['$construct','$start','$finish','$error'].indexOf(name)<0){
-				console.log("warning: unknow global function "+name+", ignored.");
+			if (['$construct', '$start', '$finish', '$error'].indexOf(name) < 0) {
+				console.log("warning: unknow global function " + name + ", ignored.");
 				return;
-			}else{
+			} else {
 				$.log(name);
 				$.log(func_str);
 			}
-			this.routine[name.substring(1,name.length)] = func_str;
+			this.routine[name.substring(1, name.length)] = func_str;
 		},
 		read_ch : function() {
-			if(this.idx === this.len) {
+			if (this.idx === this.len) {
 				return null;
 			} else {
 				return this.src[this.idx++];
 			}
 		},
 		back_ch : function() {
-			if(this.idx > 0)
+			if (this.idx > 0)
 				this.idx--;
 		},
-		read_word : function() {
-			var c = this.read_ch();
-			while(c !== null && this.isSpace(c))
+		/**
+		 * 读取一个word, e_until是直到这个字符但不包含这个字符的集合，c_until是直到这个字符同时包含这个字符的集合
+		 */
+		read_word : function(e_until, c_until) {
+			var c = this.read_ch(), e_until = e_until == null ? '' : e_until, c_until = c_until == null ? '' : c_until;
+			while (c !== null && this.isSpace(c))
 			c = this.read_ch();
-			if(c === "<" || c === ">")
-				return this.cur_t = c;
 
 			var w = "";
 			var quote = null;
-			if(c === '[')
+			if (c === '[')
 				quote = ']';
-			while(c !== null) {
-				if(quote === null && (this.isSpace(c) || c === ">"))
-					break;
+			while (c !== null) {
+				if (quote === null) {
+					if (this.isSpace(c))
+						break;
+					if (e_until.indexOf(c) >= 0) {
+						//由于不包含这个字符，要回退
+						this.idx--;
+						break;
+					}
+					if (c_until.indexOf(c) >= 0) {
+						w += c;
+						break;
+					}
+				}
 				w += c;
-
-				if(c === "\\") {
+				if (c === "\\") {
 					c = this.read_ch();
-					if(c !== null)
+					if (c !== null)
 						w += c
-				} else if(c === '\"' || c === '\'') {
-					if(quote === c)
+				} else if (c === '\"' || c === '\'') {
+					if (quote === c)
 						quote = null;
-					else if(quote === null)
+					else if (quote === null)
 						quote = c;
-				} else if(c === '[' && quote === null) {
+				} else if (c === '[' && quote === null) {
 					quote = ']';
-				} else if(c === ']' && quote !== null) {
+				} else if (c === ']' && quote !== null) {
 					quote = null;
 				}
 				c = this.read_ch();
 			}
-			//$.dprint("w:"+w);
-			if(w.length === 0)
+			//$.log("w:"+w);
+			if (w.length === 0)
 				this.cur_t = null;
 			else
 				this.cur_t = w;
@@ -757,23 +796,20 @@ Alice = {
 			this.src = source;
 			this.idx = 0;
 			this.len = source.length;
-			//begin parse
-			this.read_word();
 
 			this._define();
-
 			this._rule();
 			this._routine();
 
 			var dfa_arr = [], default_dfa = null, states = {};
 			//$.dprint(lexNFA);
-			for(var s in this.rule) {
+			for (var s in this.rule) {
 				var rs = this.rule[s];
 				var lexNFA = new N.NFA();
 				var lexStart = new N.NFAState();
 				lexNFA.start = lexStart;
 				lexNFA.addState(lexStart);
-				for(var i = 0; i < rs.length; i++) {
+				for (var i = 0; i < rs.length; i++) {
 					var nfaExp = rs[i];
 					lexStart.addMove(C.Input.e, nfaExp.start);
 					lexNFA.addState(nfaExp.states);
@@ -785,7 +821,7 @@ Alice = {
 				//$.dprint(m_dfa);
 				m_dfa.state_name = s;
 				dfa_arr.push(m_dfa);
-				if(s === "DEFAULT")
+				if (s === "DEFAULT")
 					default_dfa = m_dfa;
 
 			}
@@ -985,7 +1021,7 @@ Alice = {
 		 * 即r=s*
 		 */
 		createStarNFA : function(nfa) {
-			$.log(N)
+			//$.log(N)
 			var s = new N.NFAState();
 			var f = new N.NFAState(true);
 			s.addMove(C.Input.e, nfa.start);
@@ -1541,7 +1577,9 @@ Alice = {
 		},
 		_t : function() {
 			var nfa1 = this._s();
-			switch(this.cur_t.tag) {
+			out:
+			while(true){
+				switch(this.cur_t.tag) {
 
 				case N.Tag['*']:
 					//$.dprint('*');
@@ -1568,8 +1606,12 @@ Alice = {
 					}
 
 					break;
-				//$.dprint(nfa1);
+				default:
+					break out;
+				}
+				this.read_token();
 			}
+			
 
 			//$.dprint(nfa1);
 
@@ -1703,7 +1745,7 @@ Alice = {
 				c_from = this.cur_t.value;
 				if(this.cur_t.tag === N.Tag.DEFINED) {
 					if(c_from > 0) {
-						H.arrUnion(chrs, C.DEF_INPUT[c_from]);
+						U.arrUnion(chrs, C.DEF_INPUT[c_from]);
 					} else {
 						chrs.push(c_from);
 					}
@@ -1867,6 +1909,7 @@ D.DFA.prototype = {
 		template_hash : {},
 		act_hash : {},
 		lex_name : "JSLexer",
+        lex_arguments : {},
 		case_ignore : false,
 		getTemplate : function(){
 			if(Alice.__RUNTIME__ && Alice.__RUNTIME__==='node'){

@@ -37,7 +37,10 @@ function doLex(){
 	lexer = new JSLexer();
 }
 
-
+function doLighterLex() {
+    Alice.setTemplate("dLighter");
+    $('#lexOutput').val(Alice.parse($("#lexSrc").val()));
+}
 function runLex(){
 	 //var TOTAL = 1;
 	 //var time = 0;
