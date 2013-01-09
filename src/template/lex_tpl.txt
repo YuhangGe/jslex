@@ -95,9 +95,10 @@
 							action = pre_action;
 							yylen = pre_act_len;
 							this.idx = pre_idx + pre_act_len;
-						}else
-							action = Daisy.ACT_TYPE.UNKNOW_CHAR;
-						break;
+						}else {
+			        		action = Daisy.ACT_TYPE.UNKNOW_CHAR;
+						}
+                        break;
 					}
 					var offset, next = -1, s = state;
 
