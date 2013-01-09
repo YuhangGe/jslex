@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Test</title>
+    <script type="text/javascript" src="../lib/jquery-1.5.1.js"></script>
+    <script type="text/javascript" src="../lib/js-printf.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+    <script type="text/javascript">
+        function test() {
+            var l = new JSLexer(), t = $("#txt").val();
+            l.lex(t);
+        }
+    </script>
+</head>
+<body>
+    <textarea id="txt"></textarea>
+    <input type="button" onclick="test();" value="Test">
+</body>
+</html>

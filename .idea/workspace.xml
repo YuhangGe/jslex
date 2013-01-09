@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="253d9d38-cbf4-4f3b-ac75-fcb7c26109bb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/test.js" afterPath="$PROJECT_DIR$/demo/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/template/dLighter_tpl.txt" afterPath="$PROJECT_DIR$/src/template/dLighter_tpl.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/template/lex_tpl.txt" afterPath="$PROJECT_DIR$/src/template/lex_tpl.txt" />
-    </list>
+    <list default="true" id="253d9d38-cbf4-4f3b-ac75-fcb7c26109bb" name="Default" comment="" />
     <ignored path="alicelex.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
