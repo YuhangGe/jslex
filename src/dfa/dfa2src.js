@@ -20,10 +20,10 @@
 		case_ignore : false,
 		getTemplate : function(){
 			if(Alice.__RUNTIME__ && Alice.__RUNTIME__==='node'){
-				var tn = "node_"+this.template;
+				var tn = "node"
 				if(this.template_hash[tn]==null){
 					var fs = require("fs");
-					this.template_hash[tn] = fs.readFileSync("../src/template/"+tn+"_tpl.txt",'utf8');
+					this.template_hash[tn] = fs.readFileSync( this.template,'utf8');
 				}
 				return this.template_hash[tn];
 			}else{

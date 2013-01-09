@@ -301,8 +301,11 @@ Alice.Regular = {};
 				//$.dprint('(');
 				this.read_token();
 				nfa = this._r();
-				if(this.cur_t.tag !== R.Tag[')'])
-					throw "_s 0";
+				if(this.cur_t.tag !== R.Tag[')']) {
+                    console.trace();
+                    throw "_s 0";
+
+                }
 				this.read_token();
 				break;
 			case R.Tag['[']:

@@ -127,7 +127,7 @@
 			if(prev > 0)
 				this.table_next[prev] = next;
 			else {
-				var eqc_idx = this.eq_class.indexOf(eqc);
+				var eqc_idx = this.eq_class.indexOf(input);
 				this.eq_class[eqc_idx] = next;
 			}
 			/**

@@ -210,9 +210,8 @@
 			return nfa1;
 		},
 		_t : function() {
-			var nfa1 = this._s();
-			out:
-			while(true){
+			var nfa1 = this._s(), go_on = true;
+			while(go_on){
 				switch(this.cur_t.tag) {
 
 				case N.Tag['*']:
@@ -237,13 +236,14 @@
 						this.read_token();
 					} else {
 						this.back_token();
+                        go_on = false;
 					}
-
 					break;
 				default:
-					break out;
+                    go_on = false;
+					break;
 				}
-				this.read_token();
+//				this.read_token();
 			}
 			
 
@@ -294,8 +294,11 @@
 					//$.dprint('(');
 					this.read_token();
 					nfa = this._r();
-					if(this.cur_t.tag !== N.Tag[')'])
-						throw "_s 0";
+					if(this.cur_t.tag !== N.Tag[')']) {
+                        console.trace();
+                        throw "_s 0";
+
+                    }
 					this.read_token();
 					break;
 				case N.Tag['[']:

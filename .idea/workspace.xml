@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="253d9d38-cbf4-4f3b-ac75-fcb7c26109bb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/alicelex-node.js" afterPath="$PROJECT_DIR$/demo/alicelex-node.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/alicelex.js" afterPath="$PROJECT_DIR$/demo/alicelex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/demo.css" afterPath="$PROJECT_DIR$/demo/demo.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/index.js" afterPath="$PROJECT_DIR$/demo/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/index_old.html" afterPath="$PROJECT_DIR$/demo/index_old.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/alice.js" afterPath="$PROJECT_DIR$/src/alice.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/lexer.js" afterPath="$PROJECT_DIR$/src/core/lexer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_old_src/js/str2nfa.js" afterPath="$PROJECT_DIR$/_old_src/js/str2nfa.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/styles.css" afterPath="$PROJECT_DIR$/demo/styles.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfa/dfa2src.js" afterPath="$PROJECT_DIR$/src/dfa/dfa2src.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/template/lex_tpl.txt" afterPath="$PROJECT_DIR$/src/template/lex_tpl.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nfa/str2nfa.js" afterPath="$PROJECT_DIR$/src/nfa/str2nfa.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/node.js" afterPath="$PROJECT_DIR$/src/node.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/table/input-manager.js" afterPath="$PROJECT_DIR$/src/table/input-manager.js" />
     </list>
     <ignored path="alicelex.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,55 +28,19 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="str2nfa.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="state.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/js/state.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="state.lex" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/js/state.lex">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="demo.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/demo.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="27" selection-start="316" selection-end="322" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="23" selection-start="1221" selection-end="1221" vertical-scroll-proportion="0.0">
+            <state line="35" column="4" selection-start="863" selection-end="863" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="alice.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/alice.js">
+      <file leaf-file-name="lexer.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="41" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
+            <state line="122" column="22" selection-start="2918" selection-end="2920" vertical-scroll-proportion="-70.15385">
               <folding />
             </state>
           </provider>
@@ -87,7 +49,34 @@
       <file leaf-file-name="dfa2src.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="60" selection-start="2412" selection-end="2412" vertical-scroll-proportion="0.0">
+            <state line="39" column="8" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="str2nfa.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="65" column="29" selection-start="1091" selection-end="1091" vertical-scroll-proportion="79.65385">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="input-manager.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/table/input-manager.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="129" column="57" selection-start="3433" selection-end="3438" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="styles.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demo/styles.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="261" column="8" selection-start="3371" selection-end="3371" vertical-scroll-proportion="0.67419356">
               <folding />
             </state>
           </provider>
@@ -96,25 +85,25 @@
       <file leaf-file-name="lex_tpl.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/template/lex_tpl.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="32" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.0">
+            <state line="145" column="34" selection-start="4033" selection-end="4033" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dLighter_tpl.txt" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index_old.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/index_old.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="69" column="58" selection-start="2026" selection-end="2038" vertical-scroll-proportion="-7.571429">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dLighter_tpl.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/template/dLighter_tpl.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="39" selection-start="3822" selection-end="3822" vertical-scroll-proportion="0.1878089">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="editor_tpl.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/template/editor_tpl.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="32" selection-start="1348" selection-end="1471" vertical-scroll-proportion="0.0">
+            <state line="45" column="33" selection-start="4327" selection-end="4332" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -138,15 +127,21 @@
         <option value="$PROJECT_DIR$/demo/index.js" />
         <option value="$PROJECT_DIR$/src/template/lex_tpl.txt" />
         <option value="$PROJECT_DIR$/src/template/dLighter_tpl.txt" />
-        <option value="$PROJECT_DIR$/src/dfa/dfa2src.js" />
         <option value="$PROJECT_DIR$/src/core/lexer.js" />
         <option value="$PROJECT_DIR$/demo/demo.css" />
+        <option value="$PROJECT_DIR$/src/dfa/dfa2src.js" />
+        <option value="$PROJECT_DIR$/src/node.js" />
+        <option value="$PROJECT_DIR$/demo/styles.css" />
+        <option value="$PROJECT_DIR$/_old_src/js/str2nfa.js" />
+        <option value="$PROJECT_DIR$/src/table/input-manager.js" />
+        <option value="$PROJECT_DIR$/src/nfa/str2nfa.js" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
+    <option name="x" value="3" />
+    <option name="y" value="25" />
     <option name="width" value="1440" />
     <option name="height" value="790" />
   </component>
@@ -176,6 +171,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -223,6 +219,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="template" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alicelex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alicelex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="table" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -314,7 +328,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -322,8 +335,8 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="options.lastSelected" value="Template Data Languages" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PublishConfig">
     <servers>
@@ -349,15 +362,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="790" extended-state="6" />
-    <editor active="true" />
+    <frame x="3" y="25" width="1440" height="790" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25681493" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26040173" sideWeight="0.671151" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -366,7 +380,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -425,98 +438,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/demo/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="57" selection-start="1009" selection-end="1009" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/alice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="41" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="90" selection-start="2565" selection-end="2565" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/alicelex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1907" column="23" selection-start="44351" selection-end="44354" vertical-scroll-proportion="57.14984" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index_old.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="59" selection-start="2039" selection-end="2039" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/alice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="41" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/template/editor_tpl.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="32" selection-start="1348" selection-end="1471" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/template/lex_tpl.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="32" selection-start="2003" selection-end="2003" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="60" selection-start="2412" selection-end="2412" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="30" selection-start="1718" selection-end="1718" vertical-scroll-proportion="-10.230769">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/js/state.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/js/state.lex">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="23" selection-start="1221" selection-end="1221" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -528,9 +452,102 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/demo/alicelex-node.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-6.8237233">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/alice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="11" selection-start="675" selection-end="675" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/node.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="5" selection-start="594" selection-end="594" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/template/editor_tpl.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="48" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/template/dLighter_tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="39" selection-start="3822" selection-end="3822" vertical-scroll-proportion="0.1878089">
+        <state line="45" column="33" selection-start="4327" selection-end="4332" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/template/lex_tpl.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="145" column="34" selection-start="4033" selection-end="4033" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="4" selection-start="863" selection-end="863" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/index_old.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="58" selection-start="2026" selection-end="2038" vertical-scroll-proportion="-7.571429">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="8" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/table/input-manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="57" selection-start="3433" selection-end="3438" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_old_src/js/str2nfa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="317" column="26" selection-start="6037" selection-end="6037" vertical-scroll-proportion="0.61290324">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="29" selection-start="1091" selection-end="1091" vertical-scroll-proportion="79.65385">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="122" column="22" selection-start="2918" selection-end="2920" vertical-scroll-proportion="-70.15385">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="261" column="8" selection-start="3371" selection-end="3371" vertical-scroll-proportion="0.67419356">
           <folding />
         </state>
       </provider>
