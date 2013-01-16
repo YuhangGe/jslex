@@ -110,7 +110,7 @@
 			switch(c) {
 				case '\\':
 					c = this.read_ch();
-					//$.dprint(c);
+					//$.log(c);
 					if(c === null)
 						throw 1;
 					if(N.Escape[c] != null)
@@ -183,15 +183,15 @@
 			nfa1 = this._e();
 			while(true) {
 				if(this.cur_t.tag === N.Tag['|']) {
-					//$.dprint('|')
+					//$.log('|')
 					this.read_token();
 					nfa2 = this._e();
 					nfa1 = N.NFA.createOrNFA(nfa1, nfa2);
-					//$.dprint(nfa1);
+					//$.log(nfa1);
 				} else
 					break;
 			}
-			//$.dprint(nfa1);
+			//$.log(nfa1);
 
 			return nfa1;
 		},
@@ -202,11 +202,11 @@
 				if(this.cur_t.tag !== N.Tag['|'] && this.cur_t.tag !== N.Tag[')'] && this.cur_t !== N.Token.EOF) {
 					nfa2 = this._t();
 					nfa1 = N.NFA.createJoinNFA(nfa1, nfa2);
-					//$.dprint(nfa1);
+					//$.log(nfa1);
 				} else
 					break;
 			}
-			//$.dprint(nfa1);
+			//$.log(nfa1);
 			return nfa1;
 		},
 		_t : function() {
@@ -215,7 +215,7 @@
 				switch(this.cur_t.tag) {
 
 				case N.Tag['*']:
-					//$.dprint('*');
+					//$.log('*');
 					nfa1 = N.NFA.createStarNFA(nfa1);
 					this.read_token();
 					break;
@@ -247,7 +247,7 @@
 			}
 			
 
-			//$.dprint(nfa1);
+			//$.log(nfa1);
 
 			return nfa1;
 		},
@@ -291,7 +291,7 @@
 			var nfa;
 			switch(this.cur_t.tag) {
 				case N.Tag['(']:
-					//$.dprint('(');
+					//$.log('(');
 					this.read_token();
 					nfa = this._r();
 					if(this.cur_t.tag !== N.Tag[')']) {
@@ -311,8 +311,11 @@
 				case N.Tag['{']:
 					this.read_token();
 					nfa = this._u();
-					if(this.cur_t.tag !== N.Tag['}'])
-						throw "_s 3";
+					if(this.cur_t.tag !== N.Tag['}']) {
+                        console.trace();
+                        throw "_s 3";
+
+                    }
 					this.read_token();
 					break;
 				case N.Tag['"']:
@@ -326,13 +329,17 @@
 					nfa = N.NFA.createMultiNFA(C.DEF_INPUT[this.cur_t.value], this.cur_t.value < 0 ? true : false);
 					this.read_token();
 					break;
+                /*
+                 * 符号^和-只在[]包含时才有特殊意义，否则视为普通字符
+                 */
 				case N.Tag.CHAR:
+                case N.Tag['-'] :
+                case N.Tag['^'] :
 					nfa = N.NFA.createSingleNFA(this.cur_t.value.charCodeAt(0));
 					this.read_token();
 					break;
 				default:
-					$.dprint(this.cur_t);
-					throw "_s 2";
+					$.err("_s 2", this.cur_t);
 			}
 			return nfa;
 		},
@@ -347,7 +354,7 @@
 			if(C.Lexer.define[w] != null) {
 				return C.Lexer.define[w].copy();
 			} else
-				throw "_u 0 :" + w;
+                $.err("_u 0 :" + w);
 		},
 		_u_not_digit : function(chr) {
 			return chr < '0' || chr > '9';
@@ -358,12 +365,12 @@
 			while(this.cur_t.tag !== this.quote) {
 
 				if(this.cur_t === N.Token.EOF)
-					throw "_str 0";
+                    $.err("_str 0");
 				str += this.cur_t.value;
 
 				this.read_token();
 			}
-			//$.dprint(str);
+			//$.log(str);
 			return N.NFA.createStrNFA(str);
 		},
 		/*
@@ -399,13 +406,13 @@
 						chrs.push('-'.charCodeAt(0));
 						break;
 					} else if(this.cur_t.tag === N.Tag.DEFINED) {
-						throw "_h 0";
+                        $.err("_h 0");
 					}
 					c_to = this.cur_t.value;
 					if(c_to >= c_from) {
 						this._h_add(c_from, c_to, chrs);
 					} else
-						throw "_h 1";
+                        $.err("_h 1");
 					this.read_token();
 				}
 			}
@@ -430,7 +437,7 @@
 			 * 可以做到尽可能的不对已经插入过的字符集进行等价类操作
 			 */
 			var uni_chrs = U.uniqueSort(chrs);
-			//$.dprint(uni_chrs);
+			//$.log(uni_chrs);
 			return N.NFA.createMultiNFA(uni_chrs, except);
 		},
 		parse : function(str) {
@@ -442,7 +449,7 @@
 			this.read_token();
 			this.nfa = this._r();
 			//}catch(e){
-			//	$.dprint("wrong!"+e);
+			//	$.log("wrong!"+e);
 			//}
 			return this.nfa;
 		}

@@ -52,6 +52,13 @@ Alice = {
 					throw "extend error!"
 			}
 		},
+        err : function() {
+            if(arguments.length>0) {
+                $.log(arguments);
+            }
+            console.trace();
+            throw "err!";
+        }
 		
 	}
 };

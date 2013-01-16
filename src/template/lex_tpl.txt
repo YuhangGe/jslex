@@ -70,19 +70,19 @@
 			while(go_on) {
 				var yylen = 0, yytxt = "";
 				var state = this.i_s, action = Daisy.ACT_TYPE.NO_ACTION;
-				var pre_idx = this.idx, pre_action = Daisy.ACT_TYPE.NO_ACTION, pre_act_len = 0;
+				var yyidx = this.idx, pre_action = Daisy.ACT_TYPE.NO_ACTION, pre_act_len = 0;
 
 				while(true) {
 					if(this.read_ch() < 0) {
 						if(pre_action >= 0) {
 							action = pre_action;
 							yylen = pre_act_len;
-							this.idx = pre_idx + pre_act_len;
-						} else if(pre_idx < this.end) {
+							this.idx = yyidx + pre_act_len;
+						} else if(yyidx < this.end) {
 							action = Daisy.ACT_TYPE.UNMATCH_CHAR;
-							this.idx = pre_idx + 1;
+							this.idx = yyidx + 1;
 						}
-						if(pre_idx >= this.end) {
+						if(yyidx >= this.end) {
 							go_on = false;
 						}
 						break;
@@ -94,7 +94,7 @@
 						if(pre_action >= 0) {
 							action = pre_action;
 							yylen = pre_act_len;
-							this.idx = pre_idx + pre_act_len;
+							this.idx = yyidx + pre_act_len;
 						}else {
 			        		action = Daisy.ACT_TYPE.UNKNOW_CHAR;
 						}
@@ -116,10 +116,10 @@
 						if(pre_action >= 0) {
 							action = pre_action;
 							yylen = pre_act_len;
-							this.idx = pre_idx + pre_act_len;
+							this.idx = yyidx + pre_act_len;
 						} else {
 							action = Daisy.ACT_TYPE.UNMATCH_CHAR;
-							this.idx = pre_idx + 1;
+							this.idx = yyidx + 1;
 						}
 						//跳出内层while，执行对应的action动作
 						break;
@@ -135,7 +135,7 @@
 						}
 					}
 				}
-				yytxt = this.src.substr(pre_idx, yylen);
+				yytxt = this.src.substr(yyidx, yylen);
 				switch(action) {
 					case Daisy.ACT_TYPE.UNKNOW_CHAR:
 						this._log("unknow char %d(%c)",this.chr,this.chr);
@@ -160,6 +160,13 @@
 		},
 		yygoto: function(state){
 			this.i_s = state;
+		},
+		yytask : function(idx, len, lex_name){
+		    if(len>0) {
+		         $.log("yytask:%s,%s,%s", idx, len, lex_name);
+		         $.log(this.src.substr(idx, len));
+		    }
+
 		},
 		lex_start : function(){
 			##_START_##

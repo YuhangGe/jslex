@@ -32,7 +32,7 @@
 			while (in_option) {
 				var option = this.cur_t.toLowerCase();
 				switch(option) {
-					case '$caseignore':
+					case '$case_ignore':
 						this.read_word();
                         /**
                          * 如果忽略大小写，则统一转成小写
@@ -44,7 +44,7 @@
 						}
 						this.read_word();
 						break;
-					case '$lexname':
+					case '$lexer_name':
 						this.read_word();
 						D.Dfa2Src.lex_name = this.cur_t;
 						$.log("option - lex name: " + this.cur_t);
@@ -116,9 +116,9 @@
 			if (states.length === 0) {
 				states.push('DEFAULT');
 			}
-			//$.log(lbl)
+			$.log(lbl)
 			//$.log(states)
-			//$.dprint("state: %s, lbl: %s",state,lbl);
+//			$.log("state: %s, lbl: %s",state,lbl);
 
 			var func_str = "";
 			var c = this.read_ch();
@@ -126,20 +126,32 @@
 			while (c !== null && this.isSpace(c) && c !== until)
 			c = this.read_ch();
 			//$.log(c)
+
+            var deep = 0;
+
 			if (c === '{') {
 				until = '}';
 				c = this.read_ch();
 			}
-			while (c !== null && c !== until) {
-				func_str += c;
+			while (c !== null && !(c === until && deep ===0)) {
+                if(c==='{'){
+                    deep++;
+                } else if(c==='}') {
+                    if(until==='}' && deep===0) {
+                        break;
+                    }
+                    deep--;
+                }
+                func_str += c;
 				c = this.read_ch();
 			}
+            $.log(func_str);
 			//this.read_ch();
 
 			for (var i = 0; i < states.length; i++) {
 				var expNfa = this.define[lbl];
 				if (expNfa == null)
-					throw "没有定义的标识@_r_line 0:" + lbl;
+                    U.err("没有定义的标识@_r_line 0:" + lbl);
 				if (this.define_used[lbl] === true) {
 					/**
 					 * 如果在define块定义的标识已经被某个状态集使用过，则必须使用它的拷贝来生成一个rule
