@@ -1,4 +1,5 @@
 (function(A, C, N, D, T, U) {
+    var $ = U;
 /**
  * @author	Yuhang Ge
  * @email	abraham1@163.com
@@ -217,7 +218,7 @@ D.DfaMinimize = {
 			}
 		}
 
-		$.log("dfa minimized. %d states to %d states.", this.size, new_size);
+//		$.log("dfa minimized. %d states to %d states.", this.size, new_size);
 		var new_dfa = new D.DFA(new_start, new_states);
 		//new_dfa.startIndex = new_start_index;
 		return new_dfa;

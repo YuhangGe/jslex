@@ -1,0 +1,100 @@
+$lexer_name SilenceRender
+$case_ignore false
+$include_dir lex
+
+
+STAR    \*
+PRE   \{
+POST  \}
+CMT_BEGIN   {PRE}{STAR}
+CMT_END     {STAR}{POST}
+
+ID      [\a_]+
+FUNC    {PRE}{ID}
+END_FUNC    {PRE}/{ID}{POST}
+
+DOLLAR	$
+
+VAR_BEGIN    {PRE}{DOLLAR}
+VAR_CNT  [^}]+
+
+CNT [^{]+
+
+OTHER [\d\D]
+
+$$
+
+CMT_BEGIN {
+    this.cmt_idx = this.yyidx;
+	this.yygoto(COMMENT);
+}
+
+<COMMENT> CMT_END {
+    $.log("cmt: "+this.yysrc.substring(this.cmt_idx, this.yyidx + this.yylen));
+    this.yygoto(DEFAULT);
+}
+
+<COMMENT> OTHER {
+    //do nothing
+}
+
+FUNC {
+	var _f = this.yytext();
+	$.log("func: "+_f);
+	switch(_f) {
+		case '{if':
+			this.yygoto(IF::DEFAULT);
+			break;
+	  //  case '{for':
+	    //	this.yygoto(FOR::DEFAULT);
+	    //	break;
+	    default:
+	    	throw 'unknow render function.';
+	    	console.trace();
+	    	break;
+	}
+}
+
+END_FUNC {
+    var _f = this.yytext();
+    $.log("end func: "+_f);
+}
+
+VAR_BEGIN {
+	this.yygoto(VAR);	
+}
+
+<VAR> VAR_CNT {
+	$.log('var: ' + this.yytext());
+}
+<VAR> OTHER {
+	//ignore space.
+}
+<VAR> POST {
+	this.yygoto(DEFAULT);
+}
+
+CNT {
+    $.log("cnt: " + this.yytext());
+}
+OTHER {
+    //do nothing
+    $.log("other: " + this.yytext());
+}
+
+
+$$
+
+$header {
+    var CON_STR = '';
+}
+
+$footer {
+
+(function() {
+    var lexer = new SilenceRender();
+    var cnt = $.readFile($.parseFileName('./test.tpl'));
+    lexer.lex(cnt);
+})();
+
+}

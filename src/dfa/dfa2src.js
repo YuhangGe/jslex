@@ -19,15 +19,15 @@
         lex_arguments : {},
 		case_ignore : false,
 		getTemplate : function(){
+            var tn;
 			if(Alice.__RUNTIME__ && Alice.__RUNTIME__==='node'){
-				var tn = "node"
+				tn = "node";
 				if(this.template_hash[tn]==null){
-					var fs = require("fs");
-					this.template_hash[tn] = fs.readFileSync( this.template,'utf8');
+					this.template_hash[tn] = U.readFile( this.template);
 				}
 				return this.template_hash[tn];
 			}else{
-				var tn = this.template;
+				tn = this.template;
 				if(this.template_hash[tn]==null){
 					this.template_hash[tn] = jQuery.ajax("../src/template/"+tn+"_tpl.txt?r=" + Math.random(), {
 						async : false
@@ -60,7 +60,11 @@
 				.replace("$$_IGNORE_CASE_END_$$", this.case_ignore ? "" : "*/")
 				.replace("##_CONSTRUCT_##", routine['construct'])
 				.replace("##_START_##", routine['start'])
-				.replace("##_FINISH_##", routine['finish']);
+				.replace("##_FINISH_##", routine['finish'])
+				.replace("##_INIT_##", routine['init'])
+                .replace("##_HEADER_##", routine['header'])
+                .replace("##_FOOTER_##", routine['footer']);
+				
             output = output.replace(/\$\$_ARGUMENT\[(\s*[^\]]+\s*)\]_\$\$/g, function(m, c) {
                 return D.Dfa2Src.lex_arguments[c];
             });

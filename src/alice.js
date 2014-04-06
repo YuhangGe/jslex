@@ -1,10 +1,9 @@
-/**
- * @author	Yuhang Ge
- * @email	abraham1@163.com
- * @address	software institute, nanjing university
- * @blog	http://xiaoge.me
- */
-
+if(typeof require === 'undefined') {
+    //定义一个require的空函数，用来兼容浏览器端代码。这样不需要写两套代码。
+    require = function() {
+        //do nothing.
+    }
+}
 /**
  * alice.js
  * 全局命名空间入口，定义了项目的命名空间和子命名空间。
@@ -13,6 +12,7 @@
 Alice = {
 	__RUNTIME__ : "$$_RUNTIME_$$", // __runtime__ : js 或  node 。当前是否在nodejs上运行
 	__lex__ : null,
+    __BASE_PATH__ : '',
     setTemplate : function(tpl) {
         Alice.Dfa.Dfa2Src.template = tpl;
     },
@@ -41,6 +41,9 @@ Alice = {
 		 */
 	},
 	Utility : {
+        log : function(msg) {
+            console.log(msg);
+        },
 		/**
 		 *  UtilitySpace 命名空间，包括常用函数
 		 */
@@ -54,7 +57,7 @@ Alice = {
 		},
         err : function() {
             if(arguments.length>0) {
-                $.log(arguments);
+                console.log.call(console, arguments);
             }
             console.trace();
             throw "err!";

@@ -1,28 +1,30 @@
-(function(window) {
+(function() {
+	
+	##_INIT_##
 
 	var $$_LEX_STATES_$$;
 
 	var Daisy = function() {
-		this.src = null;
-		this.end = 0;
-		this.idx = 0;
-		this.chr = -1;
-		//初始状态，init_state，恒为状态表中的第一个起始状态。
-		this.i_s = $$_INIT_STATE_$$;
-		
-		this.TABLE = {
-			_base : (window.Int32Array?new Int32Array($$_BASE_LEN_$$):new Array($$_BASE_LEN_$$)),
-			_default : (window.Int32Array?new Int32Array($$_DEFAULT_LEN_$$):new Array($$_DEFAULT_LEN_$$)),
-			_check : (window.Int32Array?new Int32Array($$_CHECK_LEN_$$):new Array($$_CHECK_LEN_$$)),
-			_next : (window.Int32Array?new Int32Array($$_NEXT_LEN_$$):new Array($$_NEXT_LEN_$$)),
-			_action : (window.Int32Array?new Int32Array($$_ACTION_LEN_$$):new Array($$_ACTION_LEN_$$)),
-			_eqc : (window.Int32Array?new Int32Array($$_EQC_LEN_$$):new Array($$_EQC_LEN_$$))
-		};
+ 		this.src = "";
+ 		this.idx = 0;
+ 		this.end = 0;
+ 		this.chr = -1;
+ 		this.i_s = 0;
+        var _i = window.Int32Array ? Int32Array : Array;
 
+        this.TABLE = {
+        	_base : new _i($$_BASE_LEN_$$),
+        	_default : new _i($$_DEFAULT_LEN_$$),
+        	_check : new _i($$_CHECK_LEN_$$),
+        	_next : new _i($$_NEXT_LEN_$$),
+        	_action : new _i($$_ACTION_LEN_$$),
+        	_eqc : new _i($$_EQC_LEN_$$)
+        };                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                           
+        this._str_to_arr(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [this.TABLE._base, this.TABLE._default, this.TABLE._check, this.TABLE._next, this.TABLE._action, this.TABLE._eqc]);  
 
-		this._str_to_arr(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [this.TABLE._base, this.TABLE._default, this.TABLE._check, this.TABLE._next, this.TABLE._action, this.TABLE._eqc]);
-		
-		##_CONSTRUCT_##
+        ##_CONSTRUCT_##
+	
 	}
 	Daisy.ACT_TYPE = {
 		NO_ACTION : -1,
@@ -47,19 +49,13 @@
 				}
 			}
 		},
-		setSource : function(source) {
-			this.src = source;
-			this.end = this.src.length;
-			this.idx = 0;
-			this.chr = -1;
-		},
 		read_ch : function() {
 			if(this.idx >= this.end)
 				return this.chr = -1;
 			else{
 				this.chr = this.src[this.idx++].charCodeAt(0);
 			    $$_IGNORE_CASE_BEGIN_$$
-				if(this.chr>=65&&this.chr<=90)
+				if(this.chr>=65 && this.chr<=90)
 					this.chr += 32;
 				$$_IGNORE_CASE_END_$$
 				return this.chr;
@@ -163,29 +159,31 @@
 		yygoto: function(state){
 			this.i_s = state;
 		},
-		yytask : function(idx, len, lex_name){
-		    if(len>0) {
-		         $.log("yytask:%s,%s,%s", idx, len, lex_name);
-		         $.log(this.src.substr(idx, len));
-		    }
-
+		yyreturn : function() {
+			throw "yyreturn";
 		},
-		lex_start : function(){
-			##_START_##
-		},
-		lex_finish : function(){
-			##_FINISH_##
-		},
-		
-		lex : function(source) {
-			if(source)
-				this.setSource(source);
+		lex : function(text) {
+			this.src = text;
+			this.end = text.length;
+			this.idx = 0;
+			this.chr = -1;
 			this.i_s = $$_INIT_STATE_$$;
-			this.lex_start();
-			this.do_lex();
-			this.lex_finish();
+
+			##_START_##
+			
+			try{
+				this.do_lex();
+			} catch(e) {
+				if(e!=='yyreturn') {
+					console.trace();
+					throw e;
+				}
+			}
+			
+			##_FINISH_##
+
 		}
 	}
 
 	window.$$_LEX_NAME_$$ = Daisy;
-})(window);
+})();

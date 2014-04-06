@@ -10,7 +10,7 @@
         $$_IGNORE_CASE_BEGIN_$$
         this.ig = true;
         $$_IGNORE_CASE_END_$$
-        var _i = window.Int32Array ? Int32Array : Array;
+        var _i = Int32Array ? Int32Array : Array;
 
         this.TABLE = {
         	_base : new _i($$_BASE_LEN_$$),

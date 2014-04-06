@@ -8,25 +8,39 @@
 	 * FLOAT {NUM}\.{NUM}
 	 * 但是如果是 FLOAT NUM\.NUM则是把NUM当作直接的字符串。
 	 */
-
+    var $ = U;
 	C.Lexer = {
+        __separate__ : "______",
 		src : null,
 		idx : 0,
 		cur_t : null,
 		define : {},
 		define_used : {},
+        include_dir : '',
 		rule : {
-			"DEFAULT" : []
+
 		},
 		routine : {
 			'construct' : '',
 			'start' : '',
 			'finish' : '',
-			'error' : ''
-		}
+			'error' : '',
+			'init' : '',
+            'header' : '',
+            'footer' : ''
+		},
+        txt_part : {
+            'define' : '',
+            'rule' : {
+                'GLOBAL' : ''
+            },
+            'routine' : ''
+        },
+        cur_module : ''
 	};
+    C.Lexer.rule['GLOBAL'+ C.Lexer.__separate__+'DEFAULT'] =  [];
 	U.extend(C.Lexer, {
-		_define : function() {
+        _parse_options : function() {
 			this.read_word();
 			var in_option = true;
 			while (in_option) {
@@ -63,20 +77,43 @@
                         $.log("option - argument:{" + ak + "->" + av + "}");
                         this.read_word();
                         break;
+                    case '$include_file':
+                        //todo
+                        throw 'unsupport option $include_file. we are still developing it.';
+                        break;
+                    case '$include_dir':
+                        var dir = U.getPathBasePath(this.read_word(), A.__BASE_PATH__);
+                        $.log("option - include directory: " + dir);
+                        if(U.isFSExists(dir)===false) {
+                            throw 'include dir not exists. please check.';
+                        }
+                        this.include_dir =  dir;
+                        break;
 					default:
 						in_option = false;
 						break;
 				}
 			}
-
-			while (this.cur_t !== '$$' && this.cur_t != null) {
-				//$.dprint(this.cur_t);
-				this._d_line();
-				//$.aprint(Alice.CharTable.char_table);
-				//$.aprint(Alice.CharTable.eq_class);
-				this.read_word();
+            var d_i = this.idx, p_i = d_i;
+			while (this.cur_t !== '$$' && this.cur_t !== null) {
+                p_i = this.idx;
+                this.read_word();
 			}
+            this.txt_part.define = this.src.substring(d_i, this.cur_t === null ? this.idx - 1 : p_i);
 
+            d_i = this.idx;
+            this.read_word();
+            p_i = d_i;
+            while(this.cur_t !== '$$' && this.cur_t !== null) {
+                p_i = this.idx;
+                this.read_word();
+            }
+            var r_def = this.src.substring(d_i, this.cur_t === null ? this.idx - 1 : p_i);
+            r_def = this._replace_rule(r_def, 'GLOBAL');
+
+            this.txt_part.rule.GLOBAL = r_def;
+
+            this.txt_part.routine = this.src.substring(this.idx);
 		},
 		_d_line : function() {
 			var lbl = this.cur_t;
@@ -85,12 +122,37 @@
 			var r = N.Str2Nfa.parse(exp);
 			r.finish.isAccept = false;
 			//$.dprint(lbl);
+//            $.log(lbl);
 			this.define[lbl] = r;
 		},
+        _parse_define : function() {
+            this.src = this.txt_part.define;
+            this.idx = 0;
+            this.len = this.src.length;
+
+            this.read_word();
+            while(this.cur_t !== null) {
+                this._d_line();
+                this.read_word();
+            }
+        },
+        _parse_rule : function() {
+//            $.log(this.txt_part.rule);
+
+            for(var m_name in this.txt_part.rule) {
+                this.idx = 0;
+                this.src = this.txt_part.rule[m_name];
+                this.len = this.src.length;
+                this.cur_module = m_name;
+//                $.log(this.src);
+                this._rule();
+            }
+        },
 		_rule : function() {
 			this.read_word("{", "<");
-			//$.log(this.cur_t)
-			while (this.cur_t !== '$$' && this.cur_t != null) {
+//			$.log(this.cur_t);
+//            $.log(this.src);
+			while (this.cur_t != null) {
 
 				this._r_line();
 				this.read_word("{", "<");
@@ -105,7 +167,7 @@
 				if (s === "Daisy") {
 					console.log("不能使用Daisy作为状态标识，已经忽略.");
 				} else {
-					states.push(s)
+					states.push(this.cur_module + this.__separate__ + s);
 				}
 				if (this.read_word(null, ">") !== ">") {
 					throw "state name must be closed by '>'";
@@ -114,9 +176,9 @@
 				lbl = this.read_word("{", "<");
 			}
 			if (states.length === 0) {
-				states.push('DEFAULT');
+				states.push(this.cur_module + this.__separate__ + 'DEFAULT');
 			}
-			$.log(lbl)
+//			$.log(lbl)
 			//$.log(states)
 //			$.log("state: %s, lbl: %s",state,lbl);
 
@@ -128,15 +190,28 @@
 			//$.log(c)
 
             var deep = 0;
-
+            var in_string = false, pre_str_dot = null;
 			if (c === '{') {
 				until = '}';
 				c = this.read_ch();
 			}
+            if(c === '"' || c==="'") {
+                in_string = true;
+                pre_str_dot = c;
+            }
 			while (c !== null && !(c === until && deep ===0)) {
-                if(c==='{'){
+                if(in_string) {
+                    if(c === pre_str_dot) {
+                        in_string = false;
+                    }
+                } else if(c==='"' || c==="'") {
+                    in_string = true;
+                    pre_str_dot = c;
+                }
+
+                if(c==='{' && !in_string){
                     deep++;
-                } else if(c==='}') {
+                } else if(c==='}' && ! in_string) {
                     if(until==='}' && deep===0) {
                         break;
                     }
@@ -145,9 +220,9 @@
                 func_str += c;
 				c = this.read_ch();
 			}
-            $.log(func_str);
+//            $.log(func_str);
 			//this.read_ch();
-
+//            $.log(states);
 			for (var i = 0; i < states.length; i++) {
 				var expNfa = this.define[lbl];
 				if (expNfa == null)
@@ -169,7 +244,11 @@
 			}
 
 		},
-		_routine : function() {
+		_parse_routine : function() {
+            this.idx = 0;
+            this.src = this.txt_part.routine;
+            this.len = this.src.length;
+
 			this.read_word();
 			while (this.cur_t !== null) {
 				this._routine_line(this.cur_t);
@@ -178,26 +257,52 @@
 
 		},
 		_routine_line : function(name) {
-			name = name.toLowerCase();
-			var func_str = "";
-			var c = this.read_ch();
-			var until = '\n';
-			while (c !== null && this.isSpace(c) && c !== until)
-			c = this.read_ch();
-			if (c === '{') {
-				until = '}';
-				c = this.read_ch();
-			}
-			while (c !== null && c !== until) {
-				func_str += c;
-				c = this.read_ch();
-			}
-			if (['$construct', '$start', '$finish', '$error'].indexOf(name) < 0) {
+
+            name = name.toLowerCase();
+            var func_str = "";
+            var c = this.read_ch();
+            var until = '\n';
+            while (c !== null && this.isSpace(c) && c !== until)
+                c = this.read_ch();
+            //$.log(c)
+
+            var deep = 0;
+            var in_string = false, pre_str_dot = null;
+            if (c === '{') {
+                until = '}';
+                c = this.read_ch();
+            }
+            if(c === '"' || c==="'") {
+                in_string = true;
+                pre_str_dot = c;
+            }
+            while (c !== null && !(c === until && deep ===0)) {
+                if(in_string) {
+                    if(c === pre_str_dot) {
+                        in_string = false;
+                    }
+                } else if(c==='"' || c==="'") {
+                    in_string = true;
+                    pre_str_dot = c;
+                }
+
+                if(c==='{' && !in_string){
+                    deep++;
+                } else if(c==='}' && ! in_string) {
+                    if(until==='}' && deep===0) {
+                        break;
+                    }
+                    deep--;
+                }
+                func_str += c;
+                c = this.read_ch();
+            }
+			if (['$init', '$construct', '$start', '$finish', '$error', '$header', '$footer'].indexOf(name) < 0) {
 				console.log("warning: unknow global function " + name + ", ignored.");
 				return;
 			} else {
-				$.log(name);
-				$.log(func_str);
+//				$.log(name);
+//				$.log(func_str);
 			}
 			this.routine[name.substring(1, name.length)] = func_str;
 		},
@@ -268,9 +373,30 @@
 			this.idx = 0;
 			this.len = source.length;
 
-			this._define();
-			this._rule();
-			this._routine();
+
+
+            this._parse_options();
+
+            if(this.include_dir !== '') {
+                this._parse_include_dir();
+            }
+
+//            $.log(this.txt_part.define);
+//            $.log(this.txt_part.rule.GLOBAL);
+
+
+//            process.exit(0);
+
+
+			this._parse_define();
+
+
+			this._parse_rule();
+
+
+//            $.log(this.rule);
+//            process.exit(0);
+			this._parse_routine();
 
 			var dfa_arr = [], default_dfa = null, states = {};
 			//$.dprint(lexNFA);
@@ -292,16 +418,17 @@
 				//$.dprint(m_dfa);
 				m_dfa.state_name = s;
 				dfa_arr.push(m_dfa);
-				if (s === "DEFAULT")
-					default_dfa = m_dfa;
+				if (s === "GLOBAL" + this.__separate__ + "DEFAULT") {
+                    default_dfa = m_dfa;
+                }
 
 			}
 			//$.dprint(dfa_arr);
 
 			var dfa_obj = {
 				dfa_array : dfa_arr,
-				default_dfa : default_dfa,
-			}
+				default_dfa : default_dfa
+			};
 
 			T.Dfa2Table.parse(dfa_obj);
 			/*$.aprint(m_dfa.table_base);
@@ -324,7 +451,72 @@
 		},
 		isSpace : function(chr) {
 			return chr === ' ' || chr === '\n' || chr === '\t' || chr === '\r';
-		}
+		},
+        _parse_include_dir : function() {
+            var i_dir = this.include_dir;
+            var f_list = U.readDirectory(i_dir);
+            for(var i=0;i<f_list.length;i++) {
+                this._parse_include_file(i_dir + '/' + f_list[i]);
+            }
+        },
+        _parse_include_file : function(file) {
+            U.log("include file: " + file);
+            var cnt = $.readFile(file);
+            this.idx = 0;
+            this.src = cnt;
+            this.length = cnt.length;
+
+            this.read_word();
+            if(this.cur_t === null) {
+                U.log("warning: empty include file.");
+                return;
+            }
+            if(this.cur_t.toLowerCase() !== '$module_name') {
+                U.log("error: include file must contains $module_name option. ignored file.");
+                return;
+            }
+
+            var m_name = this.read_word();
+
+            if(m_name.toUpperCase() === 'GLOBAL') {
+                U.log("error: include file $module_name cannot be GLOBAL as it is keyword. ignored file.");
+                return;
+            }
+            if(/^[a-zA-Z]+$/.test(m_name)===false) {
+                U.log("error: include file $module_name can only contains alpha letter. ignored file.");
+                return;
+            }
+            var d_i = this.idx, f_i = d_i;
+            while(this.cur_t !== '$$' && this.cur_t !== null) {
+                f_i = this.idx;
+                this.read_word();
+            }
+
+            var f_def = this.src.substring(d_i, this.cur_t === null ? this.idx -1 : f_i);
+
+            this.txt_part.define += "\n\n" + f_def;
+
+            var r_def = this.src.substring(this.idx);
+
+            r_def = this._replace_rule(r_def, m_name);
+//            $.log(m_name);
+
+            this.txt_part.rule[m_name] =  r_def;
+        },
+        _replace_rule : function(r_def, m_name) {
+            var separate = this.__separate__;
+            return r_def.replace(/this\.yygoto\(\s*(([a-zA-Z_]+)::)?([a-zA-Z_]+)\s*\)/g, function(word, arg2, module_name, name) {
+                var _goto = "DEFAULT";
+                if(module_name != null) {
+                    _goto = module_name+separate+name;
+                } else {
+                    _goto = m_name+separate+name;
+                }
+                return "this.yygoto("+_goto+")";
+            });
+        }
+
+
 	});
 
 })(Alice, Alice.Core, Alice.Nfa, Alice.Dfa, Alice.Table, Alice.Utility);

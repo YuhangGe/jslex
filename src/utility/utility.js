@@ -1,3 +1,6 @@
+var fs = require("fs");
+var path = require("path");
+
 (function(A,C,N,D,T,U) {
 	/**
 	 * 辅助函数
@@ -331,7 +334,38 @@
 					i++;
 				}
 			}
-		}
+		},
+        readFile : function(filename) {
+            return fs.readFileSync(filename, "utf-8");
+        },
+        writeFile : function(filename, content) {
+            fs.writeFileSync(filename, content);
+        },
+        parseFileName : function(filename) {
+            if(filename.charAt(0)==='/') {
+                return filename;
+            } else {
+                return path.normalize(process.env.PWD + '/' + filename);
+            }
+        },
+        getFileBasePath : function(filename, base_path) {
+            if(filename.charAt(0)!=='/') {
+                filename =  path.normalize((base_path ? base_path : process.env.PWD) + '/' + filename);
+            }
+            return filename.substr(0, filename.lastIndexOf('/') + 1);
+        },
+        getPathBasePath : function(pathname, base_path) {
+            if(pathname.charAt(0) !== '/') {
+                pathname = path.normalize((base_path ? base_path : process.env.PWD) + '/' + pathname);
+            }
+            return pathname;
+        },
+        isFSExists : function(file_or_path) {
+            return fs.existsSync(file_or_path);
+        },
+        readDirectory : function(dir_name) {
+            return fs.readdirSync(dir_name);
+        }
 	});
 
 })(Alice, Alice.Core, Alice.Nfa, Alice.Dfa, Alice.Table, Alice.Utility);

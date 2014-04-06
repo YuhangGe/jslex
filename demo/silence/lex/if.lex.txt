@@ -1,0 +1,15 @@
+$module_name IF
+
+
+CONDITION	[^}]+
+
+
+$$
+
+CONDITION   {
+    $.log("if con: " + this.yytext());
+}
+
+POST {
+    this.yygoto(GLOBAL::DEFAULT);
+}
