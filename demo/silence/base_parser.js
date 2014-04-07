@@ -7,7 +7,7 @@ var ACT_TYPE = {
 };
 
 
-var BaseRender = function(app) {
+var BaseParser = function(app) {
 //    this.app = app;
     /*-----lexer part -----*/
     this.yysrc = null;
@@ -25,7 +25,7 @@ var BaseRender = function(app) {
 
 };
 
-BaseRender.prototype = {
+BaseParser.prototype = {
     _str_to_arr : function(strs, arrs) {
         for(var j = 0; j < strs.length; j++) {
             var str = strs[j], arr = arrs[j], t = str.charCodeAt(0), len = str.length, c = 0;
@@ -148,6 +148,6 @@ BaseRender.prototype = {
 
 };
 
-module.exports = BaseRender;
+module.exports = BaseParser;
 
 

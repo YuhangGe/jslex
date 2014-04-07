@@ -4,7 +4,7 @@
  * https://github.com/YuhangGe/Jing
  */
 var $ = require('./util.js');
-var BaseRender = require('./base_render.js');
+var BaseParser = require('./base_parser.js');
 
 var $$_LEX_STATES_$$;
 
@@ -41,6 +41,6 @@ $$_LEX_NAME_$$.prototype = {
         }
     }
 };
-$.inherit($$_LEX_NAME_$$, BaseRender);
+$.inherit($$_LEX_NAME_$$, BaseParser);
 
 ##_FOOTER_##

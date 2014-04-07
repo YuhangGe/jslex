@@ -120,7 +120,7 @@ break;
         }
     }
 };
-$.inherit(SilenceRender, BaseRender);
+$.inherit(, BaseRender);
 
 
 

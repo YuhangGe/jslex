@@ -1,4 +1,4 @@
-$lexer_name SilenceRender
+$lexer_name SilenceParser
 $case_ignore false
 $include_dir lex
 

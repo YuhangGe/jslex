@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="253d9d38-cbf4-4f3b-ac75-fcb7c26109bb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/%B1%CFҵ%C2%DB%CE%C4_%B8%F0%D3%F0%BA%BD_2012_%D0%C2.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/��ҵ����_����_2012_��.pdf" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/alice.js" afterPath="$PROJECT_DIR$/src/alice.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/template/dLighter_tpl.txt" afterPath="$PROJECT_DIR$/src/template/dLighter_tpl.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfa/dfa-minmize.js" afterPath="$PROJECT_DIR$/src/dfa/dfa-minmize.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfa/dfa2src.js" afterPath="$PROJECT_DIR$/src/dfa/dfa2src.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/template/lex_tpl.txt" afterPath="$PROJECT_DIR$/src/template/lex_tpl.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/lexer.js" afterPath="$PROJECT_DIR$/src/core/lexer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/node.js" afterPath="$PROJECT_DIR$/src/node.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utility/utility.js" afterPath="$PROJECT_DIR$/src/utility/utility.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/silence/base_render.js" afterPath="$PROJECT_DIR$/demo/silence/base_parser.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/silence/silence_render.js" afterPath="$PROJECT_DIR$/demo/silence/silence_parser.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/silence/silence_render.lex.txt" afterPath="$PROJECT_DIR$/demo/silence/silence_parser.lex.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/silence/silence_render.tpl.txt" afterPath="$PROJECT_DIR$/demo/silence/silence_parser.tpl.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="alicelex.iws" />
@@ -36,46 +29,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="alice.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/alice.js">
+      <file leaf-file-name="silence_parser.lex.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/silence/silence_parser.lex.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="16" selection-start="1313" selection-end="1313" vertical-scroll-proportion="0.0" vertical-offset="959" max-vertical-offset="1650">
+            <state line="90" column="0" selection-start="1186" selection-end="1186" vertical-scroll-proportion="0.0" vertical-offset="1643" max-vertical-offset="2310">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="assign.lex.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/silence/lex/assign.lex.txt">
+      <file leaf-file-name="block.lex.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/silence/lex/block.lex.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="264">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="132">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="node.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/node.js">
+      <file leaf-file-name="include.lex.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/silence/lex/include.lex.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="12" selection-start="995" selection-end="995" vertical-scroll-proportion="-8.685185" vertical-offset="323" max-vertical-offset="990">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="132">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="silence_render.lex.txt" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/demo/silence/silence_render.lex.txt">
+      <file leaf-file-name="render_output_file.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/silence/render_output_file.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="16" selection-start="502" selection-end="502" vertical-scroll-proportion="0.6972477" vertical-offset="336" max-vertical-offset="2310">
+            <state line="5" column="0" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0" vertical-offset="110" max-vertical-offset="352">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.tpl" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="base_template.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/silence/base_template.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="9" selection-start="87" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="110" max-vertical-offset="352">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base_parser.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/silence/base_parser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="150" column="27" selection-start="4257" selection-end="4257" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3498">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.tpl" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/demo/silence/test.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="-3.548387" vertical-offset="0" max-vertical-offset="242">
+            <state line="5" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.17350158" vertical-offset="0" max-vertical-offset="634">
               <folding />
             </state>
           </provider>
@@ -90,28 +101,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="silence_render.tpl.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/silence/silence_render.tpl.txt">
+      <file leaf-file-name="silence_parser.tpl.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/silence/silence_parser.tpl.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="986" selection-end="986" vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="1144">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="if.lex.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/silence/lex/if.lex.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="440">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dfa2src.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="60" selection-start="2514" selection-end="2514" vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="2354">
+            <state line="43" column="36" selection-start="1207" selection-end="1207" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1144">
               <folding />
             </state>
           </provider>
@@ -159,14 +152,21 @@
         <option value="$PROJECT_DIR$/demo/silence/silence_render.tpl.txt" />
         <option value="$PROJECT_DIR$/demo/silence/base_render.js" />
         <option value="$PROJECT_DIR$/demo/silence/silence_render.lex.txt" />
+        <option value="$PROJECT_DIR$/demo/silence/render_output_file.js" />
+        <option value="$PROJECT_DIR$/demo/silence/base_template.js" />
+        <option value="$PROJECT_DIR$/demo/silence/base_parser.js" />
+        <option value="$PROJECT_DIR$/demo/silence/silence_parser.js" />
+        <option value="$PROJECT_DIR$/demo/silence/silence_parser.tpl.txt" />
+        <option value="$PROJECT_DIR$/demo/silence/silence_parser.lex.txt" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
+    <option name="x" value="-2" />
     <option name="y" value="22" />
     <option name="width" value="1440" />
-    <option name="height" value="795" />
+    <option name="height" value="808" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -380,6 +380,7 @@
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="SearchEverywhereHistory" value="t" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -430,28 +431,28 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="795" extended-state="6" />
+    <frame x="-2" y="22" width="1440" height="808" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765958" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27968526" sideWeight="0.671151" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2825465" sideWeight="0.671151" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32765958" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -471,84 +472,29 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/demo/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="63" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="2860">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/js-printf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="183" column="20" selection-start="6000" selection-end="6000" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4488">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="414" column="37" selection-start="8774" selection-end="8774" vertical-scroll-proportion="0.0" vertical-offset="9108" max-vertical-offset="10186">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="147" column="13" selection-start="3536" selection-end="3536" vertical-scroll-proportion="0.0" vertical-offset="3234" max-vertical-offset="7436">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/alice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="15" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0" vertical-offset="924" max-vertical-offset="1584">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/template/lex_tpl.txt">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="30" selection-start="2940" selection-end="2940" vertical-scroll-proportion="0.0" vertical-offset="1914" max-vertical-offset="4290">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/template/dLighter_tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0" vertical-offset="22" max-vertical-offset="154">
-          <folding />
-        </state>
+        <state line="1" column="0" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0" vertical-offset="22" max-vertical-offset="154" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="27" selection-start="541" selection-end="541" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1100">
-          <folding />
-        </state>
+        <state line="15" column="27" selection-start="541" selection-end="541" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1100" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/demo.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="363" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="704">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="363" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="704" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="132">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="132" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="63" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="2860">
-          <folding />
-        </state>
+        <state line="6" column="63" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="2860" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_old_src/js/str2nfa.js">
@@ -578,51 +524,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/js-printf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="183" column="20" selection-start="6000" selection-end="6000" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
+        <state line="183" column="20" selection-start="6000" selection-end="6000" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/test.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="414" column="37" selection-start="8774" selection-end="8774" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
+        <state line="414" column="37" selection-start="8774" selection-end="8774" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/demo.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="363" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="363" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="63" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="2860">
-          <folding />
-        </state>
+        <state line="6" column="63" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="2860" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="23" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0" vertical-offset="462" max-vertical-offset="1100">
-          <folding />
-        </state>
+        <state line="15" column="23" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0" vertical-offset="462" max-vertical-offset="1100" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/template/dLighter_tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="17" selection-start="0" selection-end="2055" vertical-scroll-proportion="0.0" vertical-offset="353" max-vertical-offset="1012">
-          <folding />
-        </state>
+        <state line="12" column="17" selection-start="0" selection-end="2055" vertical-scroll-proportion="0.0" vertical-offset="353" max-vertical-offset="1012" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/node/find_daisy.txt">
@@ -637,127 +569,87 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/node/find_daisy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="29" selection-start="4191" selection-end="4191" vertical-scroll-proportion="6.2460566" vertical-offset="0" max-vertical-offset="4312">
-          <folding />
-        </state>
+        <state line="180" column="29" selection-start="4191" selection-end="4191" vertical-scroll-proportion="6.2460566" vertical-offset="0" max-vertical-offset="4312" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/node/line_counter.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="647">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="647" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/node/line_counter.lex">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="7" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="462">
-          <folding />
-        </state>
+        <state line="14" column="7" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="462" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/js-oo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3542">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3542" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/core/core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="177" selection-end="177" vertical-scroll-proportion="-3.9984543" vertical-offset="2785" max-vertical-offset="3432">
-          <folding />
-        </state>
+        <state line="9" column="0" selection-start="177" selection-end="177" vertical-scroll-proportion="-3.9984543" vertical-offset="2785" max-vertical-offset="3432" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.06109325" vertical-offset="38" max-vertical-offset="660">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.06109325" vertical-offset="38" max-vertical-offset="660" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/alicelex-node.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-81.29984" vertical-offset="52601" max-vertical-offset="62084">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-81.29984" vertical-offset="52601" max-vertical-offset="62084" />
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="873" column="17" selection-start="13702" selection-end="13702" vertical-scroll-proportion="0.33333334" vertical-offset="18988" max-vertical-offset="20614">
-          <folding />
-        </state>
+        <state line="873" column="17" selection-start="13702" selection-end="13702" vertical-scroll-proportion="0.33333334" vertical-offset="18988" max-vertical-offset="20614" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/alicelex.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="575" column="8" selection-start="13291" selection-end="13291" vertical-scroll-proportion="-1.2121685" vertical-offset="13427" max-vertical-offset="61534">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
+        <state line="575" column="8" selection-start="13291" selection-end="13291" vertical-scroll-proportion="-1.2121685" vertical-offset="13427" max-vertical-offset="61534" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dfa/dfa-minmize.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="13" selection-start="5952" selection-end="5952" vertical-scroll-proportion="-8.730769" vertical-offset="4547" max-vertical-offset="5412">
-          <folding />
-        </state>
+        <state line="217" column="13" selection-start="5952" selection-end="5952" vertical-scroll-proportion="-8.730769" vertical-offset="4547" max-vertical-offset="5412" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/template/silence_render_tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="16" selection-start="121" selection-end="121" vertical-scroll-proportion="0.17160687" vertical-offset="0" max-vertical-offset="1100">
-          <folding />
-        </state>
+        <state line="5" column="16" selection-start="121" selection-end="121" vertical-scroll-proportion="0.17160687" vertical-offset="0" max-vertical-offset="1100" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build/make.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="45" selection-start="52" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="726">
-          <folding />
-        </state>
+        <state line="7" column="45" selection-start="52" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="726" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/silence/lex/if.lex.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="440">
-          <folding />
-        </state>
+        <state line="5" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="440" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/silence/lex/assign.lex.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="264">
-          <folding />
-        </state>
+        <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="264" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="60" selection-start="2514" selection-end="2514" vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="2354">
-          <folding />
-        </state>
+        <state line="65" column="60" selection-start="2514" selection-end="2514" vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="2354" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utility/utility.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="343" column="21" selection-start="8482" selection-end="8495" vertical-scroll-proportion="0.21060842" vertical-offset="7411" max-vertical-offset="8316">
-          <folding />
-        </state>
+        <state line="343" column="21" selection-start="8482" selection-end="8495" vertical-scroll-proportion="0.21060842" vertical-offset="7411" max-vertical-offset="8316" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/node.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="12" selection-start="995" selection-end="995" vertical-scroll-proportion="-8.685185" vertical-offset="323" max-vertical-offset="990">
-          <folding />
-        </state>
+        <state line="36" column="12" selection-start="995" selection-end="995" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="990" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/silence/util.js">
@@ -772,9 +664,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.302932" vertical-offset="2642" max-vertical-offset="3256">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.302932" vertical-offset="2642" max-vertical-offset="3256" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/template/lex_tpl.txt">
@@ -782,49 +672,83 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="10" selection-start="1557" selection-end="2003" vertical-scroll-proportion="0.67752445" vertical-offset="684" max-vertical-offset="4290">
+        <state line="50" column="10" selection-start="1557" selection-end="2003" vertical-scroll-proportion="0.67752445" vertical-offset="684" max-vertical-offset="4290" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="240" column="22" selection-start="6951" selection-end="6951" vertical-scroll-proportion="-6.1923075" vertical-offset="5119" max-vertical-offset="11638" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/alice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="16" selection-start="1313" selection-end="1313" vertical-scroll-proportion="0.0" vertical-offset="959" max-vertical-offset="1650" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/lex/for.lex.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="654" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/lex/block.lex.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="654">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/lex/include.lex.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="654">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/render_output_file.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="352">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/base_template.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="9" selection-start="87" selection-end="92" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="352">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/base_parser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="150" column="27" selection-start="4257" selection-end="4257" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3498">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/silence_parser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="122" column="10" selection-start="2424" selection-end="2424" vertical-scroll-proportion="0.42813456" vertical-offset="2404" max-vertical-offset="3058">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/silence_parser.tpl.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="36" selection-start="1207" selection-end="1207" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1144">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/silence/silence_parser.lex.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="0" selection-start="1186" selection-end="1186" vertical-scroll-proportion="0.0" vertical-offset="1643" max-vertical-offset="2310">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/silence/test.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="-3.548387" vertical-offset="0" max-vertical-offset="242">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="240" column="22" selection-start="6951" selection-end="6951" vertical-scroll-proportion="-6.1923075" vertical-offset="5119" max-vertical-offset="11638">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/alice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="16" selection-start="1313" selection-end="1313" vertical-scroll-proportion="0.0" vertical-offset="959" max-vertical-offset="1650">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/silence/base_render.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="136" column="7" selection-start="4011" selection-end="4011" vertical-scroll-proportion="0.14480409" vertical-offset="2907" max-vertical-offset="3498">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/silence/silence_render.tpl.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="986" selection-end="986" vertical-scroll-proportion="0.0" vertical-offset="286" max-vertical-offset="1144">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/silence/silence_render.lex.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="16" selection-start="502" selection-end="502" vertical-scroll-proportion="0.6972477" vertical-offset="336" max-vertical-offset="2310">
+        <state line="5" column="0" selection-start="84" selection-end="84" vertical-scroll-proportion="0.17350158" vertical-offset="0" max-vertical-offset="634">
           <folding />
         </state>
       </provider>
