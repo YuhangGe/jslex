@@ -1,4 +1,10 @@
-(function(A, C, N, D, T, U) {
+var $ = require('../utility/utility.js');
+var C = require('../core/core.js');
+var I = require('../table/input-manager.js');
+
+var D = {};
+module.exports = D;
+
 /**
  * @author	Yuhang Ge
  * @email	abraham1@163.com
@@ -18,7 +24,7 @@ D.DFAState = function(isAccept, name) {
 	this.tag = false;
 	this.input = [];
 	this.next = [];
-}
+};
 D.DFAState.__auto_id__ = 0;
 
 D.DFAState.prototype = {
@@ -41,7 +47,7 @@ D.DFAState.prototype = {
 		}
 	},
 	getMove : function(input) {
-		var eqc = Alice.CharTable.getEqc(input);
+		var eqc = I.CharTable.getEqc(input);
 		return this.getEqcMove(eqc);
 	},
 	getEqcMove : function(eqc) {
@@ -51,15 +57,15 @@ D.DFAState.prototype = {
 		else
 			return this.next[i];
 	}
-}
-U.inherit(D.DFAState, C.State);
+};
+$.inherit(D.DFAState, C.State);
 
 D.DFA = function(start, states) {
 	this.states = [];
 	this.start = start;
 	if(states)
 		this.addState(states);
-}
+};
 
 D.DFA.prototype = {
 	addState : function(state) {
@@ -76,6 +82,4 @@ D.DFA.prototype = {
 			rtn += this.states[i].toString() + " ; ";
 		return rtn;
 	}
-}
-
-})(Alice, Alice.Core, Alice.Nfa, Alice.Dfa, Alice.Table, Alice.Utility);
+};

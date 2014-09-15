@@ -2,9 +2,148 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="253d9d38-cbf4-4f3b-ac75-fcb7c26109bb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.project" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/alice.js" afterPath="$PROJECT_DIR$/src/alice.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/make.js" afterPath="$PROJECT_DIR$/build/make.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo/simple/find_daisy.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo/simple/state.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/%B1%BE%BF%C6%C2%DB%CE%C4ģ%B0%E5(%BA%AC˵%C3%F7)_2012%B0%E6_20120326.doc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/%B1%CFҵ%C2%DB%CE%C4-%B8%F0%D3%F0%BA%BD-AliceLex.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/%B1%CFҵ%C2%DB%CE%C4-%D5%C5%CF%FE%B3%BF_2010-06-22-08-43-08-640.doc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/%B1%CFҵ%C2%DB%CE%C4_%B8%F0%D3%F0%BA%BD_2012.doc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/%B1%CFҵ%C2%DB%CE%C4_%B8%F0%D3%F0%BA%BD_2012.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/%B1%CFҵ%C2%DB%CE%C4_%B8%F0%D3%F0%BA%BD_2012.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/%B1%CFҵ%C9%E8%BC%C6-%D1%DDʾ.pptx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/2012%C4%EAѧʿ%B1%CFҵ%C2%DB%CEĴ%F0%B1%E7.ppt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/2012��ѧʿ��ҵ���Ĵ��.ppt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/Lex-A Lexical Analyzer Generator.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/abstract.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/abstract.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/%CC%E5ϵ%BDṹ.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/%D3%C3%C0%FD.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/Dfa.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/Module.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/Nfa.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/Table.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/Template.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/Utility.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/alicelex.eap" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/alicelex.ldb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/core.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/��ϵ�ṹ.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/ea/����.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/Readme" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/abstract.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/abstract_format.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/ack.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/chap01.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/chap02.aux" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/chap02.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/chap03.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/cover.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/name.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/preamble.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/preamble.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/data/preamble.tex.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/figures/chemfig.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/figures/chemfig.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/figures/logo.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/figures/name.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/figures/ti.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/figures/ti.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/figures/tikzspring.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/figures/tikzspring.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.aux" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.bbl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.blg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.dvi" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.lof" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.out.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.synctex.gz(busy)" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main.toc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/main_example.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/make.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/ref/reference.bib" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper-utf8/texput.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/Readme" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/abstract.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/abstract_format.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/ack.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/chap01.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/chap02.aux" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/chap02.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/chap03.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/cover.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/name.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/preamble.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/preamble.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/data/preamble.tex.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/figures/chemfig.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/figures/chemfig.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/figures/logo.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/figures/name.eps" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/figures/ti.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/figures/ti.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/figures/tikzspring.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/figures/tikzspring.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.aux" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.bbl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.blg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.dvi" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.lof" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.out.bak" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.synctex.gz(busy)" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.tex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main.toc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/main_example.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/make.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/ref/reference.bib" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/paper/texput.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/~$%C2%DB%CE%C4_%B8%F0%D3%F0%BA%BD_2012.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/~$����_����_2012.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/±ÏҵÉè¼Æ-ÑÝʾ.pptx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/±ÏҵÉè¼Æ-ÑÝʾ.pptx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/毕业论文.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/��ҵ���-��ʾ.pptx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/��ҵ����-����-AliceLex.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/��ҵ����-������_2010-06-22-08-43-08-640.doc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/��ҵ����_����_2012.doc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/��ҵ����_����_2012.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/��ҵ����_����_2012.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/doc/��������ģ��(��˵��)_2012��_20120326.doc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/jquery-1.5.1.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js-oo.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js-printf.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/reg-test.js._" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/node.js" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/simple/find_daisy.txt" afterPath="$PROJECT_DIR$/demo/simple/test_find_daisy.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/simple/line_counter.txt" afterPath="$PROJECT_DIR$/demo/simple/test_line_counter.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/simple/state.txt" afterPath="$PROJECT_DIR$/demo/simple/test_state.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/alice.js" afterPath="$PROJECT_DIR$/src/jslex.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/template/dLighter_tpl.txt" afterPath="$PROJECT_DIR$/template/dLighter_tpl.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/template/editor_tpl.txt" afterPath="$PROJECT_DIR$/template/editor_tpl.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/template/lex_tpl.txt" afterPath="$PROJECT_DIR$/template/lex_tpl.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/template/node_lex_tpl.txt" afterPath="$PROJECT_DIR$/template/node.tpl.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/template/silence_render_tpl.txt" afterPath="$PROJECT_DIR$/template/silence_render_tpl.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/template/yacc_tpl.txt" afterPath="$PROJECT_DIR$/template/yacc_tpl.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/alicelex.iml" afterPath="$PROJECT_DIR$/.idea/alicelex.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bug_todo.md" afterPath="$PROJECT_DIR$/bug_todo.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/core.js" afterPath="$PROJECT_DIR$/src/core/core.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfa/dfa-minmize.js" afterPath="$PROJECT_DIR$/src/dfa/dfa-minmize.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfa/dfa.js" afterPath="$PROJECT_DIR$/src/dfa/dfa.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfa/dfa2src.js" afterPath="$PROJECT_DIR$/src/dfa/dfa2src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/table/dfa2table.js" afterPath="$PROJECT_DIR$/src/table/dfa2table.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/table/input-manager.js" afterPath="$PROJECT_DIR$/src/table/input-manager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/lexer.js" afterPath="$PROJECT_DIR$/src/core/lexer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nfa/nfa.js" afterPath="$PROJECT_DIR$/src/nfa/nfa.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nfa/nfa2dfa.js" afterPath="$PROJECT_DIR$/src/nfa/nfa2dfa.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nfa/str2nfa.js" afterPath="$PROJECT_DIR$/src/nfa/str2nfa.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utility/utility.js" afterPath="$PROJECT_DIR$/src/utility/utility.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="alicelex.iws" />
@@ -28,101 +167,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="silence_parser.lex.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/silence/silence_parser.lex.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2730">
-              <caret line="32" column="14" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="node.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/node.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
-              <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="alice.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/alice.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1924">
-              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="make.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build/make.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="858">
-              <caret line="1" column="34" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.857868" vertical-offset="338" max-vertical-offset="832">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bug_todo.md" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bug_todo.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="lexer.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="12844" max-vertical-offset="13754">
-              <caret line="507" column="46" selection-start-line="507" selection-start-column="40" selection-end-line="507" selection-end-column="46" />
+            <state vertical-scroll-proportion="-8.0" vertical-offset="0" max-vertical-offset="13858">
+              <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.tpl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/silence/test.tpl">
+      <file leaf-file-name="jslex.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/jslex.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="286">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="598">
+              <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="if.lex.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/silence/lex/if.lex.txt">
+      <file leaf-file-name="utility.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utility/utility.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="520">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10062">
+              <caret line="369" column="78" selection-start-line="369" selection-start-column="78" selection-end-line="369" selection-end-column="78" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="silence_parser.tpl.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/silence/silence_parser.tpl.txt">
+      <file leaf-file-name="jslex" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bin/jslex">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="676" max-vertical-offset="1352">
-              <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
+            <state vertical-scroll-proportion="2.373673" vertical-offset="0" max-vertical-offset="1274">
+              <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dfa2src.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="260" max-vertical-offset="2470">
+              <caret line="80" column="98" selection-start-line="80" selection-start-column="98" selection-end-line="80" selection-end-column="98" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dfa-minmize.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dfa/dfa-minmize.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6370">
+              <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nfa.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nfa/nfa.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="104" max-vertical-offset="8762">
+              <caret line="294" column="0" selection-start-line="294" selection-start-column="0" selection-end-line="294" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nfa2dfa.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nfa/nfa2dfa.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6344">
+              <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="str2nfa.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="7589" max-vertical-offset="10738">
+              <caret line="394" column="27" selection-start-line="394" selection-start-column="27" selection-end-line="394" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -146,26 +275,19 @@
         <option value="$PROJECT_DIR$/demo/demo.css" />
         <option value="$PROJECT_DIR$/demo/styles.css" />
         <option value="$PROJECT_DIR$/_old_src/js/str2nfa.js" />
-        <option value="$PROJECT_DIR$/src/table/input-manager.js" />
         <option value="$PROJECT_DIR$/demo/index.php" />
-        <option value="$PROJECT_DIR$/src/nfa/str2nfa.js" />
         <option value="$PROJECT_DIR$/demo/test.js" />
         <option value="$PROJECT_DIR$/src/template/lex_tpl.txt" />
         <option value="$PROJECT_DIR$/demo/test.html" />
         <option value="$PROJECT_DIR$/src/template/dLighter_tpl.txt" />
-        <option value="$PROJECT_DIR$/src/dfa/dfa-minmize.js" />
         <option value="$PROJECT_DIR$/src/template/silence_render_tpl.txt" />
         <option value="$PROJECT_DIR$/demo/silence/base_lexer.js" />
         <option value="$PROJECT_DIR$/demo/silence/lex/if.lex.txt" />
         <option value="$PROJECT_DIR$/demo/silence/lex/assign.lex.txt" />
-        <option value="$PROJECT_DIR$/src/node.js" />
-        <option value="$PROJECT_DIR$/src/utility/utility.js" />
-        <option value="$PROJECT_DIR$/src/dfa/dfa2src.js" />
         <option value="$PROJECT_DIR$/demo/silence/silence_lexer.tpl.txt" />
         <option value="$PROJECT_DIR$/demo/silence/silence_lexer.lex.txt" />
         <option value="$PROJECT_DIR$/demo/silence/util.js" />
         <option value="$PROJECT_DIR$/demo/silence/test.tpl" />
-        <option value="$PROJECT_DIR$/src/core/lexer.js" />
         <option value="$PROJECT_DIR$/demo/silence/silence_render.tpl.txt" />
         <option value="$PROJECT_DIR$/demo/silence/base_render.js" />
         <option value="$PROJECT_DIR$/demo/silence/silence_render.lex.txt" />
@@ -176,13 +298,37 @@
         <option value="$PROJECT_DIR$/demo/silence/silence_parser.tpl.txt" />
         <option value="$PROJECT_DIR$/demo/silence/silence_parser.lex.txt" />
         <option value="$PROJECT_DIR$/src/template/fiup.js" />
-        <option value="$PROJECT_DIR$/src/alice.js" />
         <option value="$PROJECT_DIR$/build/make.js" />
+        <option value="$PROJECT_DIR$/demo/simple/.gitignore" />
+        <option value="$PROJECT_DIR$/demo/simple/README.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/bug_todo.md" />
+        <option value="$PROJECT_DIR$/Gruntfile.js" />
+        <option value="$PROJECT_DIR$/src/alice.js" />
+        <option value="$PROJECT_DIR$/src/node.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/table/input-manager.js" />
+        <option value="$PROJECT_DIR$/src/core/core.js" />
+        <option value="$PROJECT_DIR$/src/table/dfa2table.js" />
+        <option value="$PROJECT_DIR$/src/nfa/nfa2dfa.js" />
+        <option value="$PROJECT_DIR$/src/nfa/nfa.js" />
+        <option value="$PROJECT_DIR$/src/nfa/str2nfa.js" />
+        <option value="$PROJECT_DIR$/src/dfa/dfa.js" />
+        <option value="$PROJECT_DIR$/src/dfa/dfa2src.js" />
+        <option value="$PROJECT_DIR$/src/dfa/dfa-minmize.js" />
+        <option value="$PROJECT_DIR$/src/core/lexer.js" />
+        <option value="$PROJECT_DIR$/src/jslex.js" />
+        <option value="$PROJECT_DIR$/src/utility/utility.js" />
+        <option value="$PROJECT_DIR$/bin/jslex" />
       </list>
     </option>
   </component>
+  <component name="JsGruntFileManager">
+    <initial>false</initial>
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
+    <option name="x" value="4" />
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="805" />
@@ -227,21 +373,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="alicelex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="alicelex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="alicelex" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
+              <option name="myItemId" value="jslex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -254,7 +386,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="options.lastSelected" value="Template Data Languages" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../jing" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -265,6 +397,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/demo/silence" />
       <recent name="$PROJECT_DIR$/demo/slience" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/template" />
     </key>
   </component>
   <component name="RunManager">
@@ -324,16 +459,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="805" extended-state="6" />
-    <editor active="false" />
+    <frame x="4" y="23" width="1440" height="805" extended-state="6" />
+    <editor active="true" />
     <layout>
+      <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32959327" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2839161" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272727" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28612304" sideWeight="0.671151" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16165951" sideWeight="0.671151" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -343,10 +478,33 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32587412" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2839161" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32587412" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29470673" sideWeight="0.671151" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.tpl" />
@@ -371,163 +529,91 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/demo/test.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="132">
+        <state vertical-scroll-proportion="0.0" vertical-offset="261" max-vertical-offset="910">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/simple/line_counter.lex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="260" max-vertical-offset="546">
+          <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/simple/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="390">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="156">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index.html">
+    <entry file="file://$PROJECT_DIR$/template/node.tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="2860">
-          <caret line="6" column="63" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_old_src/js/str2nfa.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61290324" vertical-offset="0" max-vertical-offset="0">
-          <caret line="317" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="247" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/demo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42903227" vertical-offset="0" max-vertical-offset="0">
-          <caret line="14" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="7" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index_old.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21661238" vertical-offset="0" max-vertical-offset="0">
-          <caret line="7" column="33" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/js-printf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="183" column="20" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4414" max-vertical-offset="4940">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
+    <entry file="file://$PROJECT_DIR$/bug_todo.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="414" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/demo.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="2860">
-          <caret line="6" column="63" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="462" max-vertical-offset="1100">
-          <caret line="15" column="23" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/template/dLighter_tpl.txt">
+    <entry file="file://$PROJECT_DIR$/template/dLighter_tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="353" max-vertical-offset="1012">
           <caret line="12" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/node/find_daisy.txt">
+    <entry file="file://$PROJECT_DIR$/demo/simple/test_find_daisy.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="647">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/node/find_daisy.lex">
+    <entry file="file://$PROJECT_DIR$/demo/simple/find_daisy.lex">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.37403402" vertical-offset="0" max-vertical-offset="647">
           <caret line="11" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/node/find_daisy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.2460566" vertical-offset="0" max-vertical-offset="4312">
-          <caret line="180" column="29" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/node/line_counter.txt">
+    <entry file="file://$PROJECT_DIR$/demo/simple/test_line_counter.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="647">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/node/line_counter.lex">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="462">
-          <caret line="14" column="7" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/js-oo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3542">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/core.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9984543" vertical-offset="2785" max-vertical-offset="3432">
-          <caret line="9" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.06109325" vertical-offset="38" max-vertical-offset="660">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/alicelex-node.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-81.29984" vertical-offset="52601" max-vertical-offset="62084">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
@@ -539,14 +625,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/alicelex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.2121685" vertical-offset="13427" max-vertical-offset="61534">
-          <caret line="575" column="8" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/template/silence_render_tpl.txt">
+    <entry file="file://$PROJECT_DIR$/template/silence_render_tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17160687" vertical-offset="0" max-vertical-offset="1100">
           <caret line="5" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -560,29 +639,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utility/utility.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21060842" vertical-offset="7411" max-vertical-offset="8316">
-          <caret line="343" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/silence/util.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="364" max-vertical-offset="3744">
           <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/template/editor_tpl.txt">
+    <entry file="file://$PROJECT_DIR$/template/editor_tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.302932" vertical-offset="2642" max-vertical-offset="3256">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/template/lex_tpl.txt">
+    <entry file="file://$PROJECT_DIR$/template/lex_tpl.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.67752445" vertical-offset="684" max-vertical-offset="4290">
           <caret line="50" column="10" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -600,7 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="654">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -608,7 +678,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="654">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -616,7 +685,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="130" max-vertical-offset="416">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -631,7 +699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="5.990783" vertical-offset="0" max-vertical-offset="4134">
           <caret line="150" column="27" selection-start-line="150" selection-start-column="27" selection-end-line="150" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -639,31 +706,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="130" max-vertical-offset="416">
           <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dfa/dfa-minmize.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="9.0261135" vertical-offset="104" max-vertical-offset="6396">
-          <caret line="230" column="6" selection-start-line="230" selection-start-column="6" selection-end-line="230" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dfa/dfa.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3674698" vertical-offset="1572" max-vertical-offset="2236">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2782">
-          <caret line="93" column="25" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -671,7 +713,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="520">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -679,7 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="676" max-vertical-offset="1352">
           <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -687,15 +727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2730">
           <caret line="32" column="14" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="12844" max-vertical-offset="13754">
-          <caret line="507" column="46" selection-start-line="507" selection-start-column="40" selection-end-line="507" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -703,46 +734,195 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="286">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/node.tpl.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4940">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/node.js">
+    <entry file="file://$PROJECT_DIR$/demo/simple/state.lex">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="519" max-vertical-offset="1170">
-          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="884">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/alice.js">
+    <entry file="file://$PROJECT_DIR$/demo/simple/README.md">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="47" max-vertical-offset="572">
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/simple/line_counter.lex">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1924">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="546">
+          <caret line="10" column="2" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bug_todo.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="651">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="364">
+          <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/simple/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="461">
+          <caret line="0" column="4" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/make.js">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="858">
-          <caret line="1" column="34" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.857868" vertical-offset="338" max-vertical-offset="832">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.11529934" vertical-offset="52" max-vertical-offset="1040">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/table/input-manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10114">
+          <caret line="377" column="2" selection-start-line="377" selection-start-column="2" selection-end-line="377" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="4.35533" vertical-offset="0" max-vertical-offset="4160">
+          <caret line="66" column="3" selection-start-line="66" selection-start-column="3" selection-end-line="66" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/table/dfa2table.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4550">
+          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nfa/nfa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="104" max-vertical-offset="8762">
+          <caret line="294" column="0" selection-start-line="294" selection-start-column="0" selection-end-line="294" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nfa/str2nfa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="7589" max-vertical-offset="10738">
+          <caret line="394" column="27" selection-start-line="394" selection-start-column="27" selection-end-line="394" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/underscore/underscore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="27559" max-vertical-offset="36868">
+          <caret line="1069" column="4" selection-start-line="1069" selection-start-column="4" selection-end-line="1069" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dfa/dfa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.63255817" vertical-offset="1910" max-vertical-offset="2340">
+          <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nfa/nfa2dfa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6344">
+          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dfa/dfa-minmize.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6370">
+          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dfa/dfa2src.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="260" max-vertical-offset="2470">
+          <caret line="80" column="98" selection-start-line="80" selection-start-column="98" selection-end-line="80" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.0" vertical-offset="0" max-vertical-offset="13858">
+          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/jslex.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="598">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utility/utility.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10062">
+          <caret line="369" column="78" selection-start-line="369" selection-start-column="78" selection-end-line="369" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/grunt/node_modules/js-yaml/node_modules/esprima/bin/esparse.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.5578512" vertical-offset="1898" max-vertical-offset="3198">
+          <caret line="44" column="11" selection-start-line="44" selection-start-column="11" selection-end-line="44" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/jslex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.373673" vertical-offset="0" max-vertical-offset="1274">
+          <caret line="43" column="21" selection-start-line="43" selection-start-column="21" selection-end-line="43" selection-end-column="21" />
           <folding />
         </state>
       </provider>

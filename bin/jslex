@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var $ = require('util');
+var _ = require('underscore');
+var jslex = require('../src/jslex.js');
+
+var argv = require('optimist')
+    .usage('JSLex - Javascript lexical analyzers auto generator\nUsage: $0 -f [lex file] -t [template file] -o [output file]')
+    .demand(['f', 'o', 't'])
+    .alias('f', 'file')
+    .alias('o', 'output')
+    .alias('t', 'template')
+    .describe('f', 'input lex file to parse')
+    .describe('o', 'output file generated')
+    .describe('t', 'template file to use')
+    .argv;
+
+if(!_.isString(argv.file) || _.isEmpty(argv.file)) {
+    console.log('Error: input lex file can not be empty!');
+    return;
+}
+if(!_.isString(argv.template) || _.isEmpty(argv.template)) {
+    console.log('Error: template file can not be empty!');
+    return;
+}
+if(!_.isString(argv.output) || _.isEmpty(argv.output)) {
+    console.log('Error: output file can not be empty!');
+    return;
+}
+if(!fs.existsSync(argv.file) || !fs.statSync(argv.file).isFile()) {
+    console.log('Error: input lex file `'+argv.file+'` not found!');
+    return;
+}
+if(!fs.existsSync(argv.template) || !fs.statSync(argv.template).isFile()) {
+    console.log('Error: template file `'+argv.template+'` not found!');
+    return;
+}
+
+var output = jslex.parse(fs.readFileSync(argv.file), fs.readFileSync(argv.template));
+
+fs.writeSync(argv.output, output);
+
+console.log('Done.');

@@ -1,5 +1,7 @@
-(function(A, C, N, D, T, U) {
-    var $ = U;
+var $ = require('../utility/utility.js');
+var D = require('./dfa.js');
+
+var DfaMinmize;
 /**
  * @author	Yuhang Ge
  * @email	abraham1@163.com
@@ -9,7 +11,7 @@
  /**
   * 对dfa进行压缩，参考龙书第二版中的算法描述。（其实龙书中的算法描述很他喵的上层的，具体实现写得蛋痛，尤其是调试的时候。。。）
   */
-D.DfaMinimize = {
+module.exports = DfaMinmize = {
 	/*
 	 * 
 	 * size: dfa状态的数量
@@ -214,7 +216,7 @@ D.DfaMinimize = {
 			if(!new_states[gid].action)
 				new_states[gid].action = this.accept_states[i].action;
 			else if(new_states[gid].action !== this.accept_states[i].action){
-				$.log("最小化DFA时出现问题，Action丢失。");
+				throw "最小化DFA时出现问题，Action丢失。";
 			}
 		}
 
@@ -236,5 +238,3 @@ D.DfaMinimize = {
 		$.dprint("-------------");
 	}
 };
-
-})(Alice, Alice.Core, Alice.Nfa, Alice.Dfa, Alice.Table, Alice.Utility);

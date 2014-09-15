@@ -1,0 +1,34 @@
+{
+  "name": "jslex",
+  "version": "0.0.0",
+  "description": "Javascript Lexical Analyzers Auto Generator",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YuhangGe/jslex"
+  },
+  "keywords": [
+    "lex",
+    "lexer"
+  ],
+  "author": "Yuhang Ge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YuhangGe/jslex/issues"
+  },
+  "homepage": "https://github.com/YuhangGe/jslex",
+  "bin": {
+    "jslex": "./bin/jslex"
+  },
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "optimist": "^0.6.1",
+    "underscore": "^1.7.0"
+  }
+}

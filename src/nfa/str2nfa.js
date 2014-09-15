@@ -1,4 +1,10 @@
-(function(A, C, N, D, T, U) {
+var N = require('./nfa.js');
+var _ = require('underscore');
+var C = require('../core/core.js');
+var $ = require('../utility/utility.js');
+
+var Str2Nfa;
+
 	/**
 	 * @author	YuhangGe
 	 * @email	abraham1@163.com
@@ -11,67 +17,12 @@
 	 * 将字符串正则表达式转换为nfa，参考龙书《编译原理》第二版3.7.4节算法3.23(100页)
 	 */
 
-	/**
-	 * RegTag:对正则字条串进行语法分析时判断该token的类别
-	 * RegToken:对正则字符串进行词法分析时的token
-	 */
-	N.Tag = {
-		EOF : -1,
-		'(' : 1,
-		')' : 2,
-		'*' : 5,
-		'|' : 6,
-		'^' : 7,
-		'[' : 8,
-		']' : 9,
-		'+' : 10,
-		'?' : 11,
-		'{' : 12,
-		'}' : 13,
-		'?' : 14,
-		'"' : 15,
-		'\'' : 16,
-		CHAR : 19,
-		STRING : 20,
-		DEFINED : 21 // \d \D \s \S \w
-	}
-	N.Token = function(tag, value) {
-		this.tag = tag;
-		this.value = value;
-	}
-
-	N.Token.EOF = new N.Token(N.Tag.EOF, null);
-
-	N.Escape = {
-		't' : '\t',
-		'b' : '\b',
-		'n' : '\n',
-		'f' : '\f',
-		'r' : '\r',
-		'v' : '\v'
-	};
-
-	N.Defined = {
-		'a' : C.Tag.LETTER,
-		'A' : C.Tag.NOT_LETTER,
-		'l' : C.Tag.LOWER,
-		'L' : C.Tag.NOT_LOWER,
-		'u' : C.Tag.UPPER,
-		'U' : C.Tag.NOT_UPPER,
-		'd' : C.Tag.DIGIT,
-		'D' : C.Tag.NOT_DIGIT,
-		's' : C.Tag.SPACE,
-		'S' : C.Tag.NOT_SPACE,
-		'w' : C.Tag.WORD,
-		'W' : C.Tag.NOT_WORD,
-		'.' : C.Tag.DOT
-	};
 
 	/**
 	 * 从正则字符串到nfa，参看龙书。
 	 * 此处使用lr的自顶向下递归进行语法制导翻译，对于具体的nfa的生成，包括各种运算，交由Alice.NFA类的静态函数进行。
 	 */
-	N.Str2Nfa = {
+	module.exports = Str2Nfa = {
 		str : null,
 		idx : 0,
 		cur_t : null,
@@ -81,8 +32,8 @@
 		 * 当前是否正处于引号之中，如果处于引号中，quote=该引号（“或者‘），否则quote=null
 		 */
 		quote : null
-	}
-	U.extend(N.Str2Nfa, {
+	};
+	_.extend(Str2Nfa, {
 		read_ch : function() {
 			if(this.idx === this.len) {
 				return null;
@@ -389,7 +340,7 @@
 				c_from = this.cur_t.value;
 				if(this.cur_t.tag === N.Tag.DEFINED) {
 					if(c_from > 0) {
-						U.arrUnion(chrs, C.DEF_INPUT[c_from]);
+						$.arrUnion(chrs, C.DEF_INPUT[c_from]);
 					} else {
 						chrs.push(c_from);
 					}
@@ -436,7 +387,7 @@
 			 * 对数组排序并去除重复元素。这样是为了在插入等价类的时候计算其hash值，
 			 * 可以做到尽可能的不对已经插入过的字符集进行等价类操作
 			 */
-			var uni_chrs = U.uniqueSort(chrs);
+			var uni_chrs = $.uniqueSort(chrs);
 			//$.log(uni_chrs);
 			return N.NFA.createMultiNFA(uni_chrs, except);
 		},
@@ -454,5 +405,3 @@
 			return this.nfa;
 		}
 	});
-
-})(Alice, Alice.Core, Alice.Nfa, Alice.Dfa, Alice.Table, Alice.Utility); 
