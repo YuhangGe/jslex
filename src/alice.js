@@ -9,8 +9,7 @@ if(typeof require === 'undefined') {
  * 全局命名空间入口，定义了项目的命名空间和子命名空间。
  * 公共模块，包括各种辅助函数，辅助类
  */
-Alice = {
-	__RUNTIME__ : "$$_RUNTIME_$$", // __runtime__ : js 或  node 。当前是否在nodejs上运行
+JSLex = {
 	__lex__ : null,
     __BASE_PATH__ : '',
     setTemplate : function(tpl) {
