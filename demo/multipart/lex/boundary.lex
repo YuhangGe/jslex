@@ -7,29 +7,27 @@ END {BOUNDARY_BEGIN}{CRLF}
 $$
 
 BOUNDARY_ID {
-    if(this._bound_i > this._bound_e) {
-        if(this._err_b()) {
-            this._error();
-        } else {
+
+    switch(this._bd_check()) {
+        case 1:
             this.yygoto(CNT::DEFAULT);
-        }
-        return;
-    }
-    if(this._bound_c[this._bound_i] !== this._bound_b[this._bound_i]) {
-        if(this._err_b()) {
+            break;
+        case 2:
             this._error();
-        } else {
-            this.yygoto(CNT::DEFAULT);
-        }
-        return;
+            break;
+        default:
+            break;
     }
-    this._bound_i++;
+
 }
 
 CRLF {
-    //开始一个新的multipart，初始化相关变量。
-
-    this.yygoto(MAIN::DEFAULT);
+    if(!this._bd_finish()) {
+        this._error();
+        return;
+    } else {
+        this.yygoto(MAIN::DEFAULT);
+    }
 }
 
 END {

@@ -13,40 +13,39 @@ OTHER [\d\D]
 $$
 
 CD_BEGIN {
-    if(this.__cd__ !== null) {
-        //已经出现过content-disposition了。
+
+    if(!this._cd_begin()) {
         this._error();
         return;
+    } else {
+        this.yygoto(CD::DEFAULT);
     }
-    this.yygoto(CD::DEFAULT);
+
 }
 
 CT_BEGIN {
-    if(this.__ct__ !== null) {
-        //已经出现过content-type了。
+
+    if(!this._ct_begin()) {
         this._error();
         return;
+    } else {
+        this.yygoto(CT::DEFAULT);
     }
-    this.yygoto(CT::DEFAULT);
 }
 
 
 CRLF {
-
-    if(this.__bd__ === null || this.__cd__ === null || this.__ct__ === null) {
-        //没有出现过boundary和content-disposition以及content-type
-        //我们要求在multipart中必须指定这两个字段。
+    if(!this._file_begin()) {
         this._error();
         return;
+    } else {
+        this.yygoto(STREAM::DEFAULT);
     }
-    //todo begin file.
-
-    this.yygoto(STREAM::DEFAULT);
 }
 
 BOUNDARY_BEGIN {
 
-    this._bound_i = 0;
+    this._bd_begin();
     this.yygoto(BOUND::DEFAULT);
 
 }

@@ -7,40 +7,53 @@ VAR [\a\d\.-_]
 
 VAR_END   \"
 
-FILE_BEGIN  ;\ filename=\"
+FN_BEGIN  ;\ filename=\"
 
 
 $$
 
 
-
 NAME_BEGIN {
+    this._name_begin();
     this.yygoto(NAME);
 }
 
 <NAME> VAR {
-
+    if(!this._name()) {
+        this._error();
+        return;
+    }
 }
 
 <NAME> VAR_END {
+    this._name_end();
     this.yygoto(DEFAULT);
 }
 
 
-FILE_BEGIN {
-    this.yygoto(FILE);
+FN_BEGIN {
+    this.yygoto(FN);
 }
 
-<FILE> VAR {
-
+<FN> VAR {
+    if(!this._fn()) {
+        this._error();
+        return;
+    }
 }
 
-<FILE> VAR_END {
+<FN> VAR_END {
+    this._fn_end();
     this.yygoto(DEFAULT);
 }
 
 CRLF {
-    this.yygoto(MAIN::PART);
+    if(!this._cd_finish()) {
+        this._error();
+        return;
+    } else {
+        this.yygoto(MAIN::DEFAULT);
+    }
 }
 
 

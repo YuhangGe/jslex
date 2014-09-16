@@ -1,23 +1,24 @@
 $module_name STREAM
 
 
-CNT_BOUNDARY_BEGIN {CRLF}{BOUNDARY_BEGIN}
+FILE_BOUNDARY_BEGIN {CRLF}{BOUNDARY_BEGIN}
 
-CNT_VAR [^\r]+
+FILE_VAR [^\r]+
 
 $$
 
 
-CNT_BOUNDARY_BEGIN {
-
+FILE_BOUNDARY_BEGIN {
+    this._bd_begin();
+    this.yygoto(BOUND::DEFAULT);
 }
 
-CNT_VAR {
-
+FILE_VAR {
+    this._file();
 }
 
 OTHER {
-
+    this._file();
 }
 
 

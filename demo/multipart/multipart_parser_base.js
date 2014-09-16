@@ -2,7 +2,8 @@ module.exports = MultipartParserBase;
 
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
-var CT_REG = /^\r\nContent-Type:\s*([\a\/\-]+)$/;
+var Funcs = require('./multipart_parser_funcs.js');
+var _ = require('underscore');
 
 var ACT_TYPE = {
     NO_ACTION: -1,
@@ -36,25 +37,43 @@ var TABLE = {
     }
 };
 
-function MultipartParserBase() {
+function MultipartParserBase(boundary) {
     EventEmitter.call(this);
 
     this.chunk_queue = [];
-    this.chunk = null;
-    this.chunk_queue_idx = 0;
     this.chunk_queue_size = 0;
 
     this.end = 0;
-    this.idx = 0;
+    this.idx = new Uint32Array(2);
+    this.c_idx = new Uint32Array(2);
     this.chr = -1;
 
-    this.__cd__ = null;
-    this.__ct__ = null;
-    this.__bd__ = null;
+    this.__cd__ = false;
+    this.__ct__ = false;
+    this.__ct_bf__ = [];
+    this.__content_type__ = null;
+    this.__bd__ = false;
     this.__name__ = null;
+    this.__nm_bf__ = [];
+    this.__fn_bf__ = [];
     this.__filename__ = null;
+    this.__file__ = null;
 
-    this.yyidx = 0;
+    this.__bound_i__ = 0;
+    this.__boundary__ = new Buffer(boundary, "ascii");
+
+    /*
+     * runtime variables
+     */
+    this.yystate = 0;
+    this.yyaction = 0;
+    this.yystart_idx = new Uint32Array(2);
+    this.yyend_idx = new Uint32Array(2);
+
+    this.yypre_action = 0;
+    this.yypaused = false;
+
+    this.yycomplete = false;
 
 }
 util.inherits(MultipartParserBase, EventEmitter);
@@ -63,71 +82,92 @@ MultipartParserBase.TABLE = TABLE;
 
 MultipartParserBase.prototype = {
     read_ch: function () {
-        if(this.idx >= this.chunk.length) {
-            if(this.chunk_queue_idx >= this.chunk_queue.length - 1) {
-                return -1;
-            } else {
-                this.chunk_queue_idx++;
-                this.chunk = this.chunk_queue[this.chunk_queue_idx];
-                this.idx = 0;
+        var i0 = this.idx[0],
+            i1 = this.idx[1],
+            chunk = this.chunk_queue[i0],
+            len = this.chunk_queue.length -1;
+        if(i1 >= chunk.length && i0 >= len) {
+            return -1;
+        }
+
+        this.chr = chunk[i1];
+        this.c_idx[0] = i0;
+        this.c_idx[1] = i1;
+
+        i1++;
+        this.idx[1] = i1;
+        if(i1 >= chunk.length) {
+            if(i0 < len) {
+                this.idx[0]++;
+                this.idx[1] = 0;
             }
         }
-        return this.chr = this.chunk[this.idx++];
+
+        return this.chr;
     },
     do_lex: function () {
         var go_on = true;
-        while (go_on) {
-            var yylen = 0,
-                state = this.i_s,
-                action = ACT_TYPE.NO_ACTION;
+        var DEBUG_COUNT = 0;
+        while (go_on && DEBUG_COUNT++ < 1000000) {
 
-            this.yyidx = this.idx;
+            if(!this.yypaused) {
+                this.yystate = this.i_s;
+                this.yyaction = ACT_TYPE.NO_ACTION;
+                this.yystart_idx[0] = this.idx[0];
+                this.yystart_idx[1] = this.idx[1];
+                this.yypre_action = ACT_TYPE.NO_ACTION;
+            } else {
+                this.yypaused = false;
+            }
 
-            var pre_idx = this.idx;
-            var pre_action = ACT_TYPE.NO_ACTION,
-                pre_act_len = 0;
 
-            while (true) {
+            while (true && DEBUG_COUNT++ < 1000000) {
                 if (this.read_ch() < 0) {
                     /*
                      * 如果当前chunk已经读完了
                      */
-                    if(pre_action >= 0) {
-                        /**
-                         * multipart的流，不会出现规则的重叠。理论上代码不可能运行到这里，
-                         * 如果运行到这里，说明有诡异的事情出现。
-                         */
-                        util.error("something strange happens at multipart_parser, 001");
-                        this._error();
-                    }
-                    go_on = false;
-                    break;
 //                    if (pre_action >= 0) {
 //                        action = pre_action;
 //                        yylen = pre_act_len;
 //                        this.idx = pre_idx + pre_act_len;
 //                    } else if (pre_idx < this.end) {
-//                        action = ACT_TYPE.UNMATCH_CHAR;
 //                        this.idx = pre_idx + 1;
 //                    }
 //                    if (pre_idx >= this.end) {
 //                        go_on = false;
 //                    }
-//                    break;
-                } else {
-                    yylen++;
-                }
-                var eqc = TABLE._eqc[this.chr];
-                if (eqc === undefined) {
-                    if (pre_action >= 0) {
-                        action = pre_action;
-                        yylen = pre_act_len;
-                        this.idx = pre_idx + pre_act_len;
-                    } else
-                        action = ACT_TYPE.UNKNOW_CHAR;
+                    if(this.yycomplete) {
+                        if(this.yypre_action >= 0) {
+                            this.yyaction = this.yypre_action;
+                        } else {
+                            this.yyaction = ACT_TYPE.UNMATCH_CHAR;
+                        }
+                    } else {
+                        this.yypaused = true;
+                    }
+                    go_on = false;
+                    //直接退出函数.
                     break;
                 }
-                var offset, next = -1, s = state;
+
+                var eqc = TABLE._eqc[this.chr];
+                if (eqc === undefined) {
+//                    if (pre_action >= 0) {
+//                        action = pre_action;
+//                        yylen = pre_act_len;
+//                        this.idx = pre_idx + pre_act_len;
+//                    } else {
+//                        action = ACT_TYPE.UNKNOW_CHAR;
+//                    }
+                    /**
+                     * 流保证了不会出现未知等价类。如果出现了，
+                     * 可能是bug。为了防止意外，出现时统一当作流格式错误。
+                     */
+                    util.error('strange thing happens at eqc.');
+                    this.yyaction = ACT_TYPE.UNKNOW_CHAR;
+                    break;
+                }
+                var offset, next = -1, s = this.yystate;
 
                 while (s >= 0) {
                     offset = TABLE._base[s] + eqc;
@@ -140,31 +180,43 @@ MultipartParserBase.prototype = {
                 }
 
                 if (next < 0) {
-                    if (pre_action >= 0) {
-                        action = pre_action;
-                        yylen = pre_act_len;
-                        this.idx = pre_idx + pre_act_len;
+                    if (this.yypre_action >= 0) {
+                        this.yyaction = this.yypre_action;
+                        var _0 = this.yyend_idx[0];
+                        var _1 = this.yyend_idx[1] + 1;
+                        if(_1 >= this.chunk_queue[_0].length) {
+                            _0++;
+                            _1 = 0;
+                        }
+                        this.idx[0] = _0;
+                        this.idx[1] = _1;
                     } else {
-                        action = ACT_TYPE.UNMATCH_CHAR;
-                        this.idx = pre_idx + 1;
+                        this.yyaction = ACT_TYPE.UNMATCH_CHAR;
+                        /*
+                         * 由于出现unmatch将会结束整个parser，所以不需要处理恢复this.idx到this.yystart_next了。
+                         */
+//                        this.idx[0] = this.yystart_next[0];
+//                        this.idx[1] = this.yystart_next[1];
                     }
                     //跳出内层while，执行对应的action动作
                     break;
                 } else {
-                    state = next;
-                    action = TABLE._action[next];
-                    if (action >= 0) {
+                    this.yystate = next;
+                    this.yyaction = TABLE._action[next];
+                    if (this.yyaction >= 0) {
                         /**
                          * 如果action>=0，说明该状态为accept状态。
                          */
-                        pre_action = action;
-                        pre_act_len = yylen;
+                        this.yypre_action = this.yyaction;
+                        this.yyend_idx[0] = this.c_idx[0];
+                        this.yyend_idx[1] = this.c_idx[1];
                     }
                 }
             }
 
-            //yytxt = this.src.substr(pre_idx, yylen);
-            this.__action(action);
+            if(!this.yypaused) {
+                this.__action(this.yyaction);
+            }
         }
     },
     yygoto: function (state) {
@@ -173,18 +225,6 @@ MultipartParserBase.prototype = {
     _error : function() {
         this.chunk_list.length = 0;
         this.emit('error');
-    },
-    _cd : function() {
-
-    },
-    _ct : function() {
-
-    },
-    _cnt : function() {
-
-    },
-    _ : function() {
-
     },
     write: function (chunk) {
         if(chunk.length === 0) {
@@ -207,3 +247,4 @@ MultipartParserBase.prototype = {
     }
 };
 
+_.extend(MultipartParserBase.prototype, Funcs);
