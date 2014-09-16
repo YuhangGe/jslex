@@ -5,38 +5,47 @@ module.exports = {
     _bd_begin : function() {
         this.__bound_i__ = 0;
     },
+    _bd_file_begin : function() {
+        this.__bound_i__ = 0;
+        //todo 一但boundary不是正确的boundary，
+        // 说明碰巧在文件内容里出现了\r\n--字符，
+        // 需要把这些东西也要写入文件。
+    },
+    _bd_file_ : function() {
+        if(this.__file__ === null) {
+            return 2;
+        }
+
+        //todo 一但boundary不是正确的boundary，
+        // 说明碰巧在文件内容里出现了\r\n--字符，
+        // 需要把这些东西也要写入文件。
+        return 1;
+    },
     _bd_check : function() {
         if(this.__bound_i__ >= this.__boundary__.length) {
-            return this.__file__ === null ? 2 : 1;
+            return this._bd_file_();
         }
-        var ix = this.yystart_idx,
-            ex = this.yyend_idx;
+        var ix = this.yystart_idx;
 
-        if(ix[0] === ex[0]) {
-            var chk = this.chunk_queue[ix[0]];
-            if(ix[1] === ex[1]) {
-                if(chk[ix[1]] !== this.__boundary__[this.__bound_i__]) {
-                    return this.__file__ === null ? 2 : 1;
-                }
-                this.__bound_i__++;
-            } else {
-                throw 'todo.'
-            }
-        } else {
-            throw 'todo.'
+        var chk = this.chunk_queue[ix[0]];
+        if(chk[ix[1]] !== this.__boundary__[this.__bound_i__]) {
+            return this._bd_file_();
         }
+        this.__bound_i__++;
         return 0;
     },
     _bd_finish : function() {
+        if(this.__bound_i__ === 0) {
+            return false;
+        }
         if(this.__file__ !== null) {
-            //todo 某个文件结束。
+            //todo 结束当前文件的解析。
             throw '';
-            this._file_finish();
         }
         this.__bd__ = true;
         this.__cd__ = false;
         this.__ct__ = false;
-        return this.__bound_i__ !== 0;
+        return true;
     },
     _cd_begin : function() {
         this.__name__ = null;

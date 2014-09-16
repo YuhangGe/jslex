@@ -9,7 +9,7 @@ $$
 
 
 FILE_BOUNDARY_BEGIN {
-    this._bd_begin();
+    this._bd_file_begin();
     this.yygoto(BOUND::DEFAULT);
 }
 

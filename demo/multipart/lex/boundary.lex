@@ -10,7 +10,7 @@ BOUNDARY_ID {
 
     switch(this._bd_check()) {
         case 1:
-            this.yygoto(CNT::DEFAULT);
+            this.yygoto(STREAM::DEFAULT);
             break;
         case 2:
             this._error();
@@ -31,7 +31,13 @@ CRLF {
 }
 
 END {
-    this._end_parse();
+    if(!this._bd_finish()) {
+        this._error();
+        return;
+    } else {
+        this._end_parse();
+        return;
+    }
 }
 
 $$
