@@ -1,9 +1,11 @@
-var $ = require('../utility/utility.js');
-var C = require('../core/core.js');
-var I = require('../table/dfa2table.js');
-var _ = require('underscore');
 var N = {};
 module.exports = N;
+
+var $ = require('../utility/utility.js');
+var C = require('../core/core.js');
+var I = require('../table/input-manager.js');
+var _ = require('underscore');
+
 /**
  * @author    Yuhang Ge
  * @email    abraham1@163.com

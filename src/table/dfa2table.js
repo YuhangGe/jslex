@@ -1,6 +1,15 @@
+var Dfa2Table;
+module.exports = Dfa2Table = {
+    def: [],
+    base: [],
+    next: [],
+    check: [],
+    action: []
+};
+
 var $ = require('../utility/utility.js');
 var I = require('./input-manager.js');
-
+var _ = require('underscore');
 /**
  * @author    Yuhang Ge
  * @email    abraham1@163.com
@@ -12,14 +21,8 @@ var I = require('./input-manager.js');
  * 将dfa压缩成线性数组表，即default, check, base, next
  * 参考龙书第二版
  */
-var Dfa2Table;
-module.exports = Dfa2Table = {
-    def: [],
-    base: [],
-    next: [],
-    check: [],
-    action: [],
 
+_.extend(Dfa2Table, {
     /*
      * 对dfa的状态按其输入符集合大小排序。
      * 排序的目的在于，只可能数量少的集合可能是数量大的集合的子集，
@@ -74,7 +77,10 @@ module.exports = Dfa2Table = {
             if (k === -1 || s1.next[i].id !== s2.next[k].id)
                 return false;
         }
-        return ud_n !== s1.table_init.length;
+        if(ud_n === s1.table_input.length)
+            return false;
+        else
+            return true;
     },
     del_set: function (s1, s2) {
         /*
@@ -165,5 +171,5 @@ module.exports = Dfa2Table = {
         dfa_obj.table_eqc = I.CharTable.char_table;
         dfa_obj.table_init_state = dfa_obj.default_dfa.start.id;
     }
-};
+});
 

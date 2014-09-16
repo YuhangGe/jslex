@@ -1,10 +1,21 @@
+/**
+ * @Author YuhangGe
+ *
+ */
+var $ = {
+    extend : function(s1, s2 ) {
+        for(var k in s2) {
+            if(typeof (s1[k]) === 'undefined') {
+                s1[k] = s2[k];
+            }
+        }
+    }
+};
+module.exports = $;
+
 var fs = require("fs");
 var path = require("path");
 var _ = require('underscore');
-
-var $ = {};
-
-module.exports = $;
 
 _.extend($, {
     log: function (msg) {
@@ -361,13 +372,13 @@ _.extend($, {
     },
     getFileBasePath: function (filename, base_path) {
         if (filename.charAt(0) !== '/') {
-            filename = path.normalize((base_path ? base_path : $.__BASE_PATH__) + '/' + filename);
+            filename = path.normalize((base_path ? base_path : process.env.PWD) + '/' + filename);
         }
         return filename.substr(0, filename.lastIndexOf('/') + 1);
     },
     getPathBasePath: function (pathname, base_path) {
         if (pathname.charAt(0) !== '/') {
-            pathname = path.normalize((base_path ? base_path : $.__BASE_PATH__) + '/' + pathname);
+            pathname = path.normalize((base_path ? base_path : process.env.PWD) + '/' + pathname);
         }
         return pathname;
     },
@@ -376,6 +387,6 @@ _.extend($, {
     },
     readDirectory: function (dir_name) {
         return fs.readdirSync(dir_name);
-    },
-    __BASE_PATH__ : process.env.PWD
+    }
 });
+

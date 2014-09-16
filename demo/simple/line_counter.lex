@@ -1,7 +1,7 @@
-$caseignore true
+$case_ignore true
 
 NEW_LINE \n
-OTHER .
+OTHER [^\n]+
 
 $$
 

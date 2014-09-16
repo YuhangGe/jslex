@@ -1,10 +1,3 @@
-var $ = require('../utility/utility.js');
-var _ = require('underscore');
-var Dfa2Src = require('../dfa/dfa2src.js');
-var Nfa2Dfa = require('../nfa/nfa2dfa.js');
-var Dfa2Table = require('../table/dfa2table.js');
-var N = require('../nfa/nfa.js');
-var DfaMinmize = require('../dfa/dfa-minmize.js');
 /**
  * 将lex规则转换成dfa
  * 注意标志符目前暂时不支持数字。即可以
@@ -38,17 +31,31 @@ module.exports = Lexer = {
     txt_part: {
         'define': '',
         'rule': {
-            'GLOBAL': ''
+            'MAIN': ''
         },
         'routine': ''
     },
     cur_module: ''
 };
-Lexer.rule['GLOBAL' + Lexer.__separate__ + 'DEFAULT'] = [];
+
+var $ = require('../utility/utility.js');
+var _ = require('underscore');
+var Dfa2Src = require('../dfa/dfa2src.js');
+var Nfa2Dfa = require('../nfa/nfa2dfa.js');
+var Dfa2Table = require('../table/dfa2table.js');
+var N = require('../nfa/nfa.js');
+var DfaMinmize = require('../dfa/dfa-minmize.js');
+var Str2Nfa = require('../nfa/str2nfa.js');
+var C = require('./core.js');
+
+
+
+Lexer.rule['MAIN' + Lexer.__separate__ + 'DEFAULT'] = [];
 _.extend(Lexer, {
     _parse_options: function () {
         this.read_word();
         var in_option = true;
+        var option_idx = 0;
         while (in_option) {
             var option = this.cur_t.toLowerCase();
             switch (option) {
@@ -62,18 +69,21 @@ _.extend(Lexer, {
                     if (this.cur_t === 'true') {
                         $.log("option - case ignore: true");
                     }
+                    option_idx = this.idx;
                     this.read_word();
                     break;
                 case '$lexer_name':
                     this.read_word();
                     Dfa2Src.lex_name = this.cur_t;
                     $.log("option - lex name: " + this.cur_t);
+                    option_idx = this.idx;
                     this.read_word();
                     break;
                 case '$template':
                     this.read_word();
                     Dfa2Src.template = this.cur_t;
                     $.log("option - template name: " + this.cur_t);
+                    option_idx = this.idx;
                     this.read_word();
                     break;
                 case '$argument' :
@@ -81,6 +91,7 @@ _.extend(Lexer, {
                     var av = this.read_word();
                     Dfa2Src.lex_arguments[ak] = av;
                     $.log("option - argument:{" + ak + "->" + av + "}");
+                    option_idx = this.idx;
                     this.read_word();
                     break;
                 case '$include_file':
@@ -94,18 +105,23 @@ _.extend(Lexer, {
                         throw 'include dir not exists. please check.';
                     }
                     this.include_dir = dir;
+                    option_idx = this.idx;
+                    this.read_word();
                     break;
                 default:
                     in_option = false;
                     break;
             }
         }
-        var d_i = this.idx, p_i = d_i;
+        var d_i = option_idx, p_i = d_i;
+//        $.log(this.cur_t, this.idx, this.src.substring(this.idx, this.idx+10));
+
         while (this.cur_t !== '$$' && this.cur_t !== null) {
             p_i = this.idx;
             this.read_word();
         }
         this.txt_part.define = this.src.substring(d_i, this.cur_t === null ? this.idx - 1 : p_i);
+//        $.log(this.txt_part.define);
 
         d_i = this.idx;
         this.read_word();
@@ -115,9 +131,9 @@ _.extend(Lexer, {
             this.read_word();
         }
         var r_def = this.src.substring(d_i, this.cur_t === null ? this.idx - 1 : p_i);
-        r_def = this._replace_rule(r_def, 'GLOBAL');
+        r_def = this._replace_rule(r_def, 'MAIN');
 
-        this.txt_part.rule.GLOBAL = r_def;
+        this.txt_part.rule.MAIN = r_def;
 
         this.txt_part.routine = this.src.substring(this.idx);
     },
@@ -125,9 +141,9 @@ _.extend(Lexer, {
         var lbl = this.cur_t;
         var exp = this.read_word();
 
-        var r = N.Str2Nfa.parse(exp);
+        var r = Str2Nfa.parse(exp);
         r.finish.isAccept = false;
-        //$.dprint(lbl);
+//        $.log(lbl + '=>' + r);
 //            $.log(lbl);
         this.define[lbl] = r;
     },
@@ -170,8 +186,8 @@ _.extend(Lexer, {
         var lbl = this.cur_t, states = [];
         while (lbl === "<") {
             var s = this.read_word(">");
-            if (s === "Daisy") {
-                console.log("不能使用Daisy作为状态标识，已经忽略.");
+            if (s.indexOf("::")>=0) {
+                states.push(s.replace("::", this.__separate__));
             } else {
                 states.push(this.cur_module + this.__separate__ + s);
             }
@@ -366,7 +382,6 @@ _.extend(Lexer, {
             }
             c = this.read_ch();
         }
-        //$.log("w:"+w);
         if (w.length === 0)
             this.cur_t = null;
         else
@@ -477,14 +492,14 @@ _.extend(Lexer, {
             return;
         }
         if (this.cur_t.toLowerCase() !== '$module_name') {
-            $.log("error: include file must contains $module_name option. ignored file.");
+            $.log("error: include file must contains $module_name option at top of file. ignored file.");
             return;
         }
 
         var m_name = this.read_word();
 
-        if (m_name.toUpperCase() === 'GLOBAL') {
-            $.log("error: include file $module_name cannot be GLOBAL as it is keyword. ignored file.");
+        if (m_name.toUpperCase() === 'MAIN') {
+            $.log("error: include file $module_name cannot be MAIN as it is keyword. ignored file.");
             return;
         }
         if (/^[a-zA-Z]+$/.test(m_name) === false) {

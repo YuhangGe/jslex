@@ -1,0 +1,16 @@
+$include_dir lex
+
+BOUNDARY_BEGIN  --
+
+CRLF    \r\n
+
+OTHER [\d\D]
+
+$$
+
+BOUNDARY_BEGIN {
+    this._bound_i = 0;
+    this.yygoto(BOUND::DEFAULT);
+}
+
+$$

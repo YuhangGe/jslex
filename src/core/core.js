@@ -1,8 +1,9 @@
+var C = {};
+module.exports = C;
+
 var $ = require('../utility/utility.js');
 var _ = require('underscore');
 
-var C = {};
-module.exports = C;
 /**
  * 处理正则表达式中的转义符，比如 \d  \w  \s
  * 目前的设计还在斟酌中，不知道把这一块放在什么模块中好

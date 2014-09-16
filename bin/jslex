@@ -1,22 +1,24 @@
 #!/usr/bin/env node
-
 var fs = require('fs');
 var $ = require('util');
 var _ = require('underscore');
 var jslex = require('../src/jslex.js');
 
-var argv = require('optimist')
-    .usage('JSLex - Javascript lexical analyzers auto generator\nUsage: $0 -f [lex file] -t [template file] -o [output file]')
-    .demand(['f', 'o', 't'])
-    .alias('f', 'file')
+var opt = require('yargs')
+    .usage('JSLex - Javascript lexical analyzers auto generator\nUsage: $0 [lex file] -f [template file] -o [output file]')
+    .demand(['t'])
     .alias('o', 'output')
     .alias('t', 'template')
-    .describe('f', 'input lex file to parse')
     .describe('o', 'output file generated')
-    .describe('t', 'template file to use')
-    .argv;
+    .describe('t', 'template file to use');
+var argv = opt.argv;
 
-if(!_.isString(argv.file) || _.isEmpty(argv.file)) {
+if(argv._.length !== 1) {
+    opt.showHelp();
+    return;
+}
+
+if(!_.isString(argv._[0]) || _.isEmpty(argv._[0])) {
     console.log('Error: input lex file can not be empty!');
     return;
 }
@@ -24,11 +26,7 @@ if(!_.isString(argv.template) || _.isEmpty(argv.template)) {
     console.log('Error: template file can not be empty!');
     return;
 }
-if(!_.isString(argv.output) || _.isEmpty(argv.output)) {
-    console.log('Error: output file can not be empty!');
-    return;
-}
-if(!fs.existsSync(argv.file) || !fs.statSync(argv.file).isFile()) {
+if(!fs.existsSync(argv._[0]) || !fs.statSync(argv._[0]).isFile()) {
     console.log('Error: input lex file `'+argv.file+'` not found!');
     return;
 }
@@ -37,8 +35,12 @@ if(!fs.existsSync(argv.template) || !fs.statSync(argv.template).isFile()) {
     return;
 }
 
-var output = jslex.parse(fs.readFileSync(argv.file), fs.readFileSync(argv.template));
+if(!_.isString(argv.output) || _.isEmpty(argv.output)) {
+    argv.output = argv._[0] + '.js';
+}
 
-fs.writeSync(argv.output, output);
+var output = jslex.parse(fs.readFileSync(argv._[0]).toString(), fs.readFileSync(argv.template).toString());
+
+fs.writeFileSync(argv.output, output);
 
 console.log('Done.');

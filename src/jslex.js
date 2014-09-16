@@ -1,5 +1,5 @@
 var Lexer = require('./core/lexer.js');
-var Dfa2Src = require('./dfa/dfa2src/js');
+var Dfa2Src = require('./dfa/dfa2src.js');
 
 module.exports = {
   parse : function(lex_src, template) {

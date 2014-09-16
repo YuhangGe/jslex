@@ -27,8 +27,7 @@
     "jslex": "./bin/jslex"
   },
   "dependencies": {
-    "grunt": "^0.4.5",
-    "optimist": "^0.6.1",
-    "underscore": "^1.7.0"
+    "underscore": "^1.7.0",
+    "yargs": "^1.3.1"
   }
 }

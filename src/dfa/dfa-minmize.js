@@ -1,5 +1,6 @@
 var $ = require('../utility/utility.js');
 var D = require('./dfa.js');
+var I = require('../table/input-manager.js');
 
 var DfaMinmize;
 /**
@@ -151,7 +152,7 @@ module.exports = DfaMinmize = {
 		this.group_set = tmp;
 	},
 	parse : function(dfa) {
-		var eqc = Alice.CharTable.eq_class;
+		var eqc = I.CharTable.eq_class;
 
 		var debug = 0;
 
@@ -165,7 +166,7 @@ module.exports = DfaMinmize = {
 					break outer;
 				}
 				//$.dprint(Alice.CharTable.getEqc(eqc[i]));
-				this.get_group_id_tmp(Alice.CharTable.getEqc(eqc[i]));
+				this.get_group_id_tmp(I.CharTable.getEqc(eqc[i]));
 				//$.aprint(this.group_id);
 				//$.aprint(this.group_id_tmp);
 				this.get_group_set_new();

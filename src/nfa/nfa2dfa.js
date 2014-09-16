@@ -1,6 +1,3 @@
-var $ = require('../utility/utility.js');
-var D = require('../dfa/dfa.js');
-
 /**
  * @author    Yuhang Ge
  * @email    abraham1@163.com
@@ -14,7 +11,14 @@ var D = require('../dfa/dfa.js');
  * 参考龙书《编译原理》第二版3.7.1节算法3.20(97页)
  */
 var Nfa2Dfa;
-module.exports = Nfa2Dfa = {
+module.exports = Nfa2Dfa = {};
+
+var $ = require('../utility/utility.js');
+var D = require('../dfa/dfa.js');
+var I = require('../table/input-manager.js');
+var _ = require('underscore');
+
+_.extend(Nfa2Dfa, {
     //求e-closure和move集合时保存该nfa状态集合中是否有接收状态,
     //如果有，则对应生成的dfa状态也是可接收的。
     closure_hash_table: {},
@@ -184,7 +188,7 @@ module.exports = Nfa2Dfa = {
                 var dfa_state = this.closure_hash_table[ec.hash_key];
                 //$.dprint("dfa_state:"+dfa_state);
                 if (!dfa_state) {
-                    dfa_state = new D.DFAState(ec.is_accept, U._n.get());
+                    dfa_state = new D.DFAState(ec.is_accept, $._n.get());
                     dfa_state.nfaset = ec.closure;
                     //$.dprint("push "+dfa_state.id);
                     //$.dprint(dfa_state.nfaset);
@@ -234,5 +238,5 @@ module.exports = Nfa2Dfa = {
 
         return dfa;
     }
-};
+});
 

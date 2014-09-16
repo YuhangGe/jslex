@@ -1,0 +1,143 @@
+
+CRLF    \r\n
+
+BOUNDARY_BEGIN  --
+
+BOUNDARY_ID [\a\d-]
+
+CD_BEGIN  Content-Disposition:\ form-data
+
+NAME_BEGIN  ;\ name=\"
+
+VAR [\a\d\.-_]
+
+VAR_END   \"
+
+FILE_BEGIN  ;\ filename=\"
+
+
+CT_BEGIN  Content-Type:\
+
+CT_VAR [\a\d\/\-]
+
+CNT_BOUNDARY_BEGIN {CRLF}{BOUNDARY_BEGIN}
+
+CNT_VAR [^\r]+
+
+END --\r\n
+
+OTHER [\d\D]
+
+$$
+
+BOUNDARY_BEGIN {
+    this._bound_i = 0;
+    this.yygoto(BOUND);
+}
+
+<BOUND> BOUNDARY_ID {
+    if(this._bound_i > this._bound_e) {
+        if(this._err_b()) {
+            this._error();
+        } else {
+            this.yygoto(CNT);
+        }
+        return;
+    }
+    if(this._bound_c[this._bound_i] !== this._bound_b[this._bound_i]) {
+        if(this._err_b()) {
+            this._error();
+        } else {
+            this.yygoto(CNT);
+        }
+        return;
+    }
+    this._bound_i++;
+}
+
+<BOUND> CRLF {
+    this.yygoto(PART);
+}
+
+<BOUND>
+
+<PART> CD_BEGIN {
+    if(this._info.cd !== null) {
+        //已经出现过content-disposition了。
+        this._error();
+        return;
+    }
+    this.yygoto(CD);
+}
+
+<CD> NAME_BEGIN {
+
+    this.yygoto(NAME);
+}
+
+<NAME> VAR {
+
+}
+
+<NAME> VAR_END {
+    this.yygoto(CD);
+}
+
+
+<CD> FILE_BEGIN {
+
+}
+
+<FILE> VAR {
+
+}
+
+<FILE> VAR_END {
+    this.yygoto(CD);
+}
+
+<CD> CRLF {
+    this.yygoto(PART);
+}
+
+<PART> CT_BEGIN {
+    if(this._info.ct !== null) {
+        //已经出现过content-type了。
+        this._error();
+        return;
+    }
+    this.yygoto(CT);
+}
+
+<CT> CT_VAR {
+
+}
+
+<CT> CRLF {
+    //保存和检测content-type
+    this.yygoto(PART);
+}
+
+<PART> CRLF {
+    //todo begin file.
+    this.yygoto(CNT);
+}
+
+<CNT> CNT_BOUNDARY_BEGIN {
+
+}
+
+<CNT> CNT_VAR {
+
+}
+
+<CNT> OTHER {
+
+}
+
+<PART> END {
+    //todo finish parser
+
+}
+
+$$

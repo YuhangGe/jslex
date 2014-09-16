@@ -1,15 +1,14 @@
-var I = {};
-var $ = require('../utility/utility.js');
-
-module.exports = I;
-
 /**
  * @author    Yuhang Ge
  * @email    abraham1@163.com
  * @address    software institute, nanjing university
  * @blog    http://xiaoge.me
  */
+var I = {};
+module.exports = I;
 
+var $ = require('../utility/utility.js');
+var C = require('../core/core.js');
 /**
  * @class EquivalenceManager
  * 输入符管理类，对输入符进行等价类划分。输入符并不储存其字符串字符，而是其对应的编码。
@@ -379,5 +378,5 @@ I.EquivalenceManager.prototype = {
 /**
  * 全局的一个实例，方便使用。
  */
-I.CharTable = new Alice.EquivalenceManager(256);
+I.CharTable = new I.EquivalenceManager(256);
 
