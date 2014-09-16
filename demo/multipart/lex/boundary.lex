@@ -27,6 +27,8 @@ BOUNDARY_ID {
 }
 
 CRLF {
+    //开始一个新的multipart，初始化相关变量。
+
     this.yygoto(MAIN::DEFAULT);
 }
 

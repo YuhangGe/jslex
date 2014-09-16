@@ -2,24 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="253d9d38-cbf4-4f3b-ac75-fcb7c26109bb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/simple/.gitignore" afterPath="$PROJECT_DIR$/demo/simple/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/simple/README.md" afterPath="$PROJECT_DIR$/demo/simple/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/core.js" afterPath="$PROJECT_DIR$/src/core/core.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfa/dfa-minmize.js" afterPath="$PROJECT_DIR$/src/dfa/dfa-minmize.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfa/dfa2src.js" afterPath="$PROJECT_DIR$/src/dfa/dfa2src.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/table/dfa2table.js" afterPath="$PROJECT_DIR$/src/table/dfa2table.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/table/input-manager.js" afterPath="$PROJECT_DIR$/src/table/input-manager.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jslex.js" afterPath="$PROJECT_DIR$/src/jslex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/jslex" afterPath="$PROJECT_DIR$/bin/jslex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/lexer.js" afterPath="$PROJECT_DIR$/src/core/lexer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/simple/line_counter.lex" afterPath="$PROJECT_DIR$/demo/simple/line_counter.lex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nfa/nfa.js" afterPath="$PROJECT_DIR$/src/nfa/nfa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nfa/nfa2dfa.js" afterPath="$PROJECT_DIR$/src/nfa/nfa2dfa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template/node.tpl.txt" afterPath="$PROJECT_DIR$/template/node.tpl.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nfa/str2nfa.js" afterPath="$PROJECT_DIR$/src/nfa/str2nfa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utility/utility.js" afterPath="$PROJECT_DIR$/src/utility/utility.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/multipart/lex/boundary.lex" afterPath="$PROJECT_DIR$/demo/multipart/lex/boundary.lex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/multipart/lex/content-disposition.lex" afterPath="$PROJECT_DIR$/demo/multipart/lex/content-disposition.lex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/multipart/lex/content-type.lex" afterPath="$PROJECT_DIR$/demo/multipart/lex/content-type.lex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/multipart/lex/file-stream.lex" afterPath="$PROJECT_DIR$/demo/multipart/lex/file-stream.lex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/multipart/multipart_parser.js" afterPath="$PROJECT_DIR$/demo/multipart/multipart_parser.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/multipart/multipart_parser.tpl.txt" afterPath="$PROJECT_DIR$/demo/multipart/multipart_parser.tpl.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/multipart/multipart_parser2.lex.txt" afterPath="$PROJECT_DIR$/demo/multipart/multipart_parser2.lex.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="alicelex.iws" />
@@ -46,8 +35,8 @@
       <file leaf-file-name="content-disposition.lex" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/multipart/lex/content-disposition.lex">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1612">
-              <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="234" max-vertical-offset="1404">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -56,18 +45,48 @@
       <file leaf-file-name="multipart_parser2.lex.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser2.lex.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="572">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="494" max-vertical-offset="1560">
+              <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="boundary.lex" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="boundary.lex" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/multipart/lex/boundary.lex">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21532091" vertical-offset="650" max-vertical-offset="1144">
-              <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="572" max-vertical-offset="1196">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multipart_parser.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+              <caret line="16" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multipart_parser.tpl.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser.tpl.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="671" max-vertical-offset="1118">
+              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multipart_parser_base.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser_base.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3326087" vertical-offset="1251" max-vertical-offset="5590">
+              <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -76,8 +95,8 @@
       <file leaf-file-name="content-type.lex" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/multipart/lex/content-type.lex">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="832">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="572">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -86,8 +105,8 @@
       <file leaf-file-name="file-stream.lex" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/multipart/lex/file-stream.lex">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="156" max-vertical-offset="910">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="806">
+              <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -98,16 +117,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-5.6923075" vertical-offset="4844" max-vertical-offset="14248">
               <caret line="192" column="13" selection-start-line="192" selection-start-column="13" selection-end-line="192" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="try.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/simple/try.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="156">
-              <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -136,8 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/demo/silence/silence_lexer.tpl.txt" />
-        <option value="$PROJECT_DIR$/demo/silence/silence_lexer.lex.txt" />
         <option value="$PROJECT_DIR$/demo/silence/util.js" />
         <option value="$PROJECT_DIR$/demo/silence/test.tpl" />
         <option value="$PROJECT_DIR$/demo/silence/silence_render.tpl.txt" />
@@ -165,7 +172,6 @@
         <option value="$PROJECT_DIR$/demo/simple/lc.js" />
         <option value="$PROJECT_DIR$/template/node.tpl.txt" />
         <option value="$PROJECT_DIR$/template/multipart.tpl.txt" />
-        <option value="$PROJECT_DIR$/demo/multipart/multipart_parser.js" />
         <option value="$PROJECT_DIR$/demo/simple/.gitignore" />
         <option value="$PROJECT_DIR$/bin/jslex" />
         <option value="$PROJECT_DIR$/bin/test.js" />
@@ -181,12 +187,15 @@
         <option value="$PROJECT_DIR$/demo/simple/try.txt" />
         <option value="$PROJECT_DIR$/demo/simple/try.js" />
         <option value="$PROJECT_DIR$/demo/multipart/multipart_parser.lex.txt" />
-        <option value="$PROJECT_DIR$/demo/multipart/lex/content-disposition.lex" />
-        <option value="$PROJECT_DIR$/demo/multipart/lex/content-type.lex" />
-        <option value="$PROJECT_DIR$/demo/multipart/lex/file-stream.lex" />
         <option value="$PROJECT_DIR$/src/core/lexer.js" />
-        <option value="$PROJECT_DIR$/demo/multipart/multipart_parser2.lex.txt" />
+        <option value="$PROJECT_DIR$/demo/multipart/lex/content-type.lex" />
+        <option value="$PROJECT_DIR$/demo/multipart/lex/content-disposition.lex" />
+        <option value="$PROJECT_DIR$/demo/multipart/lex/file-stream.lex" />
         <option value="$PROJECT_DIR$/demo/multipart/lex/boundary.lex" />
+        <option value="$PROJECT_DIR$/demo/multipart/multipart_parser.js" />
+        <option value="$PROJECT_DIR$/demo/multipart/multipart_parser.tpl.txt" />
+        <option value="$PROJECT_DIR$/demo/multipart/multipart_parser2.lex.txt" />
+        <option value="$PROJECT_DIR$/demo/multipart/multipart_parser_base.js" />
       </list>
     </option>
   </component>
@@ -634,13 +643,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/demo/silence/lex/for.lex.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="654">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/silence/lex/block.lex.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="654">
@@ -847,14 +849,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2367" max-vertical-offset="5824">
-          <caret line="76" column="25" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/simple/line_counter.lex">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="546">
@@ -929,14 +923,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser.tpl.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="286" max-vertical-offset="4316">
-          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/simple/try.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="451">
@@ -995,30 +981,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/multipart/lex/content-type.lex">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="832">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/multipart/lex/content-disposition.lex">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1612">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/multipart/lex/file-stream.lex">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="156" max-vertical-offset="910">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/core/lexer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.6923075" vertical-offset="4844" max-vertical-offset="14248">
@@ -1027,18 +989,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser2.lex.txt">
+    <entry file="file://$PROJECT_DIR$/demo/multipart/lex/content-type.lex">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="572">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/multipart/lex/content-disposition.lex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="234" max-vertical-offset="1404">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/multipart/lex/file-stream.lex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="806">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/multipart/lex/boundary.lex">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21532091" vertical-offset="650" max-vertical-offset="1144">
-          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="572" max-vertical-offset="1196">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+          <caret line="16" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser.tpl.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="671" max-vertical-offset="1118">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser2.lex.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="494" max-vertical-offset="1560">
+          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/multipart/multipart_parser_base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3326087" vertical-offset="1251" max-vertical-offset="5590">
+          <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
           <folding />
         </state>
       </provider>
