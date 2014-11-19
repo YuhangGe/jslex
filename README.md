@@ -2,7 +2,7 @@ JSLex
 =====
 Javascript Lexical Analyzers("scanners" or "lexers") Generator
 
-See chinese version README [here]()([查看中文版本README]())
+See chinese version README [here](https://github.com/YuhangGe/jslex/blob/master/README_ch.md)([查看中文版本README](https://github.com/YuhangGe/jslex/blob/master/README_ch.md))
 
 Install
 ====
