@@ -20,7 +20,7 @@ Usage
 Example
 ====
 
-1. define your lex rules and actions. see `demo/find_jslex.lex`
+1.define your lex rules and actions. see `demo/find_jslex.lex`
 
 ```
 $case_ignore    true
@@ -79,8 +79,9 @@ $unmatch    {
 
 ```
 
-2. use command `jslex find_jslex.lex`, file `find_jslex.js` will be created.
-3. use command `./find_jslex.js test_find_jslex.txt`. content of `test_find_jslex.txt` is bellow:
+2.Use command `jslex find_jslex.lex`, file `find_jslex.js` will be created.
+3.Use command `./find_jslex.js test_find_jslex.txt`. content of `test_find_jslex.txt` is bellow:
+
 ```
 Hello everyone, I'm js_Lex.
 
@@ -91,7 +92,8 @@ Hello everyone, I'm js_Lex.
 Yes, I'm js_lex, no one else can be JS_LEX.
 ```
 
-4. Final, you can see the output is:
+4.Final, you can see the output is:
+
 ```
 Finding word 'js_lex' with ignore case option.
 
@@ -144,9 +146,11 @@ you can specify argument at the begining of lex file. jslex support follow argum
 
 Multiple Files
 ====
+JSLex support deal with multiple files. So you can make your project modularization.
 
 //todo: complete doc
 
 Bug & Todo
 ===
 
+* combine with
