@@ -45,14 +45,13 @@ module.exports = Dfa2Src = {
             .replace(/\$\$_LEX_STATES_\$\$/g, this.parseState(dfa_obj))
             .replace("$$_ACTION_TABLE_$$", this.parseTable(dfa_obj))
             .replace(/\$\$_LEX_NAME_\$\$/g, this.lex_name)
-            .replace("$$_IGNORE_CASE_BEGIN_$$", this.case_ignore ? "" : "/*")
-            .replace("$$_IGNORE_CASE_END_$$", this.case_ignore ? "" : "*/")
-            .replace("##_CONSTRUCT_##", routine['construct'])
-            .replace("##_START_##", routine['start'])
-            .replace("##_FINISH_##", routine['finish'])
-            .replace("##_INIT_##", routine['init'])
-            .replace("##_HEADER_##", routine['header'])
-            .replace("##_FOOTER_##", routine['footer']);
+            .replace("$$_IGNORE_CASE_$$", this.case_ignore ? 'true' : 'false');
+
+
+        for(var rk in routine) {
+            output = output.replace(new RegExp("##_"+rk.toUpperCase()+"_##", "g"), routine[rk]);
+        }
+        output = output.replace(/\#\#__[A-Z]+__\#\#/g, "");
 
         output = output.replace(/\$\$_ARGUMENT\[(\s*[^\]]+\s*)\]_\$\$/g, function (m, c) {
             return Dfa2Src.lex_arguments[c];

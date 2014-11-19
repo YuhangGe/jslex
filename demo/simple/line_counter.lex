@@ -12,4 +12,4 @@ $$
 
 $start { line_number = 1; }
 
-$finish { console.log("文本总行数："+line_number); }
+$finish { console.log("Total Line Count："+line_number); }

@@ -3,3 +3,6 @@
 /.idea
 
 bin/test.js
+
+demo/parser
+bin/test.txt

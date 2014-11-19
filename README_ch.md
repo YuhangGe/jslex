@@ -1,3 +1,5 @@
+
+
 #JS Lex
 jsLex is a Lexical Analyser Generator(similar to Lex) which produces Javascript language source code, it is implemented in Javascript.  
 jsLex was developed by [XiaoGe](http://xiaoge.me) at [Nanjing University](http://nju.edu.cn).  
@@ -23,3 +25,9 @@ JS Lex 是JavaScript版本的词法分析器自动生成上具（即lex），类
 * email: [abraham1@163.com](mailto:abraham1@163.com) | [abeyuhang@gmail.com](mailto:abeyuhang@gmail.com)
 * address: [Software Institute](http://software.nju.edu.cn), [Nanjing University](http://nju.edu.cn)
 * weibo: [白羊座小葛](http://weibo.com/abeyuhang)
+
+##已知bug
+* 标识后面直接跟 { 时会出错，中间必须有空格。比如：  NUM{alert("num");}会出错，需要NUM {alert("num");}
+
+##todo列表
+* 向前看运算符

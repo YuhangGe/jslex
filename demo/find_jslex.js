@@ -30,12 +30,12 @@ var str_to_arr = function(strs, arrs) {
         }
     }
 };
-str_to_arr(["$$_BASE_STR_$$", "$$_DEFAULT_STR_$$", "$$_CHECK_STR_$$","$$_NEXT_STR_$$", "$$_ACTION_STR_$$", "$$_EQC_STR_$$"], [TABLE._base, TABLE._default, TABLE._check, TABLE._next, TABLE._action, TABLE._eqc]);
+str_to_arr(["\1\14\1\6\6\2\16\2\26", "\1\23\0", "\1\4\0\2\7\2\10\2\11\2\12\2\13\2\14\2\15\2\16\2\17\2\20\11\21\11\22","\0\0\0\0\13\11\12\1\10\20\16\17\4\15\3\2\7\3\3\3\3\3\6\5\14\6\6\6\6\6", "\0\5\1\6\2\3\4\6\0\0\0\0\4\0\0\0\0\0\0", "\1\43\1\2\2\75\1\2\10\6\1\2\6\5\1\2\3\2\1\2\5\7\1\2\4\5\1\2\7\x88\1"], [TABLE._base, TABLE._default, TABLE._check, TABLE._next, TABLE._action, TABLE._eqc]);
 
-var $$_LEX_STATES_$$;
+var MAIN______DEFAULT = 16, MAIN______QUOTE_STATE = 17;
 
-var $$_LEX_NAME_$$ = function () {
-    this.__ignore_case__ = $$_IGNORE_CASE_$$;
+var MyLexer = function () {
+    this.__ignore_case__ = true;
     this.src = null;
     this.end = 0;
     this.idx = 0;
@@ -44,12 +44,15 @@ var $$_LEX_NAME_$$ = function () {
     this.yytxt = '';
     this.yyidx = 0;
     //init state
-    this.i_s = $$_INIT_STATE_$$;
+    this.i_s = 16;
 
-    ##_CONSTRUCT_##
+    
+    this.q_number = 0;
+    this.total_number = 0;
+
 
 };
-$$_LEX_NAME_$$.prototype = {
+MyLexer.prototype = {
     read_ch: function () {
         if (this.idx >= this.end)
             return this.chr = -1;
@@ -146,25 +149,64 @@ $$_LEX_NAME_$$.prototype = {
         this.idx = 0;
         this.chr = -1;
 
-        ##_START_##
+        
+    console.log("Finding word 'js_lex' with ignore case option.\n");
+
 
         this.do_lex();
 
-        ##_FINISH_##
+        
+    console.log("\nDone. Found word 'js_lex' " + this.q_number + " times in quotes and " + this.total_number + " total times!")
+
 
     }
 };
 
-$$_LEX_NAME_$$.prototype.__action = function (action) {
+MyLexer.prototype.__action = function (action) {
     switch (action) {
         case ACT_TYPE.UNKNOW_CHAR:
-            ##_UNKNOW_##
+            
+    console.warn("unknow char:", String.fromCharCode(this.chr));
+
             break;
         case ACT_TYPE.UNMATCH_CHAR:
-            ##_UNMATCH_##
+            
+    console.warn("unmath char:", String.fromCharCode(this.chr));
+
             break;
 
-        $$_ACTION_TABLE_$$
+        case 4:
+
+    console.log("Found '" + this.yytxt + "' at " + this.yyidx);
+    this.total_number++;
+
+break;
+case 0:
+
+    this.yygoto(MAIN______QUOTE_STATE);
+
+break;
+case 5:
+
+break;
+case 1:
+
+    console.log("Found '" + this.yytxt + "' in quotes at " + this.yyidx);
+    this.q_number++;
+    this.total_number++;
+
+break;
+case 2:
+
+    this.yygoto(MAIN______DEFAULT);
+
+break;
+case 3:
+
+    // do nothing
+
+break;
+
 
     }
 };
@@ -179,4 +221,4 @@ if(!fs.existsSync(process.argv[2]) || !fs.statSync(process.argv[2]).isFile()) {
     return;
 }
 
-new $$_LEX_NAME_$$().lex(fs.readFileSync(process.argv[2]).toString());
+new MyLexer().lex(fs.readFileSync(process.argv[2]).toString());

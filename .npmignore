@@ -1,0 +1,7 @@
+demo/silence
+demo/simple
+
+template/dLighter.tpl.txt
+template/editor.tpl.txt
+
+.gitignore

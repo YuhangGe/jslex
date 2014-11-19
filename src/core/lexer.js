@@ -67,7 +67,7 @@ _.extend(Lexer, {
                      */
                     Dfa2Src.case_ignore = this.cur_t.toLowerCase() === "true" ? true : false;
                     if (this.cur_t === 'true') {
-                        $.log("option - case ignore: true");
+                        $.log("use option - case ignore: true");
                     }
                     option_idx = this.idx;
                     this.read_word();
@@ -75,22 +75,22 @@ _.extend(Lexer, {
                 case '$lexer_name':
                     this.read_word();
                     Dfa2Src.lex_name = this.cur_t;
-                    $.log("option - lex name: " + this.cur_t);
+                    $.log("use option - lexer name: " + this.cur_t);
                     option_idx = this.idx;
                     this.read_word();
                     break;
-                case '$template':
-                    this.read_word();
-                    Dfa2Src.template = this.cur_t;
-                    $.log("option - template name: " + this.cur_t);
-                    option_idx = this.idx;
-                    this.read_word();
-                    break;
+                //case '$template':
+                //    this.read_word();
+                //    Dfa2Src.template = this.cur_t;
+                //    $.log("use option - template name: " + this.cur_t);
+                //    option_idx = this.idx;
+                //    this.read_word();
+                //    break;
                 case '$argument' :
                     var ak = this.read_word();
                     var av = this.read_word();
                     Dfa2Src.lex_arguments[ak] = av;
-                    $.log("option - argument:{" + ak + "->" + av + "}");
+                    $.log("use option - argument:{" + ak + "->" + av + "}");
                     option_idx = this.idx;
                     this.read_word();
                     break;
@@ -100,7 +100,7 @@ _.extend(Lexer, {
                     break;
                 case '$include_dir':
                     var dir = $.getPathBasePath(this.read_word());
-                    $.log("option - include directory: " + dir);
+                    $.log("use option - include directory: " + dir);
                     if ($.isFSExists(dir) === false) {
                         throw 'include dir not exists. please check.';
                     }
@@ -143,8 +143,7 @@ _.extend(Lexer, {
 
         var r = Str2Nfa.parse(exp);
         r.finish.isAccept = false;
-//        $.log(lbl + '=>' + r);
-//            $.log(lbl);
+
         this.define[lbl] = r;
     },
     _parse_define: function () {
@@ -162,11 +161,11 @@ _.extend(Lexer, {
 //            $.log(this.txt_part.rule);
 
         for (var m_name in this.txt_part.rule) {
+            //$.debug('parse module: ' + m_name);
             this.idx = 0;
             this.src = this.txt_part.rule[m_name];
             this.len = this.src.length;
             this.cur_module = m_name;
-//                $.log(this.src);
             this._rule();
         }
     },
@@ -202,14 +201,13 @@ _.extend(Lexer, {
         }
 //			$.log(lbl)
         //$.log(states)
-//			$.log("state: %s, lbl: %s",state,lbl);
 
         var func_str = "";
         var c = this.read_ch();
         var until = '\n';
-        while (c !== null && this.isSpace(c) && c !== until)
+        while (c !== null && this.isSpace(c) && c !== until) {
             c = this.read_ch();
-        //$.log(c)
+        }
 
         var deep = 0;
         var in_string = false, pre_str_dot = null;
@@ -234,21 +232,27 @@ _.extend(Lexer, {
             if (c === '{' && !in_string) {
                 deep++;
             } else if (c === '}' && !in_string) {
+
                 if (until === '}' && deep === 0) {
                     break;
                 }
                 deep--;
             }
             func_str += c;
+
             c = this.read_ch();
+
         }
-//            $.log(func_str);
+
+
         //this.read_ch();
 //            $.log(states);
         for (var i = 0; i < states.length; i++) {
             var expNfa = this.define[lbl];
-            if (expNfa == null)
+            //$.log(lbl);
+            if (expNfa == null) {
                 $.err("没有定义的标识@_r_line 0:" + lbl);
+            }
             if (this.define_used[lbl] === true) {
                 /**
                  * 如果在define块定义的标识已经被某个状态集使用过，则必须使用它的拷贝来生成一个rule
@@ -319,13 +323,13 @@ _.extend(Lexer, {
             func_str += c;
             c = this.read_ch();
         }
-        if (['$init', '$construct', '$start', '$finish', '$error', '$header', '$footer'].indexOf(name) < 0) {
-            console.log("warning: unknow global function " + name + ", ignored.");
-            return;
-        } else {
-//				$.log(name);
-//				$.log(func_str);
-        }
+//        if (['$init', '$construct', '$start', '$finish', '$error', '$header', '$footer'].indexOf(name) < 0) {
+//            console.log("warning: unknow global function " + name + ", ignored.");
+//            return;
+//        } else {
+////				$.log(name);
+////				$.log(func_str);
+//        }
         this.routine[name.substring(1, name.length)] = func_str;
     },
     read_ch: function () {
@@ -438,7 +442,7 @@ _.extend(Lexer, {
             //$.dprint(m_dfa);
             m_dfa.state_name = s;
             dfa_arr.push(m_dfa);
-            if (s === "GLOBAL" + this.__separate__ + "DEFAULT") {
+            if (s === "MAIN" + this.__separate__ + "DEFAULT") {
                 default_dfa = m_dfa;
             }
 
@@ -484,7 +488,7 @@ _.extend(Lexer, {
         var cnt = $.readFile(file);
         this.idx = 0;
         this.src = cnt;
-        this.length = cnt.length;
+        this.len = cnt.length;
 
         this.read_word();
         if (this.cur_t === null) {
@@ -506,22 +510,32 @@ _.extend(Lexer, {
             $.log("error: include file $module_name can only contains alpha letter. ignored file.");
             return;
         }
-        var d_i = this.idx, f_i = d_i;
+
+        var d_i = this.idx, p_i = d_i;
+//        $.log(this.cur_t, this.idx, this.src.substring(this.idx, this.idx+10));
+
         while (this.cur_t !== '$$' && this.cur_t !== null) {
-            f_i = this.idx;
+            p_i = this.idx;
+            this.read_word();
+        }
+        this.txt_part.define += '\n\n' + this.src.substring(d_i, this.cur_t === null ? this.idx - 1 : p_i);
+//        $.log(this.txt_part.define);
+
+        d_i = this.idx;
+        this.read_word();
+        p_i = d_i;
+        while (this.cur_t !== '$$' && this.cur_t !== null) {
+            p_i = this.idx;
             this.read_word();
         }
 
-        var f_def = this.src.substring(d_i, this.cur_t === null ? this.idx - 1 : f_i);
-
-        this.txt_part.define += "\n\n" + f_def;
-
-        var r_def = this.src.substring(this.idx);
-
+        if(this.cur_t === '$$') {
+            this.idx -= 2;
+        }
+        var r_def = this.src.substring(d_i, this.cur_t === null ? this.idx - 1 : p_i);
         r_def = this._replace_rule(r_def, m_name);
-//            $.log(m_name);
-
         this.txt_part.rule[m_name] = r_def;
+
     },
     _replace_rule: function (r_def, m_name) {
         var separate = this.__separate__;

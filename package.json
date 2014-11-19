@@ -2,7 +2,7 @@
   "name": "jslex",
   "version": "0.0.0",
   "description": "Javascript Lexical Analyzers Auto Generator",
-  "main": "src/index.js",
+  "main": "index.js",
   "directories": {
     "doc": "doc"
   },
@@ -15,7 +15,9 @@
   },
   "keywords": [
     "lex",
-    "lexer"
+    "lexer",
+    "lexical",
+    "generator"
   ],
   "author": "Yuhang Ge",
   "license": "ISC",
